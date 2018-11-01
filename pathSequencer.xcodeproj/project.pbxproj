@@ -15,7 +15,32 @@
 		885273E2218B7CDB00D675C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 885273E0218B7CDB00D675C1 /* Main.storyboard */; };
 		885273E4218B7CDB00D675C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 885273E3218B7CDB00D675C1 /* Assets.xcassets */; };
 		885273E7218B7CDB00D675C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 885273E5218B7CDB00D675C1 /* LaunchScreen.storyboard */; };
+		885273F0218B7D4600D675C1 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 885273EE218B7D4200D675C1 /* AudioKit.framework */; };
+		885273F1218B7D4600D675C1 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 885273EE218B7D4200D675C1 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		885273F2218B7D4600D675C1 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 885273EF218B7D4600D675C1 /* AudioKitUI.framework */; };
+		885273F3218B7D4600D675C1 /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 885273EF218B7D4600D675C1 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		885273FE218B7DD000D675C1 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885273FB218B7DD000D675C1 /* AudioManager.swift */; };
+		885273FF218B7DD000D675C1 /* AudioCreature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885273FC218B7DD000D675C1 /* AudioCreature.swift */; };
+		88527400218B7DD000D675C1 /* CreaturePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885273FD218B7DD000D675C1 /* CreaturePath.swift */; };
+		88527402218B813D00D675C1 /* circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 88527401218B813D00D675C1 /* circle.png */; };
+		88527404218B814300D675C1 /* square.png in Resources */ = {isa = PBXBuildFile; fileRef = 88527403218B814200D675C1 /* square.png */; };
+		88527407218B863E00D675C1 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 88527406218B863E00D675C1 /* .gitignore */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		885273F4218B7D4600D675C1 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				885273F3218B7D4600D675C1 /* AudioKitUI.framework in Embed Frameworks */,
+				885273F1218B7D4600D675C1 /* AudioKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		885273D3218B7CDB00D675C1 /* pathSequencer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pathSequencer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -28,6 +53,14 @@
 		885273E3218B7CDB00D675C1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		885273E6218B7CDB00D675C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		885273E8218B7CDB00D675C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		885273EE218B7D4200D675C1 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AudioKit.framework; sourceTree = "<group>"; };
+		885273EF218B7D4600D675C1 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AudioKitUI.framework; sourceTree = "<group>"; };
+		885273FB218B7DD000D675C1 /* AudioManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
+		885273FC218B7DD000D675C1 /* AudioCreature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioCreature.swift; sourceTree = "<group>"; };
+		885273FD218B7DD000D675C1 /* CreaturePath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreaturePath.swift; sourceTree = "<group>"; };
+		88527401218B813D00D675C1 /* circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = circle.png; path = pathSequencer/images/circle.png; sourceTree = SOURCE_ROOT; };
+		88527403218B814200D675C1 /* square.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = square.png; path = pathSequencer/images/square.png; sourceTree = SOURCE_ROOT; };
+		88527406218B863E00D675C1 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +68,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				885273F2218B7D4600D675C1 /* AudioKitUI.framework in Frameworks */,
+				885273F0218B7D4600D675C1 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +79,9 @@
 		885273CA218B7CDA00D675C1 = {
 			isa = PBXGroup;
 			children = (
+				88527406218B863E00D675C1 /* .gitignore */,
+				885273EE218B7D4200D675C1 /* AudioKit.framework */,
+				885273EF218B7D4600D675C1 /* AudioKitUI.framework */,
 				885273D5218B7CDB00D675C1 /* pathSequencer */,
 				885273D4218B7CDB00D675C1 /* Products */,
 			);
@@ -60,6 +98,9 @@
 		885273D5218B7CDB00D675C1 /* pathSequencer */ = {
 			isa = PBXGroup;
 			children = (
+				885273FC218B7DD000D675C1 /* AudioCreature.swift */,
+				885273FB218B7DD000D675C1 /* AudioManager.swift */,
+				885273FD218B7DD000D675C1 /* CreaturePath.swift */,
 				885273D6218B7CDB00D675C1 /* AppDelegate.swift */,
 				885273D8218B7CDB00D675C1 /* GameScene.sks */,
 				885273DA218B7CDB00D675C1 /* Actions.sks */,
@@ -69,8 +110,18 @@
 				885273E3218B7CDB00D675C1 /* Assets.xcassets */,
 				885273E5218B7CDB00D675C1 /* LaunchScreen.storyboard */,
 				885273E8218B7CDB00D675C1 /* Info.plist */,
+				88527405218B814B00D675C1 /* images */,
 			);
 			path = pathSequencer;
+			sourceTree = "<group>";
+		};
+		88527405218B814B00D675C1 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				88527401218B813D00D675C1 /* circle.png */,
+				88527403218B814200D675C1 /* square.png */,
+			);
+			path = images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +134,7 @@
 				885273CF218B7CDB00D675C1 /* Sources */,
 				885273D0218B7CDB00D675C1 /* Frameworks */,
 				885273D1218B7CDB00D675C1 /* Resources */,
+				885273F4218B7D4600D675C1 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -131,9 +183,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88527407218B863E00D675C1 /* .gitignore in Resources */,
 				885273E2218B7CDB00D675C1 /* Main.storyboard in Resources */,
 				885273D9218B7CDB00D675C1 /* GameScene.sks in Resources */,
 				885273E4218B7CDB00D675C1 /* Assets.xcassets in Resources */,
+				88527404218B814300D675C1 /* square.png in Resources */,
+				88527402218B813D00D675C1 /* circle.png in Resources */,
 				885273E7218B7CDB00D675C1 /* LaunchScreen.storyboard in Resources */,
 				885273DB218B7CDB00D675C1 /* Actions.sks in Resources */,
 			);
@@ -148,6 +203,9 @@
 			files = (
 				885273DD218B7CDB00D675C1 /* GameScene.swift in Sources */,
 				885273DF218B7CDB00D675C1 /* GameViewController.swift in Sources */,
+				885273FE218B7DD000D675C1 /* AudioManager.swift in Sources */,
+				88527400218B7DD000D675C1 /* CreaturePath.swift in Sources */,
+				885273FF218B7DD000D675C1 /* AudioCreature.swift in Sources */,
 				885273D7218B7CDB00D675C1 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -294,11 +352,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5S5MYHYU6N;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = pathSequencer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = UoY.pathSequencer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -312,11 +375,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5S5MYHYU6N;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = pathSequencer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = UoY.pathSequencer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
