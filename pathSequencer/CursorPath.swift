@@ -1,5 +1,5 @@
 //
-//  CreaturePath.swift
+//  CursorPath.swift
 //  iOsAssignment
 //
 //  Created by Kacper Sagnowski on 11/1/18.
@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class CreaturePath {
+class CursorPath {
     var pathNodes : Array<SKSpriteNode> = []
     private let parentNode : SKNode!
     private var pathNode : SKShapeNode!

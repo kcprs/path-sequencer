@@ -1,5 +1,5 @@
 //
-//  AudioCreature.swift
+//  AudioCursor.swift
 //  iOsAssignment
 //
 //  Created by Kacper Sagnowski on 10/30/18.
@@ -9,7 +9,7 @@
 import SpriteKit
 import AudioKit
 
-class AudioCreature {
+class AudioCursor {
     
     internal var audioManager : AudioManager!
     var output : AKMixer!
@@ -21,21 +21,21 @@ class AudioCreature {
     private var fromNode : SKNode!
     private var toNode : SKNode!
     private let parentNode : SKNode!
-    private let parentCreaturePath : CreaturePath!
+    private let parentCursorPath : CursorPath!
     
-    init(audioManager: AudioManager, parentNode: SKNode, path: CreaturePath) {
+    init(audioManager: AudioManager, parentNode: SKNode, path: CursorPath) {
         self.audioManager = audioManager
         self.parentNode = parentNode
-        self.parentCreaturePath = path
+        self.parentCursorPath = path
         
-        audioManager.addAudioCreature(self)
+        audioManager.addAudioCursor(self)
         
         sprite = SKSpriteNode(imageNamed: "square.png")
         sprite.setScale(0.05)
         parentNode.addChild(sprite)
         
-        fromNode = parentCreaturePath.pathNodes[0]
-        toNode = parentCreaturePath.pathNodes[1]
+        fromNode = parentCursorPath.pathNodes[0]
+        toNode = parentCursorPath.pathNodes[1]
         
         oscillator = AKOscillator()
         oscillator.start()
@@ -46,6 +46,8 @@ class AudioCreature {
     }
     
     func updatePosition() {
+        sprite.removeAction(forKey: "move")
+        
         let targetDifferenceX = toNode.position.x - fromNode.position.x
         let targetDifferenceY = toNode.position.y - fromNode.position.y
         
@@ -54,7 +56,6 @@ class AudioCreature {
         let path = CGMutablePath()
         path.move(to: newPosition)
         path.addLine(to: toNode.position)
-        sprite.removeAction(forKey: "move")
         
         sprite.run(SKAction.follow(path, asOffset: false, orientToPath: true, speed: speed), withKey: "move", optionalCompletion: circleReached)
     }
@@ -62,14 +63,16 @@ class AudioCreature {
     func circleReached() {
         ping(frequency: 400)
         
+        sprite.removeAction(forKey: "move")
+        
         fromNode = toNode
-        let index = (parentCreaturePath.pathNodes.index(of: toNode as! SKSpriteNode)! + 1) % parentCreaturePath.pathNodes.count
-        toNode = parentCreaturePath.pathNodes[index]
+        let index = (parentCursorPath.pathNodes.index(of: toNode as! SKSpriteNode)! + 1) % parentCursorPath.pathNodes.count
+        toNode = parentCursorPath.pathNodes[index]
         
         let path = CGMutablePath()
         path.move(to: fromNode.position)
         path.addLine(to: toNode.position)
-        sprite.removeAction(forKey: "move")
+        
         sprite.run(SKAction.follow(path, asOffset: false, orientToPath: true, speed: speed), withKey: "move", optionalCompletion: circleReached)
     }
     
@@ -87,6 +90,14 @@ class AudioCreature {
     func ping(frequency: Double) {
         oscillator.frequency = frequency
         ampEnvelope.start()
+    }
+    
+    func isNextTo(node: SKNode) -> Bool {
+        if node is SKSpriteNode && (node == fromNode || node == toNode) {
+            return true
+        }
+        
+        return false
     }
     
     

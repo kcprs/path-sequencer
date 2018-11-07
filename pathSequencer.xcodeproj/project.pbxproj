@@ -20,8 +20,8 @@
 		885273F2218B7D4600D675C1 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 885273EF218B7D4600D675C1 /* AudioKitUI.framework */; };
 		885273F3218B7D4600D675C1 /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 885273EF218B7D4600D675C1 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		885273FE218B7DD000D675C1 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885273FB218B7DD000D675C1 /* AudioManager.swift */; };
-		885273FF218B7DD000D675C1 /* AudioCreature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885273FC218B7DD000D675C1 /* AudioCreature.swift */; };
-		88527400218B7DD000D675C1 /* CreaturePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885273FD218B7DD000D675C1 /* CreaturePath.swift */; };
+		885273FF218B7DD000D675C1 /* AudioCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885273FC218B7DD000D675C1 /* AudioCursor.swift */; };
+		88527400218B7DD000D675C1 /* CursorPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885273FD218B7DD000D675C1 /* CursorPath.swift */; };
 		88527402218B813D00D675C1 /* circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 88527401218B813D00D675C1 /* circle.png */; };
 		88527404218B814300D675C1 /* square.png in Resources */ = {isa = PBXBuildFile; fileRef = 88527403218B814200D675C1 /* square.png */; };
 		88527407218B863E00D675C1 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 88527406218B863E00D675C1 /* .gitignore */; };
@@ -56,8 +56,8 @@
 		885273EE218B7D4200D675C1 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AudioKit.framework; sourceTree = "<group>"; };
 		885273EF218B7D4600D675C1 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AudioKitUI.framework; sourceTree = "<group>"; };
 		885273FB218B7DD000D675C1 /* AudioManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
-		885273FC218B7DD000D675C1 /* AudioCreature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioCreature.swift; sourceTree = "<group>"; };
-		885273FD218B7DD000D675C1 /* CreaturePath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreaturePath.swift; sourceTree = "<group>"; };
+		885273FC218B7DD000D675C1 /* AudioCursor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioCursor.swift; sourceTree = "<group>"; };
+		885273FD218B7DD000D675C1 /* CursorPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CursorPath.swift; sourceTree = "<group>"; };
 		88527401218B813D00D675C1 /* circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = circle.png; path = pathSequencer/images/circle.png; sourceTree = SOURCE_ROOT; };
 		88527403218B814200D675C1 /* square.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = square.png; path = pathSequencer/images/square.png; sourceTree = SOURCE_ROOT; };
 		88527406218B863E00D675C1 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -98,9 +98,9 @@
 		885273D5218B7CDB00D675C1 /* pathSequencer */ = {
 			isa = PBXGroup;
 			children = (
-				885273FC218B7DD000D675C1 /* AudioCreature.swift */,
+				885273FC218B7DD000D675C1 /* AudioCursor.swift */,
 				885273FB218B7DD000D675C1 /* AudioManager.swift */,
-				885273FD218B7DD000D675C1 /* CreaturePath.swift */,
+				885273FD218B7DD000D675C1 /* CursorPath.swift */,
 				885273D6218B7CDB00D675C1 /* AppDelegate.swift */,
 				885273D8218B7CDB00D675C1 /* GameScene.sks */,
 				885273DA218B7CDB00D675C1 /* Actions.sks */,
@@ -204,8 +204,8 @@
 				885273DD218B7CDB00D675C1 /* GameScene.swift in Sources */,
 				885273DF218B7CDB00D675C1 /* GameViewController.swift in Sources */,
 				885273FE218B7DD000D675C1 /* AudioManager.swift in Sources */,
-				88527400218B7DD000D675C1 /* CreaturePath.swift in Sources */,
-				885273FF218B7DD000D675C1 /* AudioCreature.swift in Sources */,
+				88527400218B7DD000D675C1 /* CursorPath.swift in Sources */,
+				885273FF218B7DD000D675C1 /* AudioCursor.swift in Sources */,
 				885273D7218B7CDB00D675C1 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

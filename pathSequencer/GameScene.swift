@@ -12,18 +12,24 @@ import GameplayKit
 class GameScene: SKScene {
     
     private var audioManager : AudioManager!
-    private var creature : AudioCreature!
-    private var path : CreaturePath!
+    private var cursor : AudioCursor!
+    private var path : CursorPath!
     private var touchedNode : SKNode?
     
     override func didMove(to view: SKView) {
         audioManager = AudioManager()
-        path = CreaturePath(nodeCount: 3, parentNode: self)
-        creature = AudioCreature(audioManager: audioManager, parentNode: self, path: path)
+        path = CursorPath(nodeCount: 3, parentNode: self)
+        cursor = AudioCursor(audioManager: audioManager, parentNode: self, path: path)
         
         path.scatterRandomly(xBound: self.size.width, yBound: self.size.height)
         
         audioManager.start()
+        
+        // TMP: Test of FPS count on emulator
+//        let spinnyNode : SKSpriteNode = SKSpriteNode(imageNamed: "square.png")
+//        spinnyNode.setScale(0.05)
+//        addChild(spinnyNode)
+//        spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat.pi, duration: 2)))
     }
     
     
@@ -32,7 +38,6 @@ class GameScene: SKScene {
             for node in self.nodes(at: pos) {
                 if path.contains(node) {
                     touchedNode = node
-                    creature.saveProgress()
                 }
             }
         }
@@ -40,9 +45,13 @@ class GameScene: SKScene {
     
     func touchMoved(toPoint pos : CGPoint) {
         if touchedNode != nil && path.contains(touchedNode!) {
+            cursor.saveProgress()
             touchedNode?.run(SKAction.move(to: pos, duration: 0))
             path.update()
-            creature.updatePosition()
+            
+            if cursor.isNextTo(node: touchedNode!) {
+                cursor.updatePosition()
+            }
         }
     }
     

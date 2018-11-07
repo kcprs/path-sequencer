@@ -23,7 +23,7 @@ class AudioManager {
         mainMixer.start()
     }
     
-    func addAudioCreature(_ creature: AudioCreature) {
-        mainMixer.connect(input: creature.output)
+    func addAudioCursor(_ cursor: AudioCursor) {
+        mainMixer.connect(input: cursor.output)
     }
 }
