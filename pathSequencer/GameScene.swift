@@ -10,48 +10,59 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
-    
     private var audioManager : AudioManager!
+    private var pitchGrid : PitchGrid!
     private var cursor : AudioCursor!
     private var path : CursorPath!
+    private var cam: SKCameraNode!
     private var touchedNode : SKNode?
+    private var touchedPoint : CGPoint?
     
     override func didMove(to view: SKView) {
+        // Set up the scene
         audioManager = AudioManager()
-        path = CursorPath(nodeCount: 3, parentNode: self)
-        cursor = AudioCursor(audioManager: audioManager, parentNode: self, path: path)
+        pitchGrid = PitchGrid(parent: self)
         
-        path.scatterRandomly(xBound: self.size.width, yBound: self.size.height)
+        cam = SKCameraNode()
+        self.camera = cam
+        self.addChild(cam)
+        cam.position = CGPoint(x: 0, y: pitchGrid.getCentreY())
+        
+        path = CursorPath(nodeCount: 3, parentNode: self, pitchGrid: pitchGrid)
+        path.scatterRandomly(centre: cam.position, range: self.size)
+        
+        cursor = AudioCursor(audioManager: audioManager, parentNode: self, path: path)
+        cursor.updatePosition()
         
         audioManager.start()
-        
-        // TMP: Test of FPS count on emulator
-//        let spinnyNode : SKSpriteNode = SKSpriteNode(imageNamed: "square.png")
-//        spinnyNode.setScale(0.05)
-//        addChild(spinnyNode)
-//        spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat.pi, duration: 2)))
     }
     
-    
-    func touchDown(atPoint pos : CGPoint) {
+    private func touchDown(atPoint pos : CGPoint) {
         if self.nodes(at: pos).count > 0 {
             for node in self.nodes(at: pos) {
                 if path.contains(node) {
                     touchedNode = node
                 }
             }
+        } else {
+            touchedNode = nil
+            touchedPoint = pos
         }
     }
     
-    func touchMoved(toPoint pos : CGPoint) {
-        if touchedNode != nil && path.contains(touchedNode!) {
-            cursor.saveProgress()
-            touchedNode?.run(SKAction.move(to: pos, duration: 0))
-            path.update()
-            
-            if cursor.isNextTo(node: touchedNode!) {
-                cursor.updatePosition()
+    private func touchMoved(toPoint pos : CGPoint) {
+        if touchedNode != nil {
+            if path.contains(touchedNode!) {
+                cursor.saveProgress()
+                touchedNode?.position = pos
+                path.update()
+                
+                if cursor.isNextTo(node: touchedNode!) {
+                    cursor.updatePosition()
+                }
             }
+        } else {
+            cam.position.y += touchedPoint!.y - pos.y
         }
     }
     
@@ -75,13 +86,13 @@ class GameScene: SKScene {
         for t in touches { self.touchUp(atPoint: t.location(in: self)) }
     }
     
-    
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
     }
 }
 
-// Adapted from https://stackoverflow.com/questions/29627613/skaction-completion-handlers-usage-in-swift
+// Adapted from example by Alessandro Ornano
+// https://stackoverflow.com/questions/29627613/skaction-completion-handlers-usage-in-swift
 extension SKNode
 {
     func run(_ action: SKAction!, withKey: String!, optionalCompletion: Optional<() -> Void>)

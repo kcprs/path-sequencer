@@ -1,6 +1,6 @@
 //
 //  CursorPath.swift
-//  iOsAssignment
+//  pathSequencer
 //
 //  Created by Kacper Sagnowski on 11/1/18.
 //  Copyright © 2018 Kacper Sagnowski. All rights reserved.
@@ -12,9 +12,11 @@ class CursorPath {
     var pathNodes : Array<SKSpriteNode> = []
     private let parentNode : SKNode!
     private var pathNode : SKShapeNode!
+    private let pitchGrid : PitchGrid!
     
-    init(nodeCount: Int, parentNode: SKNode) {
+    init(nodeCount: Int, parentNode: SKNode, pitchGrid: PitchGrid) {
         self.parentNode = parentNode
+        self.pitchGrid = pitchGrid
         
         for _ in 1...nodeCount {
             let node = SKSpriteNode(imageNamed: "circle.png")
@@ -42,13 +44,19 @@ class CursorPath {
         pathNode.path = path
     }
     
-    func scatterRandomly(xBound: CGFloat, yBound: CGFloat) {
+    func scatterRandomly(xMin: CGFloat, yMin: CGFloat, xMax: CGFloat, yMax: CGFloat) {
         for node in pathNodes {
-            let x = CGFloat(drand48() - 0.5) * xBound
-            let y = CGFloat(drand48() - 0.5) * yBound
+            let x = xMin + CGFloat(drand48()) * (xMax - xMin)
+            let y = yMin + CGFloat(drand48()) * (yMax - yMin)
             
-            node.run(SKAction.move(to: CGPoint(x: x, y: y), duration: 0))
+            node.position = CGPoint(x: x, y: y)
         }
+        
+        update()
+    }
+    
+    func scatterRandomly(centre: CGPoint, range: CGSize) {
+        scatterRandomly(xMin: centre.x - range.width / 2, yMin: centre.y - range.height / 2, xMax: centre.x + range.width / 2, yMax: centre.y + range.height / 2)
     }
     
     func contains(_ node: SKNode) -> Bool {
@@ -56,5 +64,9 @@ class CursorPath {
             return true
         }
         return false
+    }
+    
+    func getFreqAtNode(node: SKNode) -> Double {
+        return pitchGrid.getFreqAt(yPos: node.position.y)
     }
 }

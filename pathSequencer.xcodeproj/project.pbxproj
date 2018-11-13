@@ -7,18 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		884607F8219B31DC00E8AE53 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 885273EE218B7D4200D675C1 /* AudioKit.framework */; };
+		884607F9219B31DC00E8AE53 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 885273EF218B7D4600D675C1 /* AudioKitUI.framework */; };
+		8846084F219B549D00E8AE53 /* PitchGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8846084E219B549D00E8AE53 /* PitchGrid.swift */; };
+		88460851219B668500E8AE53 /* MidiUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88460850219B668500E8AE53 /* MidiUtil.swift */; };
 		885273D7218B7CDB00D675C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885273D6218B7CDB00D675C1 /* AppDelegate.swift */; };
 		885273D9218B7CDB00D675C1 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 885273D8218B7CDB00D675C1 /* GameScene.sks */; };
-		885273DB218B7CDB00D675C1 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 885273DA218B7CDB00D675C1 /* Actions.sks */; };
 		885273DD218B7CDB00D675C1 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885273DC218B7CDB00D675C1 /* GameScene.swift */; };
 		885273DF218B7CDB00D675C1 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885273DE218B7CDB00D675C1 /* GameViewController.swift */; };
 		885273E2218B7CDB00D675C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 885273E0218B7CDB00D675C1 /* Main.storyboard */; };
 		885273E4218B7CDB00D675C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 885273E3218B7CDB00D675C1 /* Assets.xcassets */; };
 		885273E7218B7CDB00D675C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 885273E5218B7CDB00D675C1 /* LaunchScreen.storyboard */; };
-		885273F0218B7D4600D675C1 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 885273EE218B7D4200D675C1 /* AudioKit.framework */; };
-		885273F1218B7D4600D675C1 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 885273EE218B7D4200D675C1 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		885273F2218B7D4600D675C1 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 885273EF218B7D4600D675C1 /* AudioKitUI.framework */; };
-		885273F3218B7D4600D675C1 /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 885273EF218B7D4600D675C1 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		885273FE218B7DD000D675C1 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885273FB218B7DD000D675C1 /* AudioManager.swift */; };
 		885273FF218B7DD000D675C1 /* AudioCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885273FC218B7DD000D675C1 /* AudioCursor.swift */; };
 		88527400218B7DD000D675C1 /* CursorPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885273FD218B7DD000D675C1 /* CursorPath.swift */; };
@@ -27,26 +26,12 @@
 		88527407218B863E00D675C1 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 88527406218B863E00D675C1 /* .gitignore */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		885273F4218B7D4600D675C1 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				885273F3218B7D4600D675C1 /* AudioKitUI.framework in Embed Frameworks */,
-				885273F1218B7D4600D675C1 /* AudioKit.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
+		8846084E219B549D00E8AE53 /* PitchGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchGrid.swift; sourceTree = "<group>"; };
+		88460850219B668500E8AE53 /* MidiUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MidiUtil.swift; sourceTree = "<group>"; };
 		885273D3218B7CDB00D675C1 /* pathSequencer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pathSequencer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		885273D6218B7CDB00D675C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		885273D8218B7CDB00D675C1 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		885273DA218B7CDB00D675C1 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		885273DC218B7CDB00D675C1 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		885273DE218B7CDB00D675C1 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		885273E1218B7CDB00D675C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -68,14 +53,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				885273F2218B7D4600D675C1 /* AudioKitUI.framework in Frameworks */,
-				885273F0218B7D4600D675C1 /* AudioKit.framework in Frameworks */,
+				884607F8219B31DC00E8AE53 /* AudioKit.framework in Frameworks */,
+				884607F9219B31DC00E8AE53 /* AudioKitUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		884607F7219B31DC00E8AE53 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		885273CA218B7CDA00D675C1 = {
 			isa = PBXGroup;
 			children = (
@@ -84,6 +76,7 @@
 				885273EF218B7D4600D675C1 /* AudioKitUI.framework */,
 				885273D5218B7CDB00D675C1 /* pathSequencer */,
 				885273D4218B7CDB00D675C1 /* Products */,
+				884607F7219B31DC00E8AE53 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,7 +96,6 @@
 				885273FD218B7DD000D675C1 /* CursorPath.swift */,
 				885273D6218B7CDB00D675C1 /* AppDelegate.swift */,
 				885273D8218B7CDB00D675C1 /* GameScene.sks */,
-				885273DA218B7CDB00D675C1 /* Actions.sks */,
 				885273DC218B7CDB00D675C1 /* GameScene.swift */,
 				885273DE218B7CDB00D675C1 /* GameViewController.swift */,
 				885273E0218B7CDB00D675C1 /* Main.storyboard */,
@@ -111,6 +103,8 @@
 				885273E5218B7CDB00D675C1 /* LaunchScreen.storyboard */,
 				885273E8218B7CDB00D675C1 /* Info.plist */,
 				88527405218B814B00D675C1 /* images */,
+				8846084E219B549D00E8AE53 /* PitchGrid.swift */,
+				88460850219B668500E8AE53 /* MidiUtil.swift */,
 			);
 			path = pathSequencer;
 			sourceTree = "<group>";
@@ -134,7 +128,6 @@
 				885273CF218B7CDB00D675C1 /* Sources */,
 				885273D0218B7CDB00D675C1 /* Frameworks */,
 				885273D1218B7CDB00D675C1 /* Resources */,
-				885273F4218B7D4600D675C1 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -190,7 +183,6 @@
 				88527404218B814300D675C1 /* square.png in Resources */,
 				88527402218B813D00D675C1 /* circle.png in Resources */,
 				885273E7218B7CDB00D675C1 /* LaunchScreen.storyboard in Resources */,
-				885273DB218B7CDB00D675C1 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,10 +195,12 @@
 			files = (
 				885273DD218B7CDB00D675C1 /* GameScene.swift in Sources */,
 				885273DF218B7CDB00D675C1 /* GameViewController.swift in Sources */,
+				88460851219B668500E8AE53 /* MidiUtil.swift in Sources */,
 				885273FE218B7DD000D675C1 /* AudioManager.swift in Sources */,
 				88527400218B7DD000D675C1 /* CursorPath.swift in Sources */,
 				885273FF218B7DD000D675C1 /* AudioCursor.swift in Sources */,
 				885273D7218B7CDB00D675C1 /* AppDelegate.swift in Sources */,
+				8846084F219B549D00E8AE53 /* PitchGrid.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

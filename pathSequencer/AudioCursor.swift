@@ -1,6 +1,6 @@
 //
 //  AudioCursor.swift
-//  iOsAssignment
+//  pathSequencer
 //
 //  Created by Kacper Sagnowski on 10/30/18.
 //  Copyright © 2018 Kacper Sagnowski. All rights reserved.
@@ -28,8 +28,6 @@ class AudioCursor {
         self.parentNode = parentNode
         self.parentCursorPath = path
         
-        audioManager.addAudioCursor(self)
-        
         sprite = SKSpriteNode(imageNamed: "square.png")
         sprite.setScale(0.05)
         parentNode.addChild(sprite)
@@ -38,11 +36,23 @@ class AudioCursor {
         toNode = parentCursorPath.pathNodes[1]
         
         oscillator = AKOscillator()
-        oscillator.start()
-        
-        ampEnvelope = AKAmplitudeEnvelope(oscillator, attackDuration: 0.1, decayDuration: 2, sustainLevel: 0, releaseDuration: 2)
+        oscillator.rampDuration = 0
+
+        ampEnvelope = AKAmplitudeEnvelope(oscillator)
         
         output = AKMixer(ampEnvelope)
+
+        audioManager.addAudioCursor(self)
+    }
+    
+    func start() {
+        oscillator.start()
+        output.start()
+        
+        ampEnvelope.attackDuration = 0.01
+        ampEnvelope.decayDuration = 0.1
+        ampEnvelope.sustainLevel = 0
+        ampEnvelope.releaseDuration = 0.1
     }
     
     func updatePosition() {
@@ -60,8 +70,8 @@ class AudioCursor {
         sprite.run(SKAction.follow(path, asOffset: false, orientToPath: true, speed: speed), withKey: "move", optionalCompletion: circleReached)
     }
     
-    func circleReached() {
-        ping(frequency: 400)
+    private func circleReached() {
+        triggerSound(atNode: toNode)
         
         sprite.removeAction(forKey: "move")
         
@@ -87,9 +97,10 @@ class AudioCursor {
         moveProgress = max(abs(currentDifferenceX), abs(currentDifferenceY))/max(abs(targetDifferenceX), abs(targetDifferenceY))
     }
     
-    func ping(frequency: Double) {
-        oscillator.frequency = frequency
+    private func triggerSound(atNode node: SKNode) {
+        oscillator.frequency = parentCursorPath.getFreqAtNode(node: node)
         ampEnvelope.start()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.0001, execute: {self.ampEnvelope.stop()})
     }
     
     func isNextTo(node: SKNode) -> Bool {
