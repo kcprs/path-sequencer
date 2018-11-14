@@ -12,9 +12,6 @@ import AudioKit
 class AudioCursor {
     
     internal var audioManager : AudioManager!
-    var output : AKMixer!
-    private var oscillator : AKOscillator!
-    private var ampEnvelope : AKAmplitudeEnvelope!
     private var sprite : SKSpriteNode!
     private var speed : CGFloat = 100
     private var moveProgress : CGFloat = 0
@@ -22,6 +19,7 @@ class AudioCursor {
     private var toNode : SKNode!
     private let parentNode : SKNode!
     private let parentCursorPath : CursorPath!
+    private var synthModule : SynthModule!
     
     init(audioManager: AudioManager, parentNode: SKNode, path: CursorPath) {
         self.audioManager = audioManager
@@ -35,24 +33,13 @@ class AudioCursor {
         fromNode = parentCursorPath.pathNodes[0]
         toNode = parentCursorPath.pathNodes[1]
         
-        oscillator = AKOscillator()
-        oscillator.rampDuration = 0
-
-        ampEnvelope = AKAmplitudeEnvelope(oscillator)
-        
-        output = AKMixer(ampEnvelope)
+        synthModule = SynthModule()
 
         audioManager.addAudioCursor(self)
     }
     
-    func start() {
-        oscillator.start()
-        output.start()
-        
-        ampEnvelope.attackDuration = 0.01
-        ampEnvelope.decayDuration = 0.1
-        ampEnvelope.sustainLevel = 0
-        ampEnvelope.releaseDuration = 0.1
+    func startAudio() {
+        synthModule.start()
     }
     
     func updatePosition() {
@@ -98,9 +85,12 @@ class AudioCursor {
     }
     
     private func triggerSound(atNode node: SKNode) {
-        oscillator.frequency = parentCursorPath.getFreqAtNode(node: node)
-        ampEnvelope.start()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.0001, execute: {self.ampEnvelope.stop()})
+        let frequency = parentCursorPath.getFreqAtNode(node: node)
+        synthModule.trigger(freq: frequency)
+    }
+    
+    func connectAudio(to inputNode: AKInput) {
+        synthModule.connect(to: inputNode)
     }
     
     func isNextTo(node: SKNode) -> Bool {

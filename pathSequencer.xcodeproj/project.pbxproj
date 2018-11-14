@@ -24,6 +24,7 @@
 		88527402218B813D00D675C1 /* circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 88527401218B813D00D675C1 /* circle.png */; };
 		88527404218B814300D675C1 /* square.png in Resources */ = {isa = PBXBuildFile; fileRef = 88527403218B814200D675C1 /* square.png */; };
 		88527407218B863E00D675C1 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 88527406218B863E00D675C1 /* .gitignore */; };
+		8866942F219CB26B0014B455 /* SynthModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8866942E219CB26B0014B455 /* SynthModule.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		88527401218B813D00D675C1 /* circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = circle.png; path = pathSequencer/images/circle.png; sourceTree = SOURCE_ROOT; };
 		88527403218B814200D675C1 /* square.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = square.png; path = pathSequencer/images/square.png; sourceTree = SOURCE_ROOT; };
 		88527406218B863E00D675C1 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		8866942E219CB26B0014B455 /* SynthModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthModule.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 				88527405218B814B00D675C1 /* images */,
 				8846084E219B549D00E8AE53 /* PitchGrid.swift */,
 				88460850219B668500E8AE53 /* MidiUtil.swift */,
+				8866942E219CB26B0014B455 /* SynthModule.swift */,
 			);
 			path = pathSequencer;
 			sourceTree = "<group>";
@@ -199,6 +202,7 @@
 				885273FE218B7DD000D675C1 /* AudioManager.swift in Sources */,
 				88527400218B7DD000D675C1 /* CursorPath.swift in Sources */,
 				885273FF218B7DD000D675C1 /* AudioCursor.swift in Sources */,
+				8866942F219CB26B0014B455 /* SynthModule.swift in Sources */,
 				885273D7218B7CDB00D675C1 /* AppDelegate.swift in Sources */,
 				8846084F219B549D00E8AE53 /* PitchGrid.swift in Sources */,
 			);

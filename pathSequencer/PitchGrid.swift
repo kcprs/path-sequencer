@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import AudioKit
 
 class PitchGrid {
     private let parent : SKScene!
@@ -27,7 +28,7 @@ class PitchGrid {
         let xPos =  -parent.size.width / 2 + 10
         
         for note in bottomNote...topNote {
-            let labelNode = SKLabelNode(text: MidiUtil.noteToName(midiPitch: note))
+            let labelNode = SKLabelNode(text: MidiUtil.noteToName(midiPitch: MIDINoteNumber(note)))
             pitchLabels.append(labelNode)
             
             let yPos = (note - bottomNote) * yGap

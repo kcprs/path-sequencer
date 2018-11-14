@@ -6,10 +6,10 @@
 //  Copyright © 2018 Kacper Sagnowski. All rights reserved.
 //
 
-import Foundation
+import AudioKit
 
 class MidiUtil {
-    static func noteToFreq(midiPitch: Int) -> Double {
+    static func noteToFreq(midiPitch: MIDINoteNumber) -> Double {
         return noteToFreq(midiPitch: Float(midiPitch))
     }
     
@@ -19,10 +19,18 @@ class MidiUtil {
         return Double((pow(2, (midiPitch - 21)/12) * 27.5).description)!
     }
     
-    static func noteToName(midiPitch: Int) -> String {
+    static func freqToNote(_ freq: Double) -> Double {
+        return 69 + 12 * log2(freq/440)
+    }
+    
+    static func freqToClosestNoteFreq(_ freq: Double) -> Double {
+        return noteToFreq(midiPitch: MIDINoteNumber(freqToNote(freq)))
+    }
+    
+    static func noteToName(midiPitch: MIDINoteNumber) -> String {
         let names = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
         
-        var name = names[midiPitch % 12]
+        var name = names[Int(midiPitch) % 12]
         let octave = Int(midiPitch/12) - 1
         name.append(String(octave))
         

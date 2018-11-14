@@ -24,12 +24,12 @@ class AudioManager {
 
         mainMixer.start()
         for cursor in cursors {
-            cursor.start()
+            cursor.startAudio()
         }
     }
     
     func addAudioCursor(_ cursor: AudioCursor) {
         cursors.append(cursor)
-        cursor.output.connect(to: mainMixer)
+        cursor.connectAudio(to: mainMixer)
     }
 }
