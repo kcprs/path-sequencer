@@ -18,17 +18,13 @@ class KnobNode : SKNode {
     private var lastAngle : CGFloat = 0
     private var value = 0.5
     
-    required init(coder: NSCoder) {
-        super.init(coder: coder)!
-        setup()
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override init() {
         super.init()
-        setup()
-    }
-    
-    private func setup() {
+        
         circle = SKShapeNode(circleOfRadius: diameter/2)
         self.addChild(circle)
         
@@ -62,18 +58,18 @@ class KnobNode : SKNode {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
+        for t in touches { self.touchDown(atPoint: t.location(in: self.scene!)) }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
+        for t in touches { self.touchMoved(toPoint: t.location(in: self.scene!)) }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
+        for t in touches { self.touchUp(atPoint: t.location(in: self.scene!)) }
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
+        for t in touches { self.touchUp(atPoint: t.location(in: self.scene!)) }
     }
 }

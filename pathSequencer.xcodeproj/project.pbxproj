@@ -7,11 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8808BD0A219DB45900F11864 /* KnobNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8808BD09219DB45900F11864 /* KnobNode.swift */; };
 		884607F8219B31DC00E8AE53 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 885273EE218B7D4200D675C1 /* AudioKit.framework */; };
 		884607F9219B31DC00E8AE53 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 885273EF218B7D4600D675C1 /* AudioKitUI.framework */; };
 		8846084F219B549D00E8AE53 /* PitchGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8846084E219B549D00E8AE53 /* PitchGrid.swift */; };
-		88460851219B668500E8AE53 /* MidiUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88460850219B668500E8AE53 /* MidiUtil.swift */; };
 		885273D7218B7CDB00D675C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885273D6218B7CDB00D675C1 /* AppDelegate.swift */; };
 		885273D9218B7CDB00D675C1 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 885273D8218B7CDB00D675C1 /* GameScene.sks */; };
 		885273DD218B7CDB00D675C1 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885273DC218B7CDB00D675C1 /* GameScene.swift */; };
@@ -26,12 +24,13 @@
 		88527404218B814300D675C1 /* square.png in Resources */ = {isa = PBXBuildFile; fileRef = 88527403218B814200D675C1 /* square.png */; };
 		88527407218B863E00D675C1 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 88527406218B863E00D675C1 /* .gitignore */; };
 		8866942F219CB26B0014B455 /* SynthModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8866942E219CB26B0014B455 /* SynthModule.swift */; };
+		88F34B47219DD34F005E598D /* PathPointNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F34B46219DD34F005E598D /* PathPointNode.swift */; };
+		88F815AC219DD0B70095B54F /* MidiUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F815AB219DD0B70095B54F /* MidiUtil.swift */; };
+		88F815AE219DD0CB0095B54F /* KnobNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F815AD219DD0CA0095B54F /* KnobNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8808BD09219DB45900F11864 /* KnobNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnobNode.swift; sourceTree = "<group>"; };
 		8846084E219B549D00E8AE53 /* PitchGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchGrid.swift; sourceTree = "<group>"; };
-		88460850219B668500E8AE53 /* MidiUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MidiUtil.swift; sourceTree = "<group>"; };
 		885273D3218B7CDB00D675C1 /* pathSequencer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pathSequencer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		885273D6218B7CDB00D675C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		885273D8218B7CDB00D675C1 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -50,6 +49,9 @@
 		88527403218B814200D675C1 /* square.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = square.png; path = pathSequencer/images/square.png; sourceTree = SOURCE_ROOT; };
 		88527406218B863E00D675C1 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		8866942E219CB26B0014B455 /* SynthModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthModule.swift; sourceTree = "<group>"; };
+		88F34B46219DD34F005E598D /* PathPointNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathPointNode.swift; sourceTree = "<group>"; };
+		88F815AB219DD0B70095B54F /* MidiUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MidiUtil.swift; sourceTree = "<group>"; };
+		88F815AD219DD0CA0095B54F /* KnobNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KnobNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,15 +97,15 @@
 		885273D5218B7CDB00D675C1 /* pathSequencer */ = {
 			isa = PBXGroup;
 			children = (
+				88F815A9219DCFFA0095B54F /* Util */,
+				88F815A8219DCF550095B54F /* UI */,
 				885273FC218B7DD000D675C1 /* AudioCursor.swift */,
 				885273FB218B7DD000D675C1 /* AudioManager.swift */,
 				885273FD218B7DD000D675C1 /* CursorPath.swift */,
 				885273D6218B7CDB00D675C1 /* AppDelegate.swift */,
 				885273DC218B7CDB00D675C1 /* GameScene.swift */,
 				8846084E219B549D00E8AE53 /* PitchGrid.swift */,
-				88460850219B668500E8AE53 /* MidiUtil.swift */,
 				8866942E219CB26B0014B455 /* SynthModule.swift */,
-				8808BD09219DB45900F11864 /* KnobNode.swift */,
 				885273DE218B7CDB00D675C1 /* GameViewController.swift */,
 				885273D8218B7CDB00D675C1 /* GameScene.sks */,
 				885273E8218B7CDB00D675C1 /* Info.plist */,
@@ -122,6 +124,23 @@
 				88527403218B814200D675C1 /* square.png */,
 			);
 			path = images;
+			sourceTree = "<group>";
+		};
+		88F815A8219DCF550095B54F /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				88F34B46219DD34F005E598D /* PathPointNode.swift */,
+				88F815AD219DD0CA0095B54F /* KnobNode.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		88F815A9219DCFFA0095B54F /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				88F815AB219DD0B70095B54F /* MidiUtil.swift */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,11 +219,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				885273DD218B7CDB00D675C1 /* GameScene.swift in Sources */,
+				88F815AE219DD0CB0095B54F /* KnobNode.swift in Sources */,
 				885273DF218B7CDB00D675C1 /* GameViewController.swift in Sources */,
-				88460851219B668500E8AE53 /* MidiUtil.swift in Sources */,
+				88F815AC219DD0B70095B54F /* MidiUtil.swift in Sources */,
 				885273FE218B7DD000D675C1 /* AudioManager.swift in Sources */,
+				88F34B47219DD34F005E598D /* PathPointNode.swift in Sources */,
 				88527400218B7DD000D675C1 /* CursorPath.swift in Sources */,
-				8808BD0A219DB45900F11864 /* KnobNode.swift in Sources */,
 				885273FF218B7DD000D675C1 /* AudioCursor.swift in Sources */,
 				8866942F219CB26B0014B455 /* SynthModule.swift in Sources */,
 				885273D7218B7CDB00D675C1 /* AppDelegate.swift in Sources */,

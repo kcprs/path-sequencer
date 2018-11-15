@@ -8,48 +8,64 @@
 
 import SpriteKit
 
-class CursorPath {
-    var pathNodes : Array<SKSpriteNode> = []
-    private let parentNode : SKNode!
-    private var pathNode : SKShapeNode!  // TODO: Make this into separate class
-    private let pitchGrid : PitchGrid!
+class CursorPath : SKNode {
+    private var pathNode : SKShapeNode!
+    private var pitchGrid : PitchGrid!
+    private var audioCursor : AudioCursor!  // TODO: Have an array of these?
+    private var pathPointNodes : Array<PathPointNode>!
     
-    init(nodeCount: Int, parentNode: SKNode, pitchGrid: PitchGrid) {
-        self.parentNode = parentNode
-        self.pitchGrid = pitchGrid
-        
-        for _ in 1...nodeCount {
-            let node = SKSpriteNode(imageNamed: "circle.png")
-            node.setScale(0.05)
-            parentNode.addChild(node)
-            pathNodes.append(node)
-        }
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    init(nodeCount: Int) {
+        super.init()
+        pathPointNodes = Array<PathPointNode>()
         
         pathNode = SKShapeNode()
         pathNode.lineWidth = 1
         pathNode.strokeColor = .white
-        parentNode.addChild(pathNode)
+        self.addChild(pathNode)
+        
+        for _ in 1...nodeCount {
+            let pointNode = PathPointNode()
+            addPoint(pointNode)
+        }
+    }
+    
+    func assignPitchGrid(_ pitchGrid: PitchGrid) {
+        self.pitchGrid = pitchGrid
     }
     
     func update() {
         var pathPoints = Array<CGPoint>()
-        for point in pathNodes {
-            pathPoints.append(point.position)
+        for pointNode in pathPointNodes {
+            pathPoints.append(pointNode.position)
         }
         
         let path = CGMutablePath()
         path.addLines(between: pathPoints)
-        path.addLine(to: pathNodes[0].position)
+        path.addLine(to: pathPointNodes[0].position)
         
         pathNode.path = path
     }
     
+    func update(node: PathPointNode) {
+        update()
+
+        if audioCursor.isNextTo(node: node) {
+            audioCursor.updatePosition()
+        }
+    }
+    
     func scatterRandomly(xMin: CGFloat, yMin: CGFloat, xMax: CGFloat, yMax: CGFloat) {
-        for node in pathNodes {
+        for pointNode in pathPointNodes {
             let x = xMin + CGFloat(drand48()) * (xMax - xMin)
             let y = yMin + CGFloat(drand48()) * (yMax - yMin)
+
+            let newPosition = pointNode.scene?.convert(CGPoint(x: x, y: y), to: pointNode.parent!)
             
-            node.position = CGPoint(x: x, y: y)
+            pointNode.position = newPosition!
         }
         
         update()
@@ -59,14 +75,31 @@ class CursorPath {
         scatterRandomly(xMin: centre.x - range.width / 2, yMin: centre.y - range.height / 2, xMax: centre.x + range.width / 2, yMax: centre.y + range.height / 2)
     }
     
-    func contains(_ node: SKNode) -> Bool {
-        if node is SKSpriteNode && pathNodes.contains(node as! SKSpriteNode) {
-            return true
-        }
-        return false
+    func getFreqAtNode(node: SKNode) -> Double {
+        return pitchGrid.getFreqAt(node: node)
     }
     
-    func getFreqAtNode(node: SKNode) -> Double {
-        return pitchGrid.getFreqAt(yPos: node.position.y)
+    func addCursor(_ cursor: AudioCursor) {
+        audioCursor = cursor
+        self.addChild(cursor)
+    }
+    
+    func addPoint(_ point: PathPointNode) {
+        self.addChild(point)
+        pathPointNodes.append(point)
+        point.setParentPath(self)
+    }
+    
+    func saveProgress() {
+        audioCursor?.saveProgress()
+    }
+    
+    func getNextTarget(fromNode: PathPointNode) -> PathPointNode {
+        let index = (pathPointNodes.index(of: fromNode)! + 1) % pathPointNodes.count
+        return pathPointNodes[index]
+    }
+    
+    func getStartNode() -> PathPointNode {
+        return pathPointNodes[0]
     }
 }

@@ -15,7 +15,7 @@ class MidiUtil {
     
     static func noteToFreq(midiPitch: Float) -> Double {
         // Have to calculate with respect to A0 and not A4
-        // because pow(a, b) in swift doesn't support negative exponents
+        // because pow(a, b) in Swift doesn't support negative exponents
         return Double((pow(2, (midiPitch - 21)/12) * 27.5).description)!
     }
     

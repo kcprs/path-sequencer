@@ -9,33 +9,31 @@
 import SpriteKit
 import AudioKit
 
-class AudioCursor {
-    
-    internal var audioManager : AudioManager!
-    private var sprite : SKSpriteNode!
-    private var speed : CGFloat = 100
+class AudioCursor : SKNode {
+    private var visibleNode : SKShapeNode!
+    private var cursorSpeed : CGFloat = 100
     private var moveProgress : CGFloat = 0
-    private var fromNode : SKNode!
-    private var toNode : SKNode!
-    private let parentNode : SKNode!
-    private let parentCursorPath : CursorPath!
     private var synthModule : SynthModule!
+    private var parentPath : CursorPath!
+    private var fromNode : PathPointNode!
+    private var toNode : PathPointNode!
     
-    init(audioManager: AudioManager, parentNode: SKNode, path: CursorPath) {
-        self.audioManager = audioManager
-        self.parentNode = parentNode
-        self.parentCursorPath = path
-        
-        sprite = SKSpriteNode(imageNamed: "square.png")
-        sprite.setScale(0.05)
-        parentNode.addChild(sprite)
-        
-        fromNode = parentCursorPath.pathNodes[0]
-        toNode = parentCursorPath.pathNodes[1]
-        
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    init(onPath parentPath: CursorPath) {
+        super.init()
+        self.parentPath = parentPath
+        parentPath.addCursor(self)
+        fromNode = parentPath.getStartNode()
+        toNode = parentPath.getNextTarget(fromNode: fromNode)
         synthModule = SynthModule()
-
-        audioManager.addAudioCursor(self)
+        
+        visibleNode = SKShapeNode(rectOf: CGSize(width: 30, height: 30))
+        self.addChild(visibleNode)
+        
+        updatePosition()
     }
     
     func startAudio() {
@@ -43,34 +41,31 @@ class AudioCursor {
     }
     
     func updatePosition() {
-        sprite.removeAction(forKey: "move")
-        
+        self.removeAction(forKey: "move")
+
         let targetDifferenceX = toNode.position.x - fromNode.position.x
         let targetDifferenceY = toNode.position.y - fromNode.position.y
-        
+
         let newPosition = CGPoint(x: fromNode.position.x + moveProgress * targetDifferenceX, y: fromNode.position.y + moveProgress * targetDifferenceY)
-        
+
         let path = CGMutablePath()
         path.move(to: newPosition)
         path.addLine(to: toNode.position)
-        
-        sprite.run(SKAction.follow(path, asOffset: false, orientToPath: true, speed: speed), withKey: "move", optionalCompletion: circleReached)
+
+        self.run(SKAction.follow(path, asOffset: false, orientToPath: true, speed: cursorSpeed), withKey: "move", optionalCompletion: targetReached)
     }
     
-    private func circleReached() {
+    private func targetReached() {
         triggerSound(atNode: toNode)
         
-        sprite.removeAction(forKey: "move")
-        
         fromNode = toNode
-        let index = (parentCursorPath.pathNodes.index(of: toNode as! SKSpriteNode)! + 1) % parentCursorPath.pathNodes.count
-        toNode = parentCursorPath.pathNodes[index]
+        toNode = parentPath.getNextTarget(fromNode: fromNode)
         
         let path = CGMutablePath()
         path.move(to: fromNode.position)
         path.addLine(to: toNode.position)
         
-        sprite.run(SKAction.follow(path, asOffset: false, orientToPath: true, speed: speed), withKey: "move", optionalCompletion: circleReached)
+        self.run(SKAction.follow(path, asOffset: false, orientToPath: true, speed: cursorSpeed), withKey: "move", optionalCompletion: targetReached)
     }
     
     func saveProgress() {
@@ -79,13 +74,13 @@ class AudioCursor {
         // TODO: Make sure progress uses X for both or Y for both and not a mix of the two
         let targetDifferenceX = toNode.position.x - fromNode.position.x
         let targetDifferenceY = toNode.position.y - fromNode.position.y
-        let currentDifferenceX = sprite.position.x - fromNode.position.x
-        let currentDifferenceY = sprite.position.y - fromNode.position.y
+        let currentDifferenceX = self.position.x - fromNode.position.x
+        let currentDifferenceY = self.position.y - fromNode.position.y
         moveProgress = max(abs(currentDifferenceX), abs(currentDifferenceY))/max(abs(targetDifferenceX), abs(targetDifferenceY))
     }
     
-    private func triggerSound(atNode node: SKNode) {
-        let frequency = parentCursorPath.getFreqAtNode(node: node)
+    private func triggerSound(atNode node: PathPointNode) {
+        let frequency = parentPath.getFreqAtNode(node: node)
         synthModule.trigger(freq: frequency)
     }
     
@@ -93,13 +88,11 @@ class AudioCursor {
         synthModule.connect(to: inputNode)
     }
     
-    func isNextTo(node: SKNode) -> Bool {
-        if node is SKSpriteNode && (node == fromNode || node == toNode) {
+    func isNextTo(node: PathPointNode) -> Bool {
+        if node == fromNode || node == toNode {
             return true
         }
         
         return false
     }
-    
-    
 }

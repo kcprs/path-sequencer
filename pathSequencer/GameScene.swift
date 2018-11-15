@@ -15,7 +15,6 @@ class GameScene: SKScene {
     private var cursor : AudioCursor!
     private var path : CursorPath!
     private var cam: SKCameraNode!
-    private var touchedNode : SKNode?
     private var touchedPoint : CGPoint?
     private var pathIcon : SKNode!
     
@@ -24,24 +23,25 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         // Set up the scene
         audioManager = AudioManager()
-        pitchGrid = PitchGrid(parent: self)
-        
+        pitchGrid = PitchGrid(inScene: self)
+
         cam = SKCameraNode()
         self.camera = cam
         self.addChild(cam)
         cam.position = CGPoint(x: 0, y: pitchGrid.getCentreY())
-        
-        path = CursorPath(nodeCount: 3, parentNode: self, pitchGrid: pitchGrid)
+
+        path = CursorPath(nodeCount: 3)
+        self.addChild(path)
+        path.assignPitchGrid(pitchGrid)
         path.scatterRandomly(centre: cam.position, range: self.size)
-        
-        cursor = AudioCursor(audioManager: audioManager, parentNode: self, path: path)
-        cursor.updatePosition()
-        
+
+        cursor = AudioCursor(onPath: path)
+        audioManager.addAudioCursor(cursor)
+
         pathIcon = SKLabelNode(text: "PathIcon")
         pathIcon.position = CGPoint(x: 0, y: -self.size.height / 2 + 20)
         cam.addChild(pathIcon)
-        
-        
+
         audioManager.start()
     }
     
@@ -51,29 +51,13 @@ class GameScene: SKScene {
     }
     
     private func touchDown(atPoint pos : CGPoint) {
-        if self.nodes(at: pos).count > 0 {
-            for node in self.nodes(at: pos) {
-                if path.contains(node) {
-                    touchedNode = node
-                }
-            }
-        } else {
+        if self.nodes(at: pos).count == 0 {
             touchedPoint = pos
         }
     }
     
     private func touchMoved(toPoint pos : CGPoint) {
-        if touchedNode != nil {
-            if path.contains(touchedNode!) {
-                cursor.saveProgress()
-                touchedNode?.position = pos
-                path.update()
-                
-                if cursor.isNextTo(node: touchedNode!) {
-                    cursor.updatePosition()
-                }
-            }
-        } else if touchedPoint != nil {
+        if touchedPoint != nil {
             cam.position.y += touchedPoint!.y - pos.y
         }
     }
@@ -86,8 +70,7 @@ class GameScene: SKScene {
                 }
             }
         }
-
-        touchedNode = nil
+        
         touchedPoint = nil
     }
     
