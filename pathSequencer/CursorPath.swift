@@ -11,7 +11,7 @@ import SpriteKit
 class CursorPath {
     var pathNodes : Array<SKSpriteNode> = []
     private let parentNode : SKNode!
-    private var pathNode : SKShapeNode!
+    private var pathNode : SKShapeNode!  // TODO: Make this into separate class
     private let pitchGrid : PitchGrid!
     
     init(nodeCount: Int, parentNode: SKNode, pitchGrid: PitchGrid) {

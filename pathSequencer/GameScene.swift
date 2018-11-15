@@ -17,6 +17,9 @@ class GameScene: SKScene {
     private var cam: SKCameraNode!
     private var touchedNode : SKNode?
     private var touchedPoint : CGPoint?
+    private var pathIcon : SKNode!
+    
+    private var testKnob : KnobNode?
     
     override func didMove(to view: SKView) {
         // Set up the scene
@@ -34,7 +37,17 @@ class GameScene: SKScene {
         cursor = AudioCursor(audioManager: audioManager, parentNode: self, path: path)
         cursor.updatePosition()
         
+        pathIcon = SKLabelNode(text: "PathIcon")
+        pathIcon.position = CGPoint(x: 0, y: -self.size.height / 2 + 20)
+        cam.addChild(pathIcon)
+        
+        
         audioManager.start()
+    }
+    
+    private func openSynthControls() {
+        testKnob = KnobNode()
+        cam.addChild(testKnob!)
     }
     
     private func touchDown(atPoint pos : CGPoint) {
@@ -45,7 +58,6 @@ class GameScene: SKScene {
                 }
             }
         } else {
-            touchedNode = nil
             touchedPoint = pos
         }
     }
@@ -61,13 +73,22 @@ class GameScene: SKScene {
                     cursor.updatePosition()
                 }
             }
-        } else {
+        } else if touchedPoint != nil {
             cam.position.y += touchedPoint!.y - pos.y
         }
     }
     
     func touchUp(atPoint pos : CGPoint) {
+        if self.nodes(at: pos).count > 0 {
+            for node in self.nodes(at: pos) {
+                if node == pathIcon {
+                    openSynthControls()
+                }
+            }
+        }
 
+        touchedNode = nil
+        touchedPoint = nil
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
