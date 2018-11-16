@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8800A84E219EDDAF0010073D /* SynthControlsPanelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8800A84D219EDDAF0010073D /* SynthControlsPanelNode.swift */; };
+		8800A850219EF4FA0010073D /* PathIconNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8800A84F219EF4FA0010073D /* PathIconNode.swift */; };
 		884607F8219B31DC00E8AE53 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 885273EE218B7D4200D675C1 /* AudioKit.framework */; };
 		884607F9219B31DC00E8AE53 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 885273EF218B7D4600D675C1 /* AudioKitUI.framework */; };
 		8846084F219B549D00E8AE53 /* PitchGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8846084E219B549D00E8AE53 /* PitchGrid.swift */; };
@@ -32,6 +33,7 @@
 
 /* Begin PBXFileReference section */
 		8800A84D219EDDAF0010073D /* SynthControlsPanelNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthControlsPanelNode.swift; sourceTree = "<group>"; };
+		8800A84F219EF4FA0010073D /* PathIconNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathIconNode.swift; sourceTree = "<group>"; };
 		8846084E219B549D00E8AE53 /* PitchGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchGrid.swift; sourceTree = "<group>"; };
 		885273D3218B7CDB00D675C1 /* pathSequencer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pathSequencer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		885273D6218B7CDB00D675C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 			children = (
 				88F34B46219DD34F005E598D /* PathPointNode.swift */,
 				88F815AD219DD0CA0095B54F /* KnobNode.swift */,
+				8800A84F219EF4FA0010073D /* PathIconNode.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -230,6 +233,7 @@
 				88527400218B7DD000D675C1 /* CursorPath.swift in Sources */,
 				885273FF218B7DD000D675C1 /* AudioCursor.swift in Sources */,
 				8866942F219CB26B0014B455 /* SynthModule.swift in Sources */,
+				8800A850219EF4FA0010073D /* PathIconNode.swift in Sources */,
 				885273D7218B7CDB00D675C1 /* AppDelegate.swift in Sources */,
 				8846084F219B549D00E8AE53 /* PitchGrid.swift in Sources */,
 				8800A84E219EDDAF0010073D /* SynthControlsPanelNode.swift in Sources */,

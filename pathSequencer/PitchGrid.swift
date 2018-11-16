@@ -10,11 +10,11 @@ import SpriteKit
 import AudioKit
 
 class PitchGrid {
-    private let parentScene : SKScene!
-    private var pitchLabels : Array<SKLabelNode>!
+    private let parentScene: SKScene!
+    private var pitchLabels: Array<SKLabelNode>!
     private var topNote = 108  // MIDI pitch
     private var bottomNote = 21  // MIDI pitch
-    private var yGap : Int = 40
+    private var yGap: Int = 40
     
     init(inScene parent: SKScene) {
         self.parentScene = parent

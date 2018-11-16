@@ -8,28 +8,38 @@
 
 import SpriteKit
 
-class KnobNode : SKNode {
-    private var circle : SKShapeNode!
-    private var notch : SKShapeNode!
-    private var notchRoot : SKNode!
-    private let rotationLimit : CGFloat = 2.5
-    private var diameter : CGFloat = 100
-    private var lastTouchPos : CGPoint?
-    private var lastAngle : CGFloat = 0
-    private var value : Float!
-    private var maxValue : Float!
-    private var minValue : Float!
-    private var label : SKLabelNode!
-    private let labelSpacer : CGFloat = 10
-    private var labelText : String!
-    private let sensitivity : CGFloat = 50
-    private var callback : ((Float) -> Void)!
+class KnobNode: SKNode {
+    private var circle: SKShapeNode!
+    private var notch: SKShapeNode!
+    private var notchRoot: SKNode!
+    private let rotationLimit: CGFloat = 2.5
+    private var diameter: CGFloat = 50
+    private var lastTouchPos: CGPoint?
+    private var lastAngle: CGFloat = 0
+    private var value: Double!
+    private var maxValue: Double!
+    private var minValue: Double!
+    private var label: SKLabelNode!
+    private let labelSpacer: CGFloat = 20
+    private var labelText: String!
+    private let sensitivity: CGFloat = 50
+    private var callback: ((Double) -> Void)!
+    var displayedUnit = ""
+    var fontSize: CGFloat {
+        get {
+            return label.fontSize
+        }
+        
+        set {
+            label.fontSize = newValue
+        }
+    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(labelText: String, minValue: Float, maxValue: Float, updateValueCallback: @escaping (Float) -> Void) {
+    init(labelText: String, minValue: Double, maxValue: Double, updateValueCallback: @escaping (Double) -> Void) {
         super.init()
         
         self.minValue = minValue
@@ -51,7 +61,8 @@ class KnobNode : SKNode {
         notchRoot.addChild(notch)
         
         label = SKLabelNode()
-        label.position = CGPoint(x: 0, y: diameter / 2 + labelSpacer)
+        label.position = CGPoint(x: 0, y: -(diameter / 2 + labelSpacer))
+        label.fontSize = 20
         updateLabel()
         self.addChild(label)
         
@@ -59,20 +70,26 @@ class KnobNode : SKNode {
     }
     
     private func updateLabel() {
-        label.text = String(format: labelText + ": %.2f", value)
+        // Avoid redundant space if no unit specified
+        var unit = ""
+        if displayedUnit != "" {
+            unit = " " + displayedUnit
+        }
+        
+        label.text = String(format: labelText + ": %.2f" + unit, value)
     }
     
-    private func touchDown(atPoint pos : CGPoint) {
+    private func touchDown(atPoint pos: CGPoint) {
         lastTouchPos = pos
     }
     
-    private func touchMoved(toPoint pos : CGPoint) {
+    private func touchMoved(toPoint pos: CGPoint) {
         var angle = lastAngle + (lastTouchPos!.y - pos.y) / sensitivity
         angle = min(angle, rotationLimit)
         angle = max(angle, -rotationLimit)
         
         notchRoot.run(SKAction.rotate(toAngle: angle, duration: 0))
-        let proportion = Float((rotationLimit - notchRoot.zRotation) / (2 * rotationLimit))
+        let proportion = Double((rotationLimit - notchRoot.zRotation) / (2 * rotationLimit))
         let newValue = minValue + proportion * (maxValue - minValue)
         if value != newValue {
             value = newValue
@@ -81,7 +98,7 @@ class KnobNode : SKNode {
         }
     }
     
-    private func touchUp(atPoint pos : CGPoint) {
+    private func touchUp(atPoint pos: CGPoint) {
         lastAngle = notchRoot.zRotation
     }
     

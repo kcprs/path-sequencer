@@ -1,32 +1,27 @@
 //
-//  PathPointNode.swift
+//  PathIconNode.swift
 //  pathSequencer
 //
-//  Created by Kacper Sagnowski on 11/15/18.
+//  Created by Kacper Sagnowski on 11/16/18.
 //  Copyright © 2018 Kacper Sagnowski. All rights reserved.
 //
 
 import SpriteKit
 
-class PathPointNode: SKNode {
-    
-    private var visibleNode: SKShapeNode!
-    private var parentPath: CursorPath!
+class PathIconNode: SKNode {
+    private var path: CursorPath!
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override init() {
+    init(path: CursorPath) {
         super.init()
-        visibleNode = SKShapeNode(circleOfRadius: 30)
-        self.addChild(visibleNode)
         
+        self.path = path
         self.isUserInteractionEnabled = true
-    }
-    
-    func setParentPath(_ parentPath: CursorPath) {
-        self.parentPath = parentPath
+        
+        self.addChild(SKLabelNode(text: "PathIcon"))
     }
     
     private func touchDown(atPoint pos: CGPoint) {
@@ -34,13 +29,11 @@ class PathPointNode: SKNode {
     }
     
     private func touchMoved(toPoint pos: CGPoint) {
-        self.position = pos
-        parentPath.saveProgress()
-        parentPath.update(node: self)
+
     }
     
     private func touchUp(atPoint pos: CGPoint) {
-        
+        let _ = SynthControlPanelNode(parentScene: self.scene!, synthModule: path.getSynthModule())
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

@@ -9,14 +9,14 @@
 import SpriteKit
 import AudioKit
 
-class AudioCursor : SKNode {
-    private var visibleNode : SKShapeNode!
-    private var cursorSpeed : CGFloat = 100
-    private var moveProgress : CGFloat = 0
-    private var synthModule : SynthModule!
-    private var parentPath : CursorPath!
-    private var fromNode : PathPointNode!
-    private var toNode : PathPointNode!
+class AudioCursor: SKNode {
+    private var visibleNode: SKShapeNode!
+    private var cursorSpeed: CGFloat = 100
+    private var moveProgress: CGFloat = 0
+    private var synthModule: SynthModule! // TODO: move synthModule to CursorPath
+    private var parentPath: CursorPath!
+    private var fromNode: PathPointNode!
+    private var toNode: PathPointNode!
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -94,5 +94,9 @@ class AudioCursor : SKNode {
         }
         
         return false
+    }
+    
+    func getSynthModule() -> SynthModule {
+        return synthModule
     }
 }

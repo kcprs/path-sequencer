@@ -8,11 +8,11 @@
 
 import SpriteKit
 
-class CursorPath : SKNode {
-    private var pathNode : SKShapeNode!
-    private var pitchGrid : PitchGrid!
-    private var audioCursor : AudioCursor!  // TODO: Have an array of these?
-    private var pathPointNodes : Array<PathPointNode>!
+class CursorPath: SKNode {
+    private var pathNode: SKShapeNode!
+    private var pitchGrid: PitchGrid!
+    private var audioCursor: AudioCursor!  // TODO: Have an array of these?
+    private var pathPointNodes: Array<PathPointNode>!
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -101,5 +101,9 @@ class CursorPath : SKNode {
     
     func getStartNode() -> PathPointNode {
         return pathPointNodes[0]
+    }
+    
+    func getSynthModule() -> SynthModule {
+        return audioCursor.getSynthModule()
     }
 }

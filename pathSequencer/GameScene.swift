@@ -10,13 +10,13 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
-    private var audioManager : AudioManager!
-    private var pitchGrid : PitchGrid!
-    private var cursor : AudioCursor!
-    private var path : CursorPath!
+    private var audioManager: AudioManager!
+    private var pitchGrid: PitchGrid!
+    private var cursor: AudioCursor!
+    private var path: CursorPath!
     private var cam: SKCameraNode!
-    private var touchedPoint : CGPoint?
-    private var pathIcon : SKNode!
+    private var touchedPoint: CGPoint?
+    private var pathIcon: PathIconNode!
     
     override func didMove(to view: SKView) {
         // Set up the scene
@@ -35,7 +35,7 @@ class GameScene: SKScene {
         cursor = AudioCursor(onPath: path)
         audioManager.addAudioCursor(cursor)
 
-        pathIcon = SKLabelNode(text: "PathIcon")
+        pathIcon = PathIconNode(path: path)
         pathIcon.position = CGPoint(x: 0, y: -self.size.height / 2 + 20)
         cam.addChild(pathIcon)
         
@@ -45,31 +45,19 @@ class GameScene: SKScene {
         audioManager.start()
     }
     
-    private func openSynthControls() {
-        _ = SynthControlPanelNode(parentScene: self)
-    }
-    
-    private func touchDown(atPoint pos : CGPoint) {
+    private func touchDown(atPoint pos: CGPoint) {
         if self.nodes(at: pos).count == 0 {
             touchedPoint = pos
         }
     }
     
-    private func touchMoved(toPoint pos : CGPoint) {
+    private func touchMoved(toPoint pos: CGPoint) {
         if touchedPoint != nil {
             cam.position.y += touchedPoint!.y - pos.y
         }
     }
     
-    func touchUp(atPoint pos : CGPoint) {
-        if self.nodes(at: pos).count > 0 {
-            for node in self.nodes(at: pos) {
-                if node == pathIcon {
-                    openSynthControls()
-                }
-            }
-        }
-        
+    func touchUp(atPoint pos: CGPoint) {
         touchedPoint = nil
     }
     

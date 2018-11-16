@@ -10,8 +10,8 @@ import AudioKit
 
 class AudioManager {
     
-    private var mainMixer : AKMixer!
-    private var cursors : Array<AudioCursor>!
+    private var mainMixer: AKMixer!
+    private var cursors: Array<AudioCursor>!
     
     init() {
         mainMixer = AKMixer()
