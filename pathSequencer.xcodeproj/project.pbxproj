@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8800A84E219EDDAF0010073D /* SynthControlsPanelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8800A84D219EDDAF0010073D /* SynthControlsPanelNode.swift */; };
 		884607F8219B31DC00E8AE53 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 885273EE218B7D4200D675C1 /* AudioKit.framework */; };
 		884607F9219B31DC00E8AE53 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 885273EF218B7D4600D675C1 /* AudioKitUI.framework */; };
 		8846084F219B549D00E8AE53 /* PitchGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8846084E219B549D00E8AE53 /* PitchGrid.swift */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8800A84D219EDDAF0010073D /* SynthControlsPanelNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthControlsPanelNode.swift; sourceTree = "<group>"; };
 		8846084E219B549D00E8AE53 /* PitchGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchGrid.swift; sourceTree = "<group>"; };
 		885273D3218B7CDB00D675C1 /* pathSequencer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pathSequencer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		885273D6218B7CDB00D675C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				885273DC218B7CDB00D675C1 /* GameScene.swift */,
 				8846084E219B549D00E8AE53 /* PitchGrid.swift */,
 				8866942E219CB26B0014B455 /* SynthModule.swift */,
+				8800A84D219EDDAF0010073D /* SynthControlsPanelNode.swift */,
 				885273DE218B7CDB00D675C1 /* GameViewController.swift */,
 				885273D8218B7CDB00D675C1 /* GameScene.sks */,
 				885273E8218B7CDB00D675C1 /* Info.plist */,
@@ -229,6 +232,7 @@
 				8866942F219CB26B0014B455 /* SynthModule.swift in Sources */,
 				885273D7218B7CDB00D675C1 /* AppDelegate.swift in Sources */,
 				8846084F219B549D00E8AE53 /* PitchGrid.swift in Sources */,
+				8800A84E219EDDAF0010073D /* SynthControlsPanelNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

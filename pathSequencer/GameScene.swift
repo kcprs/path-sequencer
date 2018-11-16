@@ -18,8 +18,6 @@ class GameScene: SKScene {
     private var touchedPoint : CGPoint?
     private var pathIcon : SKNode!
     
-    private var testKnob : KnobNode?
-    
     override func didMove(to view: SKView) {
         // Set up the scene
         audioManager = AudioManager()
@@ -27,7 +25,6 @@ class GameScene: SKScene {
 
         cam = SKCameraNode()
         self.camera = cam
-        self.addChild(cam)
         cam.position = CGPoint(x: 0, y: pitchGrid.getCentreY())
 
         path = CursorPath(nodeCount: 3)
@@ -41,13 +38,15 @@ class GameScene: SKScene {
         pathIcon = SKLabelNode(text: "PathIcon")
         pathIcon.position = CGPoint(x: 0, y: -self.size.height / 2 + 20)
         cam.addChild(pathIcon)
+        
+        // Add camera last to keep all nodes assigned to it in the foreground
+        self.addChild(cam)
 
         audioManager.start()
     }
     
     private func openSynthControls() {
-        testKnob = KnobNode()
-        cam.addChild(testKnob!)
+        _ = SynthControlPanelNode(parentScene: self)
     }
     
     private func touchDown(atPoint pos : CGPoint) {
