@@ -30,17 +30,16 @@ class PathPointNode: SKNode {
     }
     
     private func touchDown(atPoint pos: CGPoint) {
-        
+        parentPath.saveProgress(node: self)
     }
     
     private func touchMoved(toPoint pos: CGPoint) {
         self.position = pos
-        parentPath.saveProgress()
         parentPath.update(node: self)
     }
     
     private func touchUp(atPoint pos: CGPoint) {
-        
+        parentPath.resumeMovement()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

@@ -37,7 +37,7 @@ class CursorPath: SKNode {
         self.pitchGrid = pitchGrid
     }
     
-    func update() {
+    private func updatePathNode() {
         var pathPoints = Array<CGPoint>()
         for pointNode in pathPointNodes {
             pathPoints.append(pointNode.position)
@@ -51,7 +51,7 @@ class CursorPath: SKNode {
     }
     
     func update(node: PathPointNode) {
-        update()
+        updatePathNode()
 
         if audioCursor.isNextTo(node: node) {
             audioCursor.updatePosition()
@@ -68,7 +68,7 @@ class CursorPath: SKNode {
             pointNode.position = newPosition!
         }
         
-        update()
+        updatePathNode()
     }
     
     func scatterRandomly(centre: CGPoint, range: CGSize) {
@@ -90,8 +90,14 @@ class CursorPath: SKNode {
         point.setParentPath(self)
     }
     
-    func saveProgress() {
-        audioCursor?.saveProgress()
+    func saveProgress(node: PathPointNode) {
+        if audioCursor.isNextTo(node: node) {
+            audioCursor.saveProgress()
+        }
+    }
+    
+    func resumeMovement() {
+        audioCursor.resumeMovement()
     }
     
     func getNextTarget(fromNode: PathPointNode) -> PathPointNode {

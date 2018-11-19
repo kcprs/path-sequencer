@@ -40,6 +40,18 @@ class AudioCursor: SKNode {
         synthModule.start()
     }
     
+    func saveProgress() {
+        // Calculate progress between fromNode and toNode. To avoid square root operations, use proportion of difference between x or y coordinates (whichever is greater - for better accuracy)
+        
+        // TODO: Make sure progress uses X for both or Y for both and not a mix of the two
+        let targetDifferenceX = toNode.position.x - fromNode.position.x
+        let targetDifferenceY = toNode.position.y - fromNode.position.y
+        let currentDifferenceX = self.position.x - fromNode.position.x
+        let currentDifferenceY = self.position.y - fromNode.position.y
+        moveProgress = max(abs(currentDifferenceX), abs(currentDifferenceY))/max(abs(targetDifferenceX), abs(targetDifferenceY))
+        print("Progress: \(moveProgress)")
+    }
+    
     func updatePosition() {
         self.removeAction(forKey: "move")
 
@@ -47,11 +59,15 @@ class AudioCursor: SKNode {
         let targetDifferenceY = toNode.position.y - fromNode.position.y
 
         let newPosition = CGPoint(x: fromNode.position.x + moveProgress * targetDifferenceX, y: fromNode.position.y + moveProgress * targetDifferenceY)
-
+        
+        self.position = newPosition
+    }
+    
+    func resumeMovement() {
         let path = CGMutablePath()
-        path.move(to: newPosition)
+        path.move(to: self.position)
         path.addLine(to: toNode.position)
-
+        
         self.run(SKAction.follow(path, asOffset: false, orientToPath: true, speed: cursorSpeed), withKey: "move", optionalCompletion: targetReached)
     }
     
@@ -66,17 +82,6 @@ class AudioCursor: SKNode {
         path.addLine(to: toNode.position)
         
         self.run(SKAction.follow(path, asOffset: false, orientToPath: true, speed: cursorSpeed), withKey: "move", optionalCompletion: targetReached)
-    }
-    
-    func saveProgress() {
-        // Calculate progress between fromNode and toNode. To avoid square root operations, use proportion of difference between x or y coordinates (whichever is greater - for better accuracy)
-        
-        // TODO: Make sure progress uses X for both or Y for both and not a mix of the two
-        let targetDifferenceX = toNode.position.x - fromNode.position.x
-        let targetDifferenceY = toNode.position.y - fromNode.position.y
-        let currentDifferenceX = self.position.x - fromNode.position.x
-        let currentDifferenceY = self.position.y - fromNode.position.y
-        moveProgress = max(abs(currentDifferenceX), abs(currentDifferenceY))/max(abs(targetDifferenceX), abs(targetDifferenceY))
     }
     
     private func triggerSound(atNode node: PathPointNode) {

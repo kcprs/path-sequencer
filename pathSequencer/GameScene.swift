@@ -34,6 +34,7 @@ class GameScene: SKScene {
 
         cursor = AudioCursor(onPath: path)
         audioManager.addAudioCursor(cursor)
+        cursor.resumeMovement()
 
         pathIcon = PathIconNode(path: path)
         pathIcon.position = CGPoint(x: 0, y: -self.size.height / 2 + 20)

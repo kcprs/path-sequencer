@@ -21,7 +21,6 @@ class SynthModule {
     init() {
         notesPlaying = Array<MIDINoteNumber>()
         waveforms = Array<AKTable>()
-        print(waveforms)
         waveforms.append(AKTable(.sine))
         waveforms.append(AKTable(.triangle))
         waveforms.append(AKTable(.sawtooth))
