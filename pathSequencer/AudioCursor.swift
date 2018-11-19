@@ -49,7 +49,6 @@ class AudioCursor: SKNode {
         let currentDifferenceX = self.position.x - fromNode.position.x
         let currentDifferenceY = self.position.y - fromNode.position.y
         moveProgress = max(abs(currentDifferenceX), abs(currentDifferenceY))/max(abs(targetDifferenceX), abs(targetDifferenceY))
-        print("Progress: \(moveProgress)")
     }
     
     func updatePosition() {

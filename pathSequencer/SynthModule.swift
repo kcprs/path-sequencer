@@ -16,7 +16,7 @@ class SynthModule {
     private var notesPlaying: Array<MIDINoteNumber>!
     private var lastPlayedNote: MIDINoteNumber = 0
     private var quantisePitch = true
-    private var holdTime = 0.5 // TODO: Write a separate class for an AHD envelope
+    private var holdTime = 0.5
     
     init() {
         notesPlaying = Array<MIDINoteNumber>()
@@ -28,7 +28,7 @@ class SynthModule {
         
         oscBank = AKMorphingOscillatorBank(waveformArray: waveforms)
         oscBank.rampDuration = 0
-        oscBank.index = 1
+        oscBank.sustainLevel = 1
         filter = AKLowPassFilter()
         filter.cutoffFrequency = 20000
         
@@ -53,15 +53,16 @@ class SynthModule {
             processedFreq = freq
         }
         
-        
         // Disregard MIDI pitch, only use frequency
         oscBank.play(noteNumber: lastPlayedNote, velocity: 127, frequency: processedFreq)
         
         let savedNote = lastPlayedNote  // Avoid using lastPlayedNote after increment
-        DispatchQueue.main.asyncAfter(deadline: .now() + oscBank.attackDuration + holdTime, execute: {self.oscBank.stop(noteNumber: savedNote)})
+        let stopLag = max(oscBank.attackDuration + holdTime, 0.02)  // Avoid sending stop message at the same time as start message
+        DispatchQueue.main.asyncAfter(deadline: .now() + stopLag, execute: {self.oscBank.stop(noteNumber: savedNote)})
         
         // Keep using different MIDI note numbers to avoid notes cutting each other off
-        lastPlayedNote += 1  // Should wrap 127 -> 0 since MIDINoteNumber is UInt8
+        lastPlayedNote += 1
+        lastPlayedNote %= 128
     }
     
     func setWavetableIndex(_ index: Double) {
@@ -76,7 +77,8 @@ class SynthModule {
         self.holdTime = hold
     }
     
-    func setRelease(_ release: Double) {
-        oscBank.releaseDuration = release
+    func setDecay(_ decay: Double) {
+        oscBank.decayDuration = decay
+        oscBank.releaseDuration = decay
     }
 }

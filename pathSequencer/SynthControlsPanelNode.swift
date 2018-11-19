@@ -46,7 +46,7 @@ class SynthControlPanelNode: SKNode {
         knob.position = CGPoint(x: -200, y: 0)
         self.addChild(knob)
         
-        knob = KnobNode(labelText: "Release", minValue: 0.001, maxValue: 1, updateValueCallback: synthModule.setRelease)
+        knob = KnobNode(labelText: "Decay", minValue: 0.001, maxValue: 1, updateValueCallback: synthModule.setDecay)
         knob.displayedUnit = "s"
         knob.position = CGPoint(x: 0, y: 0)
         self.addChild(knob)
