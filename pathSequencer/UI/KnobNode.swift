@@ -9,21 +9,17 @@
 import SpriteKit
 
 class KnobNode: SKNode {
+    private var parameter: GUIContinuousParameter!
     private var circle: SKShapeNode!
     private var notch: SKShapeNode!
-    private var notchRoot: SKNode!
+    private var knobRoot: SKNode!
     private let rotationLimit: CGFloat = 2.5
     private var diameter: CGFloat = 50
     private var lastTouchPos: CGPoint?
-    private var lastAngle: CGFloat = 0
-    private var value: Double!
-    private var maxValue: Double!
-    private var minValue: Double!
     private var label: SKLabelNode!
     private let labelSpacer: CGFloat = 20
     private var labelText: String!
-    private let sensitivity: CGFloat = 50
-    private var callback: ((Double) -> Void)!
+    private let sensitivity: Double = 100 // Movement by how many pixels maps to range (min -> max)?
     var displayedUnit = ""
     var fontSize: CGFloat {
         get {
@@ -39,26 +35,22 @@ class KnobNode: SKNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(labelText: String, minValue: Double, maxValue: Double, updateValueCallback: @escaping (Double) -> Void) {
+    init(labelText: String, parameter: GUIContinuousParameter) {
         super.init()
-        
-        self.minValue = minValue
-        self.maxValue = maxValue
+
+        self.parameter = parameter
         self.labelText = labelText
-        self.callback = updateValueCallback
         
-        value = (minValue + maxValue) / 2
+        knobRoot = SKNode()
+        self.addChild(knobRoot)
         
         circle = SKShapeNode(circleOfRadius: diameter/2)
-        self.addChild(circle)
-        
-        notchRoot = SKNode()
-        self.addChild(notchRoot)
+        knobRoot.addChild(circle)
         
         notch = SKShapeNode(rectOf: CGSize(width: 1, height: diameter / 2))
         notch.position = CGPoint(x: 0, y: diameter / 4)
         notch.fillColor = .white
-        notchRoot.addChild(notch)
+        knobRoot.addChild(notch)
         
         label = SKLabelNode()
         label.position = CGPoint(x: 0, y: -(diameter / 2 + labelSpacer))
@@ -67,6 +59,14 @@ class KnobNode: SKNode {
         self.addChild(label)
         
         self.isUserInteractionEnabled = true
+        
+        setToProportion(proportion: parameter.getProportion())
+    }
+    
+    private func setToProportion(proportion: Double) {
+        let angle = rotationLimit - CGFloat(proportion) * 2 * rotationLimit
+        knobRoot.run(SKAction.rotate(toAngle: angle, duration: 0))
+        updateLabel()
     }
     
     private func updateLabel() {
@@ -76,7 +76,7 @@ class KnobNode: SKNode {
             unit = " " + displayedUnit
         }
         
-        label.text = String(format: labelText + ": %.2f" + unit, value)
+        label.text = String(format: labelText + ": %.2f" + unit, parameter.getValue())
     }
     
     private func touchDown(atPoint pos: CGPoint) {
@@ -84,22 +84,16 @@ class KnobNode: SKNode {
     }
     
     private func touchMoved(toPoint pos: CGPoint) {
-        var angle = lastAngle + (lastTouchPos!.y - pos.y) / sensitivity
-        angle = min(angle, rotationLimit)
-        angle = max(angle, -rotationLimit)
-        
-        notchRoot.run(SKAction.rotate(toAngle: angle, duration: 0))
-        let proportion = Double((rotationLimit - notchRoot.zRotation) / (2 * rotationLimit))
-        let newValue = minValue + proportion * (maxValue - minValue)
-        if value != newValue {
-            value = newValue
-            updateLabel()
-            callback(value)
+        if lastTouchPos != nil {
+            let increment = Double(pos.y - lastTouchPos!.y) / sensitivity
+            parameter.incrementByProportion(increment)
+            setToProportion(proportion: parameter.getProportion())
+            lastTouchPos = pos
         }
     }
     
     private func touchUp(atPoint pos: CGPoint) {
-        lastAngle = notchRoot.zRotation
+        lastTouchPos = nil
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

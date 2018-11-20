@@ -18,6 +18,13 @@ class SynthModule {
     private var quantisePitch = true
     private var holdTime = 0.5
     
+    // GUI - controlled parameters
+    var attack: GUIContinuousParameter!
+    var hold: GUIContinuousParameter!
+    var decay: GUIContinuousParameter!
+    var wavetableIndex: GUIContinuousParameter!
+    
+    
     init() {
         notesPlaying = Array<MIDINoteNumber>()
         waveforms = Array<AKTable>()
@@ -33,6 +40,21 @@ class SynthModule {
         filter.cutoffFrequency = 20000
         
         oscBank.connect(to: filter)
+        
+        attack = GUIContinuousParameter(minValue: 0.001, maxValue: 1,
+                                        setClosure: {(newValue: Double) in self.oscBank.attackDuration = newValue},
+                                        getClosure: {() -> Double in return self.oscBank.attackDuration})
+        hold = GUIContinuousParameter(minValue: 0.001, maxValue: 1,
+                                      setClosure: {(newValue: Double) in self.holdTime = newValue},
+                                      getClosure: {() -> Double in return self.holdTime})
+        decay = GUIContinuousParameter(minValue: 0.001, maxValue: 1,
+                                       setClosure: {(newValue: Double) in
+                                        self.oscBank.decayDuration = newValue
+                                        self.oscBank.releaseDuration = newValue},
+                                       getClosure: {() -> Double in return self.oscBank.decayDuration})
+        wavetableIndex = GUIContinuousParameter(minValue: 0, maxValue: 1,
+                                                setClosure: {(newValue: Double) in self.oscBank.index = newValue * (self.waveforms.count - 1)},
+                                                getClosure: {() -> Double in return self.oscBank.index / (self.waveforms.count - 1)})
         
         // TODO: Make initial displayed values match the synth parameters
     }
@@ -63,18 +85,6 @@ class SynthModule {
         // Keep using different MIDI note numbers to avoid notes cutting each other off
         lastPlayedNote += 1
         lastPlayedNote %= 128
-    }
-    
-    func setWavetableIndex(_ index: Double) {
-        oscBank.index = index * (waveforms.count - 1)
-    }
-    
-    func setAttack(_ attack: Double) {
-        oscBank.attackDuration = attack
-    }
-    
-    func setHold(_ hold: Double) {
-        self.holdTime = hold
     }
     
     func setDecay(_ decay: Double) {

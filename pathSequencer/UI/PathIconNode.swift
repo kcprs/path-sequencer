@@ -10,6 +10,7 @@ import SpriteKit
 
 class PathIconNode: SKNode {
     private var path: CursorPath!
+    private var controlPanel : SynthControlPanelNode?
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -33,7 +34,12 @@ class PathIconNode: SKNode {
     }
     
     private func touchUp(atPoint pos: CGPoint) {
-        let _ = SynthControlPanelNode(parentScene: self.scene!, synthModule: path.getSynthModule())
+        if controlPanel == nil {
+            controlPanel = SynthControlPanelNode(parentScene: self.scene!, synthModule: path.getSynthModule())
+        } else {
+            controlPanel!.close()
+            controlPanel = nil
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

@@ -36,24 +36,28 @@ class SynthControlPanelNode: SKNode {
     
     private func setupGUI() {
         // TODO: Find a good way to approach GUI layout
-        var knob = KnobNode(labelText: "Attack", minValue: 0.001, maxValue: 1, updateValueCallback: synthModule.setAttack)
+        var knob = KnobNode(labelText: "Attack", parameter: synthModule.attack)
         knob.displayedUnit = "s"
         knob.position = CGPoint(x: -400, y: 0)
         self.addChild(knob)
         
-        knob = KnobNode(labelText: "Hold", minValue: 0.001, maxValue: 1, updateValueCallback: synthModule.setHold)
+        knob = KnobNode(labelText: "Hold", parameter: synthModule.hold)
         knob.displayedUnit = "s"
         knob.position = CGPoint(x: -200, y: 0)
         self.addChild(knob)
         
-        knob = KnobNode(labelText: "Decay", minValue: 0.001, maxValue: 1, updateValueCallback: synthModule.setDecay)
+        knob = KnobNode(labelText: "Decay", parameter: synthModule.decay)
         knob.displayedUnit = "s"
         knob.position = CGPoint(x: 0, y: 0)
         self.addChild(knob)
         
-        knob = KnobNode(labelText: "Wavetable Index", minValue: 0, maxValue: 1, updateValueCallback: synthModule.setWavetableIndex)
+        knob = KnobNode(labelText: "Wavetable Index", parameter: synthModule.wavetableIndex)
         knob.displayedUnit = ""
         knob.position = CGPoint(x: 200, y: 0)
         self.addChild(knob)
+    }
+    
+    func close() {
+        self.removeFromParent()
     }
 }
