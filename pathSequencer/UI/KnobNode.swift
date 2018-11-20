@@ -9,17 +9,16 @@
 import SpriteKit
 
 class KnobNode: SKNode {
-    private var parameter: GUIContinuousParameter!
+    private let parameter: GUIContinuousParameter!
     private let circle: SKShapeNode!
     private let notch: SKShapeNode!
     private let knobRoot: SKNode!
     private let rotationLimit: CGFloat = 2.5
     private let diameter: CGFloat = 50
+    private let labelSpacer: CGFloat = 1.4
+    private let sensitivity: Double = 200 // Movement by how many pixels maps to full range of assigned parameter?
     private var lastTouchPos: CGPoint?
     private var label: SKLabelNode!
-    private let labelSpacer: CGFloat = 20
-    private let labelText: String!
-    private let sensitivity: Double = 200 // Movement by how many pixels maps to full range of assigned parameter?
     private var isLogarithmic = false
     private var proportion: Double {
         set {
@@ -33,26 +32,16 @@ class KnobNode: SKNode {
             return Double((rotationLimit - knobRoot.zRotation) / (2 * rotationLimit))
         }
     }
-    var fontSize: CGFloat {
-        get {
-            return label.fontSize
-        }
-        
-        set {
-            label.fontSize = newValue
-        }
-    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(labelText: String, parameter: GUIContinuousParameter, isLogarithmic: Bool) {
+    init(parameter: GUIContinuousParameter, isLogarithmic: Bool) {
         self.parameter = parameter
-        self.labelText = labelText
         self.isLogarithmic = isLogarithmic
         self.knobRoot = SKNode()
-        self.circle = SKShapeNode(circleOfRadius: diameter/2)
+        self.circle = SKShapeNode(circleOfRadius: diameter / 2)
         self.notch = SKShapeNode(rectOf: CGSize(width: 1, height: diameter / 2))
         self.label = SKLabelNode()
         
@@ -66,7 +55,7 @@ class KnobNode: SKNode {
         notch.fillColor = .white
         knobRoot.addChild(notch)
         
-        label.position = CGPoint(x: 0, y: -(diameter / 2 + labelSpacer))
+        label.position = CGPoint(x: 0, y: labelSpacer * diameter / 2)
         label.fontSize = 20
         updateLabel()
         self.addChild(label)
@@ -76,31 +65,18 @@ class KnobNode: SKNode {
         updateSelfFromParameterValue()
     }
     
-    convenience init(labelText: String, parameter: GUIContinuousParameter) {
-        self.init(labelText: labelText, parameter: parameter, isLogarithmic: false)
+    convenience init(parameter: GUIContinuousParameter) {
+        self.init(parameter: parameter, isLogarithmic: false)
     }
     
     private func updateLabel() {
         // Avoid redundant space if no unit specified
         var unit = ""
-        if parameter.getDisplayUnit() != "" {
-            unit = " " + parameter.getDisplayUnit()
+        if parameter.displayUnit != "" {
+            unit = " " + parameter.displayUnit
         }
         
-        label.text = String(format: labelText + ": %.2f" + unit, parameter.getValue())
-    }
-    
-    private func touchDown(atPoint pos: CGPoint) {
-        lastTouchPos = pos
-    }
-    
-    private func touchMoved(toPoint pos: CGPoint) {
-        if lastTouchPos != nil {
-            let increment = Double(pos.y - lastTouchPos!.y) / sensitivity
-            proportion += increment
-            updateParameterValue()
-            lastTouchPos = pos
-        }
+        label.text = String(format: parameter.label + ": %.2f" + unit, parameter.getValue())
     }
     
     private func updateParameterValue() {
@@ -116,6 +92,19 @@ class KnobNode: SKNode {
             proportion = parameter.getLogProportion()
         } else {
             proportion = parameter.getProportion()
+        }
+    }
+    
+    private func touchDown(atPoint pos: CGPoint) {
+        lastTouchPos = pos
+    }
+    
+    private func touchMoved(toPoint pos: CGPoint) {
+        if lastTouchPos != nil {
+            let increment = Double(pos.y - lastTouchPos!.y) / sensitivity
+            proportion += increment
+            updateParameterValue()
+            lastTouchPos = pos
         }
     }
     

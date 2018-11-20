@@ -14,8 +14,8 @@ class SynthModule {
     private var waveforms: Array<AKTable>!
     private var notesPlaying: Array<MIDINoteNumber>!
     private var lastPlayedNote: MIDINoteNumber = 0
-    private var quantisePitch = true
     private var holdTime = 0.5
+    private var quantisePitch = true
     
     // GUI-controlled parameters
     var attack: GUIContinuousParameter!
@@ -23,6 +23,7 @@ class SynthModule {
     var decay: GUIContinuousParameter!
     var wavetableIndex: GUIContinuousParameter!
     var filterCutoff: GUIContinuousParameter!
+    var pitchQuantisation: GUIDiscreteParameter<Bool>!
     
     init() {
         notesPlaying = Array<MIDINoteNumber>()
@@ -39,27 +40,32 @@ class SynthModule {
         
         oscBank.connect(to: filter)
         
-        attack = GUIContinuousParameter(minValue: 0.01, maxValue: 1,
+        attack = GUIContinuousParameter(label: "Attack Time", minValue: 0.01, maxValue: 1,
                                         setClosure: {(newValue: Double) in self.oscBank.attackDuration = newValue},
                                         getClosure: {() -> Double in return self.oscBank.attackDuration},
                                         displayUnit: "s")
-        hold = GUIContinuousParameter(minValue: 0.01, maxValue: 1,
+        hold = GUIContinuousParameter(label: "Hold Time", minValue: 0.01, maxValue: 1,
                                       setClosure: {(newValue: Double) in self.holdTime = newValue},
                                       getClosure: {() -> Double in return self.holdTime},
                                       displayUnit: "s")
-        decay = GUIContinuousParameter(minValue: 0.01, maxValue: 1,
+        decay = GUIContinuousParameter(label: "Decay Time", minValue: 0.01, maxValue: 1,
                                        setClosure: {(newValue: Double) in
                                         self.oscBank.decayDuration = newValue
                                         self.oscBank.releaseDuration = newValue},
                                        getClosure: {() -> Double in return self.oscBank.decayDuration},
                                        displayUnit: "s")
-        wavetableIndex = GUIContinuousParameter(minValue: 0, maxValue: 1,
+        wavetableIndex = GUIContinuousParameter(label: "Wavetable Index", minValue: 0, maxValue: 1,
                                                 setClosure: {(newValue: Double) in self.oscBank.index = newValue * (self.waveforms.count - 1)},
                                                 getClosure: {() -> Double in return self.oscBank.index / (self.waveforms.count - 1)})
-        filterCutoff = GUIContinuousParameter(minValue: 20, maxValue: 20000,
+        filterCutoff = GUIContinuousParameter(label: "Filter Cutoff", minValue: 20, maxValue: 20000,
                                               setClosure: {(newValue: Double) in self.filter.cutoffFrequency = newValue},
                                               getClosure: { () -> Double in return self.filter.cutoffFrequency},
                                               displayUnit: "Hz")
+        pitchQuantisation = GUIDiscreteParameter(label: "Pitch Quantisation",
+                                                 setClosure: {(newValue: Bool) in self.quantisePitch = newValue},
+                                                 getClosure: {() -> Bool in return self.quantisePitch})
+        pitchQuantisation.addValue(value: true, valueLabel: "On")
+        pitchQuantisation.addValue(value: false, valueLabel: "Off")
     }
     
     func start() {

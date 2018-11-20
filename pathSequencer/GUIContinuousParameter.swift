@@ -11,12 +11,13 @@ import Foundation
 class GUIContinuousParameter {
     private let maxValue: Double!
     private let minValue: Double!
-    private let displayUnit: String!
-    private var setClosure: (Double) -> Void = {(_: Double) in }
-    private var getClosure: () -> Double = {() -> Double in return 0}
+    private let setClosure: (Double) -> Void
+    private let getClosure: () -> Double
+    let label: String!
+    let displayUnit: String!
     
-    init(minValue: Double, maxValue: Double, setClosure: @escaping (Double) -> Void, getClosure: @escaping () -> Double, displayUnit: String) {
-        
+    init(label: String, minValue: Double, maxValue: Double, setClosure: @escaping (Double) -> Void, getClosure: @escaping () -> Double, displayUnit: String) {
+        self.label = label
         self.minValue = minValue
         self.maxValue = maxValue
         self.setClosure = setClosure
@@ -24,8 +25,8 @@ class GUIContinuousParameter {
         self.displayUnit = displayUnit
     }
 
-    convenience init(minValue: Double, maxValue: Double, setClosure: @escaping (Double) -> Void, getClosure: @escaping () -> Double) {
-        self.init(minValue: minValue, maxValue: maxValue, setClosure: setClosure, getClosure: getClosure, displayUnit: "")
+    convenience init(label: String, minValue: Double, maxValue: Double, setClosure: @escaping (Double) -> Void, getClosure: @escaping () -> Double) {
+        self.init(label: label, minValue: minValue, maxValue: maxValue, setClosure: setClosure, getClosure: getClosure, displayUnit: "")
     }
 
     func setValue(to newValue: Double) {
@@ -45,17 +46,11 @@ class GUIContinuousParameter {
     }
     
     func setLogProportion(_ proportion: Double) {
-        print("log(min) = \(log10(minValue)) \t log(max) = \(log10(maxValue)) \t prop = \(proportion)")
         setValue(to: pow(10, log10(minValue) + proportion * (log10(maxValue) - log10(minValue))))
-        print("Value = \(getValue())")
     }
     
     func getLogProportion() -> Double {
         return (log10(getValue()) - log10(minValue)) / (log10(maxValue) - log10(minValue))
-    }
-    
-    func getDisplayUnit() -> String {
-        return displayUnit
     }
     
     func isAtLimit() -> Bool {

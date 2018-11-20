@@ -27,6 +27,8 @@
 		88527407218B863E00D675C1 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 88527406218B863E00D675C1 /* .gitignore */; };
 		8866942F219CB26B0014B455 /* SynthModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8866942E219CB26B0014B455 /* SynthModule.swift */; };
 		88D2060B21A41A0F00DB74F7 /* GUIContinuousParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D2060A21A41A0F00DB74F7 /* GUIContinuousParameter.swift */; };
+		88D2060D21A4651F00DB74F7 /* GUIDiscreteParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D2060C21A4651F00DB74F7 /* GUIDiscreteParameter.swift */; };
+		88D2061121A468E600DB74F7 /* RadioButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D2061021A468E600DB74F7 /* RadioButtonNode.swift */; };
 		88F34B47219DD34F005E598D /* PathPointNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F34B46219DD34F005E598D /* PathPointNode.swift */; };
 		88F815AC219DD0B70095B54F /* MidiUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F815AB219DD0B70095B54F /* MidiUtil.swift */; };
 		88F815AE219DD0CB0095B54F /* KnobNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F815AD219DD0CA0095B54F /* KnobNode.swift */; };
@@ -55,6 +57,8 @@
 		88527406218B863E00D675C1 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		8866942E219CB26B0014B455 /* SynthModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthModule.swift; sourceTree = "<group>"; };
 		88D2060A21A41A0F00DB74F7 /* GUIContinuousParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GUIContinuousParameter.swift; sourceTree = "<group>"; };
+		88D2060C21A4651F00DB74F7 /* GUIDiscreteParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GUIDiscreteParameter.swift; sourceTree = "<group>"; };
+		88D2061021A468E600DB74F7 /* RadioButtonNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonNode.swift; sourceTree = "<group>"; };
 		88F34B46219DD34F005E598D /* PathPointNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathPointNode.swift; sourceTree = "<group>"; };
 		88F815AB219DD0B70095B54F /* MidiUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MidiUtil.swift; sourceTree = "<group>"; };
 		88F815AD219DD0CA0095B54F /* KnobNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KnobNode.swift; sourceTree = "<group>"; };
@@ -115,6 +119,7 @@
 				885273D6218B7CDB00D675C1 /* AppDelegate.swift */,
 				885273DE218B7CDB00D675C1 /* GameViewController.swift */,
 				88D2060A21A41A0F00DB74F7 /* GUIContinuousParameter.swift */,
+				88D2060C21A4651F00DB74F7 /* GUIDiscreteParameter.swift */,
 				885273D8218B7CDB00D675C1 /* GameScene.sks */,
 				885273E8218B7CDB00D675C1 /* Info.plist */,
 				885273E5218B7CDB00D675C1 /* LaunchScreen.storyboard */,
@@ -140,6 +145,7 @@
 				88F34B46219DD34F005E598D /* PathPointNode.swift */,
 				88F815AD219DD0CA0095B54F /* KnobNode.swift */,
 				8800A84F219EF4FA0010073D /* PathIconNode.swift */,
+				88D2061021A468E600DB74F7 /* RadioButtonNode.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -227,6 +233,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88D2060D21A4651F00DB74F7 /* GUIDiscreteParameter.swift in Sources */,
+				88D2061121A468E600DB74F7 /* RadioButtonNode.swift in Sources */,
 				885273DD218B7CDB00D675C1 /* GameScene.swift in Sources */,
 				88F815AE219DD0CB0095B54F /* KnobNode.swift in Sources */,
 				885273DF218B7CDB00D675C1 /* GameViewController.swift in Sources */,
