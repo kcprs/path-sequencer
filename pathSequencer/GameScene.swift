@@ -54,8 +54,12 @@ class GameScene: SKScene {
     
     private func touchMoved(toPoint pos: CGPoint) {
         if touchedPoint != nil {
-            cam.position.y += touchedPoint!.y - pos.y
+            setCamPosition(cam.position.y + touchedPoint!.y - pos.y)
         }
+    }
+    
+    private func setCamPosition(_ newPosition: CGFloat) {
+        cam.position = CGPoint(x: 0, y: max(self.size.height / 2, min(pitchGrid.getHeight() - self.size.height, newPosition)))
     }
     
     func touchUp(atPoint pos: CGPoint) {

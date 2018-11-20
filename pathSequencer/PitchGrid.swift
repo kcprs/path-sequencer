@@ -39,8 +39,12 @@ class PitchGrid {
         }
     }
     
-    func getCentreY() -> Int {
-        return yGap * (topNote - bottomNote) / 2
+    func getCentreY() -> CGFloat {
+        return CGFloat(yGap * (topNote - bottomNote) / 2)
+    }
+    
+    func getHeight() -> CGFloat {
+        return CGFloat(yGap * pitchLabels.count)
     }
     
     func getFreqAt(node: SKNode) -> Double {
