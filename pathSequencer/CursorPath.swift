@@ -86,6 +86,7 @@ class CursorPath: SKNode {
     
     func addPoint(_ point: PathPointNode) {
         self.addChild(point)
+        point.zPosition = 1  // Make sure the point is above other elements for touch accessibility
         pathPointNodes.append(point)
         point.setParentPath(self)
     }

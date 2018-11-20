@@ -12,11 +12,9 @@ import GameplayKit
 class GameScene: SKScene {
     private var audioManager: AudioManager!
     private var pitchGrid: PitchGrid!
-    private var cursor: AudioCursor!
-    private var path: CursorPath!
     private var cam: SKCameraNode!
     private var touchedPoint: CGPoint?
-    private var pathIcon: PathIconNode!
+    private var pathIconGroupNode: PathIconGroupNode!
     
     override func didMove(to view: SKView) {
         // Set up the scene
@@ -26,24 +24,29 @@ class GameScene: SKScene {
         cam = SKCameraNode()
         self.camera = cam
         cam.position = CGPoint(x: 0, y: pitchGrid.getCentreY())
+        cam.zPosition = 2 // Keep camera above other nodes
+        self.addChild(cam)
+        
+        pathIconGroupNode = PathIconGroupNode()
+        pathIconGroupNode.position = CGPoint(x: 0, y: -self.size.height / 2 + 20)
+        cam.addChild(pathIconGroupNode)
+        
 
-        path = CursorPath(nodeCount: 3)
+        audioManager.start()
+    }
+    
+    func addPathWithCursor() {
+        let path = CursorPath(nodeCount: 3)
         self.addChild(path)
         path.assignPitchGrid(pitchGrid)
         path.scatterRandomly(centre: cam.position, range: self.size)
-
-        cursor = AudioCursor(onPath: path)
+        
+        let cursor = AudioCursor(onPath: path)
         audioManager.addAudioCursor(cursor)
         cursor.resumeMovement()
-
-        pathIcon = PathIconNode(path: path)
-        pathIcon.position = CGPoint(x: 0, y: -self.size.height / 2 + 20)
-        cam.addChild(pathIcon)
         
-        // Add camera last to keep all nodes assigned to it in the foreground
-        self.addChild(cam)
-
-        audioManager.start()
+        let pathIcon = PathIconNode(path: path)
+        pathIconGroupNode.addIcon(pathIcon)
     }
     
     private func touchDown(atPoint pos: CGPoint) {

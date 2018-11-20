@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class RadioButtonNode : SKNode {
+class RadioButtonNode: SKNode {
     private let parameter: GUIDiscreteParameter<Bool>!
     private let outerCircle: SKShapeNode!
     private let innerCircle: SKShapeNode!
