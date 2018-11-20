@@ -10,17 +10,29 @@ import SpriteKit
 
 class KnobNode: SKNode {
     private var parameter: GUIContinuousParameter!
-    private var circle: SKShapeNode!
-    private var notch: SKShapeNode!
-    private var knobRoot: SKNode!
+    private let circle: SKShapeNode!
+    private let notch: SKShapeNode!
+    private let knobRoot: SKNode!
     private let rotationLimit: CGFloat = 2.5
-    private var diameter: CGFloat = 50
+    private let diameter: CGFloat = 50
     private var lastTouchPos: CGPoint?
     private var label: SKLabelNode!
     private let labelSpacer: CGFloat = 20
-    private var labelText: String!
-    private let sensitivity: Double = 100 // Movement by how many pixels maps to range (min -> max)?
-    var displayedUnit = ""
+    private let labelText: String!
+    private let sensitivity: Double = 200 // Movement by how many pixels maps to full range of assigned parameter?
+    private var isLogarithmic = false
+    private var proportion: Double {
+        set {
+            let newProp = max(0, min(1, newValue))
+            let angle = rotationLimit - CGFloat(newProp) * 2 * rotationLimit
+            knobRoot.run(SKAction.rotate(toAngle: angle, duration: 0))
+            updateLabel()
+        }
+        
+        get {
+            return Double((rotationLimit - knobRoot.zRotation) / (2 * rotationLimit))
+        }
+    }
     var fontSize: CGFloat {
         get {
             return label.fontSize
@@ -35,24 +47,25 @@ class KnobNode: SKNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(labelText: String, parameter: GUIContinuousParameter) {
-        super.init()
-
+    init(labelText: String, parameter: GUIContinuousParameter, isLogarithmic: Bool) {
         self.parameter = parameter
         self.labelText = labelText
+        self.isLogarithmic = isLogarithmic
+        self.knobRoot = SKNode()
+        self.circle = SKShapeNode(circleOfRadius: diameter/2)
+        self.notch = SKShapeNode(rectOf: CGSize(width: 1, height: diameter / 2))
+        self.label = SKLabelNode()
         
-        knobRoot = SKNode()
+        super.init()
+        
         self.addChild(knobRoot)
-        
-        circle = SKShapeNode(circleOfRadius: diameter/2)
+
         knobRoot.addChild(circle)
         
-        notch = SKShapeNode(rectOf: CGSize(width: 1, height: diameter / 2))
         notch.position = CGPoint(x: 0, y: diameter / 4)
         notch.fillColor = .white
         knobRoot.addChild(notch)
         
-        label = SKLabelNode()
         label.position = CGPoint(x: 0, y: -(diameter / 2 + labelSpacer))
         label.fontSize = 20
         updateLabel()
@@ -60,20 +73,18 @@ class KnobNode: SKNode {
         
         self.isUserInteractionEnabled = true
         
-        setToProportion(proportion: parameter.getProportion())
+        updateSelfFromParameterValue()
     }
     
-    private func setToProportion(proportion: Double) {
-        let angle = rotationLimit - CGFloat(proportion) * 2 * rotationLimit
-        knobRoot.run(SKAction.rotate(toAngle: angle, duration: 0))
-        updateLabel()
+    convenience init(labelText: String, parameter: GUIContinuousParameter) {
+        self.init(labelText: labelText, parameter: parameter, isLogarithmic: false)
     }
     
     private func updateLabel() {
         // Avoid redundant space if no unit specified
         var unit = ""
-        if displayedUnit != "" {
-            unit = " " + displayedUnit
+        if parameter.getDisplayUnit() != "" {
+            unit = " " + parameter.getDisplayUnit()
         }
         
         label.text = String(format: labelText + ": %.2f" + unit, parameter.getValue())
@@ -86,9 +97,25 @@ class KnobNode: SKNode {
     private func touchMoved(toPoint pos: CGPoint) {
         if lastTouchPos != nil {
             let increment = Double(pos.y - lastTouchPos!.y) / sensitivity
-            parameter.incrementByProportion(increment)
-            setToProportion(proportion: parameter.getProportion())
+            proportion += increment
+            updateParameterValue()
             lastTouchPos = pos
+        }
+    }
+    
+    private func updateParameterValue() {
+        if isLogarithmic {
+            parameter.setLogProportion(proportion)
+        } else {
+            parameter.setProportion(proportion)
+        }
+    }
+    
+    private func updateSelfFromParameterValue() {
+        if isLogarithmic {
+            proportion = parameter.getLogProportion()
+        } else {
+            proportion = parameter.getProportion()
         }
     }
     

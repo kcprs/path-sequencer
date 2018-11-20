@@ -37,23 +37,23 @@ class SynthControlPanelNode: SKNode {
     private func setupGUI() {
         // TODO: Find a good way to approach GUI layout
         var knob = KnobNode(labelText: "Attack", parameter: synthModule.attack)
-        knob.displayedUnit = "s"
         knob.position = CGPoint(x: -400, y: 0)
         self.addChild(knob)
         
         knob = KnobNode(labelText: "Hold", parameter: synthModule.hold)
-        knob.displayedUnit = "s"
         knob.position = CGPoint(x: -200, y: 0)
         self.addChild(knob)
         
         knob = KnobNode(labelText: "Decay", parameter: synthModule.decay)
-        knob.displayedUnit = "s"
         knob.position = CGPoint(x: 0, y: 0)
         self.addChild(knob)
         
         knob = KnobNode(labelText: "Wavetable Index", parameter: synthModule.wavetableIndex)
-        knob.displayedUnit = ""
         knob.position = CGPoint(x: 200, y: 0)
+        self.addChild(knob)
+        
+        knob = KnobNode(labelText: "Filter Cutoff", parameter: synthModule.filterCutoff, isLogarithmic: true)
+        knob.position = CGPoint(x: 400, y: 0)
         self.addChild(knob)
     }
     
