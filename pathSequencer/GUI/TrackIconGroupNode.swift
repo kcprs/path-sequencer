@@ -26,7 +26,7 @@ class TrackIconGroupNode: SKNode {
         
         super.init()
         
-        addNewTrackButton.fillColor = .magenta
+        addNewTrackButton.fillColor = .gray
         self.addChild(addNewTrackButton)
         
         self.isUserInteractionEnabled = true
@@ -56,7 +56,7 @@ class TrackIconGroupNode: SKNode {
     
     private func touchUp(atPoint pos: CGPoint) {
         if self.scene!.nodes(at: pos).contains(addNewTrackButton) {
-            let track = trackManager.addNewTrack()
+            let track = TrackManager.addNewTrack()
             addIcon(TrackIconNode(for: track))  // TODO
         }
     }

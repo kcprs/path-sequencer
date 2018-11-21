@@ -9,6 +9,7 @@
 import AudioKit
 
 class SoundModule {
+    var controlPanel: SoundModuleControlPanelNode?
     private var oscBank: AKMorphingOscillatorBank!
     private var filter: AKLowPassFilter!
     private var waveforms: Array<AKTable>!
@@ -40,7 +41,7 @@ class SoundModule {
         
         oscBank.connect(to: filter)
         
-        SceneManager.audioManager!.addSoundModule(self)
+        AudioManager.addSoundModule(self)
         
         attack = ContinuousParameter(label: "Attack Time", minValue: 0.01, maxValue: 1,
                                         setClosure: {(newValue: Double) in self.oscBank.attackDuration = newValue},

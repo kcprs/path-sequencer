@@ -10,7 +10,7 @@ import SpriteKit
 
 class TrackIconNode: SKNode {
     private var track: Track!
-    private var controlPanel: SoundControlPanelNode?
+    private var controlPanel: SoundModuleControlPanelNode?
     private var label: SKLabelNode!
     
     required init?(coder aDecoder: NSCoder) {
@@ -21,6 +21,7 @@ class TrackIconNode: SKNode {
         super.init()
         
         self.track = track
+        track.icon = self
         self.isUserInteractionEnabled = true
         
         label = SKLabelNode(text: "TrackIcon")
@@ -33,6 +34,14 @@ class TrackIconNode: SKNode {
         return label.frame.width
     }
     
+    func update() {
+        if track.isSelected {
+            label.fontColor = .orange
+        } else {
+            label.fontColor = .white
+        }
+    }
+    
     private func touchDown(atPoint pos: CGPoint) {
         
     }
@@ -42,11 +51,15 @@ class TrackIconNode: SKNode {
     }
     
     private func touchUp(atPoint pos: CGPoint) {
-        if controlPanel == nil {
-            controlPanel = SoundControlPanelNode(for: track.soundModule)
+        if track.isSelected {
+            if controlPanel == nil {
+                controlPanel = SoundModuleControlPanelNode(for: track.soundModule)
+            } else {
+                controlPanel!.close()
+                controlPanel = nil
+            }
         } else {
-            controlPanel!.close()
-            controlPanel = nil
+            track.isSelected = true
         }
     }
     

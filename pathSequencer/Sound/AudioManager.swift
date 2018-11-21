@@ -10,19 +10,20 @@ import AudioKit
 
 class AudioManager {
     private static var staticSelf: AudioManager? = nil
-    private var mainMixer: AKMixer!
-    private var soundModules: Array<SoundModule>!
+    private static var mainMixer: AKMixer!
+    private static var soundModules: Array<SoundModule>!
     
     init() {
         if AudioManager.staticSelf != nil {
             fatalError("There can only be one AudioManager")
         }
+        AudioManager.staticSelf = self
         
-        mainMixer = AKMixer()
-        soundModules = Array<SoundModule>()
+        AudioManager.mainMixer = AKMixer()
+        AudioManager.soundModules = Array<SoundModule>()
     }
     
-    func start() {
+    static func start() {
         AudioKit.output = mainMixer
         try!AudioKit.start()
 
@@ -32,7 +33,7 @@ class AudioManager {
         }
     }
     
-    func addSoundModule(_ module: SoundModule) {
+    static func addSoundModule(_ module: SoundModule) {
         soundModules.append(module)
         module.connect(to: mainMixer)
     }

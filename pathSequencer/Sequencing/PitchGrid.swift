@@ -20,6 +20,7 @@ class PitchGrid {
         if PitchGrid.staticSelf != nil {
             fatalError("There can only be one PitchGrid")
         }
+        PitchGrid.staticSelf = self
         
         pitchLabels = Array<SKLabelNode>()
         

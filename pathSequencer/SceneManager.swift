@@ -12,21 +12,20 @@ class SceneManager {
     private static var staticSelf: SceneManager? = nil
     static var scene: SKScene? = nil
     static var pitchGrid: PitchGrid? = nil
-    static var audioManager: AudioManager? = nil
-    let trackManager: TrackManager!
     
     init(for scene: SKScene) {
         if SceneManager.staticSelf != nil {
             fatalError("There can only be one SceneManager")
         }
+        SceneManager.staticSelf = self
         
         SceneManager.scene = scene
         SceneManager.pitchGrid = PitchGrid()
-        SceneManager.audioManager = AudioManager()
-        trackManager = TrackManager()
+        let _ = AudioManager()
+        let _ = TrackManager()
     }
     
-    func run() {
-        SceneManager.audioManager!.start()
+    static func run() {
+        AudioManager.start()
     }
 }

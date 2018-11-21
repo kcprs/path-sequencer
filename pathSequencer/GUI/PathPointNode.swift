@@ -8,11 +8,7 @@
 
 import SpriteKit
 
-class PathPointNode: SKNode {
-    
-    private var visibleNode: SKShapeNode!
-    private var parentPath: SequencerPath!
-    
+class PathPointNode: NodeOnSequencerPath {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -20,41 +16,21 @@ class PathPointNode: SKNode {
     override init() {
         super.init()
         visibleNode = SKShapeNode(circleOfRadius: 30)
-        self.addChild(visibleNode)
         
         self.isUserInteractionEnabled = true
+        self.zPosition = 2
     }
     
-    func setParentPath(_ parentPath: SequencerPath) {
-        self.parentPath = parentPath
-    }
-    
-    private func touchDown(atPoint pos: CGPoint) {
+    override func touchDown(atPoint pos: CGPoint) {
         parentPath.saveProgress(node: self)
     }
     
-    private func touchMoved(toPoint pos: CGPoint) {
+    override func touchMoved(toPoint pos: CGPoint) {
         self.position = pos
-        parentPath.update(node: self)
+        parentPath.updateAfterNodeMoved(node: self)
     }
     
-    private func touchUp(atPoint pos: CGPoint) {
+    override func touchUp(atPoint pos: CGPoint) {
         parentPath.resumeMovement()
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchDown(atPoint: t.location(in: self.scene!)) }
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self.scene!)) }
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self.scene!)) }
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self.scene!)) }
     }
 }

@@ -26,11 +26,11 @@ class GameScene: SKScene {
         cam.zPosition = 2 // Keep camera above other nodes
         self.addChild(cam)
         
-        trackIconGroupNode = TrackIconGroupNode(sceneManager.trackManager)
+        trackIconGroupNode = TrackIconGroupNode(TrackManager.staticSelf!)
         trackIconGroupNode.position = CGPoint(x: 0, y: -self.size.height / 2 + 20)
         cam.addChild(trackIconGroupNode)
 
-        sceneManager.run()
+        SceneManager.run()
     }
     
     private func touchDown(atPoint pos: CGPoint) {

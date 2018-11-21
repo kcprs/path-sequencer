@@ -11,8 +11,9 @@ import SpriteKit
 class SequencerPath: SKNode {
     let track: Track!
     private var pathNode: SKShapeNode!
-    private var cursor: CursorNode!  // TODO: Have an array of these?
+    private var cursor: CursorNode!
     private var pathPointNodes: Array<PathPointNode>!
+    private var pathAddPointNodes: Array<PathAddPointNode>!
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -22,16 +23,17 @@ class SequencerPath: SKNode {
         self.track = track
         super.init()
         pathPointNodes = Array<PathPointNode>()
+        pathAddPointNodes = Array<PathAddPointNode>()
         
         pathNode = SKShapeNode()
-        pathNode.lineWidth = 1
-        pathNode.strokeColor = .white
         self.addChild(pathNode)
         
         for _ in 1...3 {
-            let pointNode = PathPointNode()
-            addPoint(pointNode)
+            let point = PathPointNode()
+            addPointNode(point)
         }
+        
+        recomputeAddPointNodes()
         
         let scene = SceneManager.scene!
         scene.addChild(self)
@@ -39,6 +41,56 @@ class SequencerPath: SKNode {
         
         let cursor = CursorNode(onPath: self)
         cursor.resumeMovement()
+    }
+    
+    private func addPointNode(_ node: NodeOnSequencerPath, index: Int = -1) {
+        node.parentPath = self
+        self.addChild(node)
+        
+        if node is PathPointNode {
+            if index < 0 {
+                pathPointNodes.append(node as! PathPointNode)
+            } else {
+                pathPointNodes.insert(node as! PathPointNode, at: index)
+            }
+        } else if node is PathAddPointNode {
+            if index < 0 {
+                pathAddPointNodes.append(node as! PathAddPointNode)
+            } else {
+                pathAddPointNodes.insert(node as! PathAddPointNode, at: index)
+            }
+            (node as! PathAddPointNode).updatePosition()
+        }
+        
+        node.updateSelection()
+    }
+    
+    func addNewPoint(from node: PathAddPointNode) {
+        let point = PathPointNode()
+        point.position = node.position
+        let index = pathPointNodes.index(of: node.afterPoint)
+        
+        self.addPointNode(point, index: index!)
+        
+        updatePathNode()
+        recomputeAddPointNodes()
+    }
+    
+    private func recomputeAddPointNodes() {
+        for node in pathAddPointNodes {
+            node.removeFromParent()
+        }
+        
+        pathAddPointNodes = Array<PathAddPointNode>()
+        
+        let count = pathPointNodes.count
+        for i in 0..<count {
+            let before = pathPointNodes[i]
+            let after = pathPointNodes[(i + 1) % count]
+            let addPoint = PathAddPointNode(beforePoint: before, afterPoint: after)
+            
+            addPointNode(addPoint)
+        }
     }
     
     private func updatePathNode() {
@@ -54,11 +106,27 @@ class SequencerPath: SKNode {
         pathNode.path = path
     }
     
-    func update(node: PathPointNode) {
+    func updateAfterNodeMoved(node: PathPointNode) {
         updatePathNode()
 
         if cursor.isNextTo(node: node) {
             cursor.updatePosition()
+        }
+        
+        for addPointNode in pathAddPointNodes {
+            if node == addPointNode.beforePoint || node == addPointNode.afterPoint {
+                addPointNode.updatePosition()
+            }
+        }
+    }
+    
+    func updateSelection() {
+        for pointNode in pathPointNodes {
+            pointNode.updateSelection()
+        }
+        
+        for addPointNode in pathAddPointNodes {
+            addPointNode.updateSelection()
         }
     }
     
@@ -73,6 +141,7 @@ class SequencerPath: SKNode {
         }
         
         updatePathNode()
+        recomputeAddPointNodes()
     }
     
     func scatterRandomly(centre: CGPoint, range: CGSize) {
@@ -82,13 +151,6 @@ class SequencerPath: SKNode {
     func addCursor(_ cursor: CursorNode) {
         self.cursor = cursor
         self.addChild(cursor)
-    }
-    
-    func addPoint(_ point: PathPointNode) {
-        self.addChild(point)
-        point.zPosition = 1  // Make sure the point is above other elements for touch accessibility
-        pathPointNodes.append(point)
-        point.setParentPath(self)
     }
     
     func saveProgress(node: PathPointNode) {

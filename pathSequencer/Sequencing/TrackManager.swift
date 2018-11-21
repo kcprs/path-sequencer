@@ -8,16 +8,26 @@
 import SpriteKit
 
 class TrackManager {
-    private var tracks: Array<Track>!
-    var selectedTrack: Track?
-    
-    init() {
-        tracks = Array<Track>()
+    static var staticSelf: TrackManager? = nil
+    private static var tracks: [Track] = []
+    static var selectedTrack: Track? {
+        willSet {
+            for track in tracks {
+                track.isSelected = false
+            }
+        }
     }
     
-    func addNewTrack() -> Track {
+    init() {
+        if TrackManager.staticSelf != nil {
+            fatalError("There can only be one TrackManager")
+        }
+        TrackManager.staticSelf = self
+    }
+    
+    static func addNewTrack() -> Track {
         let track = Track()
-        tracks.append(track)
+        TrackManager.tracks.append(track)
         return track
     }
 }
