@@ -1,5 +1,5 @@
 //
-//  SynthModule.swift
+//  SoundModule.swift
 //  pathSequencer
 //
 //  Created by Kacper Sagnowski on 11/14/18.
@@ -8,7 +8,7 @@
 
 import AudioKit
 
-class SynthModule {
+class SoundModule {
     private var oscBank: AKMorphingOscillatorBank!
     private var filter: AKLowPassFilter!
     private var waveforms: Array<AKTable>!
@@ -18,12 +18,12 @@ class SynthModule {
     private var quantisePitch = true
     
     // GUI-controlled parameters
-    var attack: GUIContinuousParameter!
-    var hold: GUIContinuousParameter!
-    var decay: GUIContinuousParameter!
-    var wavetableIndex: GUIContinuousParameter!
-    var filterCutoff: GUIContinuousParameter!
-    var pitchQuantisation: GUIDiscreteParameter<Bool>!
+    var attack: ContinuousParameter!
+    var hold: ContinuousParameter!
+    var decay: ContinuousParameter!
+    var wavetableIndex: ContinuousParameter!
+    var filterCutoff: ContinuousParameter!
+    var pitchQuantisation: DiscreteParameter<Bool>!
     
     init() {
         notesPlaying = Array<MIDINoteNumber>()
@@ -40,28 +40,30 @@ class SynthModule {
         
         oscBank.connect(to: filter)
         
-        attack = GUIContinuousParameter(label: "Attack Time", minValue: 0.01, maxValue: 1,
+        SceneManager.audioManager!.addSoundModule(self)
+        
+        attack = ContinuousParameter(label: "Attack Time", minValue: 0.01, maxValue: 1,
                                         setClosure: {(newValue: Double) in self.oscBank.attackDuration = newValue},
                                         getClosure: {() -> Double in return self.oscBank.attackDuration},
                                         displayUnit: "s")
-        hold = GUIContinuousParameter(label: "Hold Time", minValue: 0.01, maxValue: 1,
+        hold = ContinuousParameter(label: "Hold Time", minValue: 0.01, maxValue: 1,
                                       setClosure: {(newValue: Double) in self.holdTime = newValue},
                                       getClosure: {() -> Double in return self.holdTime},
                                       displayUnit: "s")
-        decay = GUIContinuousParameter(label: "Decay Time", minValue: 0.01, maxValue: 1,
+        decay = ContinuousParameter(label: "Decay Time", minValue: 0.01, maxValue: 1,
                                        setClosure: {(newValue: Double) in
                                         self.oscBank.decayDuration = newValue
                                         self.oscBank.releaseDuration = newValue},
                                        getClosure: {() -> Double in return self.oscBank.decayDuration},
                                        displayUnit: "s")
-        wavetableIndex = GUIContinuousParameter(label: "Wavetable Index", minValue: 0, maxValue: 1,
+        wavetableIndex = ContinuousParameter(label: "Wavetable Index", minValue: 0, maxValue: 1,
                                                 setClosure: {(newValue: Double) in self.oscBank.index = newValue * (self.waveforms.count - 1)},
                                                 getClosure: {() -> Double in return self.oscBank.index / (self.waveforms.count - 1)})
-        filterCutoff = GUIContinuousParameter(label: "Filter Cutoff", minValue: 20, maxValue: 20000,
+        filterCutoff = ContinuousParameter(label: "Filter Cutoff", minValue: 20, maxValue: 20000,
                                               setClosure: {(newValue: Double) in self.filter.cutoffFrequency = newValue},
                                               getClosure: { () -> Double in return self.filter.cutoffFrequency},
                                               displayUnit: "Hz")
-        pitchQuantisation = GUIDiscreteParameter(label: "Pitch Quantisation",
+        pitchQuantisation = DiscreteParameter(label: "Pitch Quantisation",
                                                  setClosure: {(newValue: Bool) in self.quantisePitch = newValue},
                                                  getClosure: {() -> Bool in return self.quantisePitch})
         pitchQuantisation.addValue(value: true, valueLabel: "On")

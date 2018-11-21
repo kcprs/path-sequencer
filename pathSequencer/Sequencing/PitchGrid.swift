@@ -10,22 +10,20 @@ import SpriteKit
 import AudioKit
 
 class PitchGrid {
-    private let parentScene: SKScene!
+    private static var staticSelf: PitchGrid? = nil
     private var pitchLabels: Array<SKLabelNode>!
     private var topNote = 108  // MIDI pitch
     private var bottomNote = 21  // MIDI pitch
-    private var yGap: Int = 40
+    private let yGap: Int = 40
     
-    init(inScene parent: SKScene) {
-        self.parentScene = parent
+    init() {
+        if PitchGrid.staticSelf != nil {
+            fatalError("There can only be one PitchGrid")
+        }
         
-        setUpPitchLabels()
-    }
-    
-    private func setUpPitchLabels() {
         pitchLabels = Array<SKLabelNode>()
         
-        let xPos =  -parentScene.size.width / 2 + 10
+        let xPos =  -SceneManager.scene!.size.width / 2 + 10
         
         for note in bottomNote...topNote {
             let labelNode = SKLabelNode(text: MidiUtil.noteToName(midiPitch: MIDINoteNumber(note)))
@@ -35,7 +33,7 @@ class PitchGrid {
             
             labelNode.position = CGPoint(x: xPos, y: CGFloat(yPos))
             labelNode.horizontalAlignmentMode = .left
-            parentScene.addChild(labelNode)
+            SceneManager.scene!.addChild(labelNode)
         }
     }
     
@@ -48,11 +46,9 @@ class PitchGrid {
     }
     
     func getFreqAt(node: SKNode) -> Double {
-        let position = parentScene.convert(node.position, from: node.parent!)
+        let position = SceneManager.scene!.convert(node.position, from: node.parent!)
         let proportion = Float(position.y)/Float(yGap * (topNote - bottomNote))
         let note = proportion * Float(topNote - bottomNote) + Float(bottomNote)
         return MidiUtil.noteToFreq(midiPitch: note)
     }
-    
-    
 }

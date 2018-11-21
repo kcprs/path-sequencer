@@ -1,5 +1,5 @@
 //
-//  PathIconGroupNode.swift
+//  TrackIconGroupNode.swift
 //  pathSequencer
 //
 //  Created by Kacper Sagnowski on 11/20/18.
@@ -8,29 +8,31 @@
 
 import SpriteKit
 
-class PathIconGroupNode: SKNode {
-    private var icons: Array<PathIconNode>!
+class TrackIconGroupNode: SKNode {
+    private let trackManager: TrackManager!
+    private var icons: Array<TrackIconNode>!
     private var width: CGFloat = 0
-    private var addNewButton: SKShapeNode!
+    private var addNewTrackButton: SKShapeNode! // TODO: Make into a SpriteNode, add custom graphic
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override init() {
-        icons = Array<PathIconNode>()
-        addNewButton = SKShapeNode(rectOf: CGSize(width: 50, height: 50))
-        width = 50
+    init(_ manager: TrackManager) {
+        self.trackManager = manager
+        icons = Array<TrackIconNode>()
+        addNewTrackButton = SKShapeNode(rectOf: CGSize(width: 50, height: 50))
+        width = 50 // TODO: get from addNewTrackButton when it's changed into a SpriteNode
         
         super.init()
         
-        addNewButton.fillColor = .magenta
-        self.addChild(addNewButton)
+        addNewTrackButton.fillColor = .magenta
+        self.addChild(addNewTrackButton)
         
         self.isUserInteractionEnabled = true
     }
     
-    func addIcon(_ icon: PathIconNode) {
+    private func addIcon(_ icon: TrackIconNode) {
         icons.append(icon)
         icon.position = CGPoint(x: width - 50, y: 0)
         self.addChild(icon)
@@ -41,18 +43,11 @@ class PathIconGroupNode: SKNode {
     
     private func updatePosition() {
         self.run(SKAction.move(to: CGPoint(x: -width / 2, y: self.position.y), duration: 0.5))
-        addNewButton.run(SKAction.move(to: CGPoint(x: width - 25, y: 0), duration: 0.25))
-    }
-    
-    private func createNewPath() {
-        let gameScene = scene as! GameScene
-        gameScene.addPathWithCursor()
+        addNewTrackButton.run(SKAction.move(to: CGPoint(x: width - 25, y: 0), duration: 0.25))
     }
     
     private func touchDown(atPoint pos: CGPoint) {
-        if self.scene!.nodes(at: pos).contains(addNewButton) {
-            createNewPath()
-        }
+        
     }
     
     private func touchMoved(toPoint pos: CGPoint) {
@@ -60,7 +55,10 @@ class PathIconGroupNode: SKNode {
     }
     
     private func touchUp(atPoint pos: CGPoint) {
-
+        if self.scene!.nodes(at: pos).contains(addNewTrackButton) {
+            let track = trackManager.addNewTrack()
+            addIcon(TrackIconNode(for: track))  // TODO
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

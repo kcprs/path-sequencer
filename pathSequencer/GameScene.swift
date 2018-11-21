@@ -10,43 +10,27 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
-    private var audioManager: AudioManager!
-    private var pitchGrid: PitchGrid!
+    // Should only contain graphical elements and the SceneManager
+    private var sceneManager: SceneManager!
     private var cam: SKCameraNode!
     private var touchedPoint: CGPoint?
-    private var pathIconGroupNode: PathIconGroupNode!
+    private var trackIconGroupNode: TrackIconGroupNode!
     
     override func didMove(to view: SKView) {
         // Set up the scene
-        audioManager = AudioManager()
-        pitchGrid = PitchGrid(inScene: self)
+        sceneManager = SceneManager(for: self)
 
         cam = SKCameraNode()
         self.camera = cam
-        cam.position = CGPoint(x: 0, y: pitchGrid.getCentreY())
+        cam.position = CGPoint(x: 0, y: SceneManager.pitchGrid!.getCentreY())
         cam.zPosition = 2 // Keep camera above other nodes
         self.addChild(cam)
         
-        pathIconGroupNode = PathIconGroupNode()
-        pathIconGroupNode.position = CGPoint(x: 0, y: -self.size.height / 2 + 20)
-        cam.addChild(pathIconGroupNode)
-        
+        trackIconGroupNode = TrackIconGroupNode(sceneManager.trackManager)
+        trackIconGroupNode.position = CGPoint(x: 0, y: -self.size.height / 2 + 20)
+        cam.addChild(trackIconGroupNode)
 
-        audioManager.start()
-    }
-    
-    func addPathWithCursor() {
-        let path = CursorPath(nodeCount: 3)
-        self.addChild(path)
-        path.assignPitchGrid(pitchGrid)
-        path.scatterRandomly(centre: cam.position, range: self.size)
-        
-        let cursor = AudioCursor(onPath: path)
-        audioManager.addAudioCursor(cursor)
-        cursor.resumeMovement()
-        
-        let pathIcon = PathIconNode(path: path)
-        pathIconGroupNode.addIcon(pathIcon)
+        sceneManager.run()
     }
     
     private func touchDown(atPoint pos: CGPoint) {
@@ -62,7 +46,7 @@ class GameScene: SKScene {
     }
     
     private func setCamPosition(_ newPosition: CGFloat) {
-        cam.position = CGPoint(x: 0, y: max(self.size.height / 2, min(pitchGrid.getHeight() - self.size.height, newPosition)))
+        cam.position = CGPoint(x: 0, y: max(self.size.height / 2, min(SceneManager.pitchGrid!.getHeight() - self.size.height, newPosition)))
     }
     
     func touchUp(atPoint pos: CGPoint) {
@@ -87,24 +71,5 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
-    }
-}
-
-// Adapted from example by Alessandro Ornano
-// https://stackoverflow.com/questions/29627613/skaction-completion-handlers-usage-in-swift
-extension SKNode
-{
-    func run(_ action: SKAction!, withKey: String!, optionalCompletion: Optional<() -> Void>)
-    {
-        if let completion = optionalCompletion
-        {
-            let completionAction = SKAction.run(completion)
-            let compositeAction = SKAction.sequence([action, completionAction])
-            run(compositeAction, withKey: withKey)
-        }
-        else
-        {
-            run(action, withKey: withKey)
-        }
     }
 }

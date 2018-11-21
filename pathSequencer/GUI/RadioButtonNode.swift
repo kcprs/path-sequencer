@@ -9,7 +9,7 @@
 import SpriteKit
 
 class RadioButtonNode: SKNode {
-    private let parameter: GUIDiscreteParameter<Bool>!
+    private let parameter: DiscreteParameter<Bool>!
     private let outerCircle: SKShapeNode!
     private let innerCircle: SKShapeNode!
     private let diameter: CGFloat = 25
@@ -20,14 +20,14 @@ class RadioButtonNode: SKNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(parameter: GUIDiscreteParameter<Bool>) {
+    init(parameter: DiscreteParameter<Bool>) {
         if parameter.valueCount != 2 {
             fatalError("RadioButton can only have two states")
         }
         
         self.parameter = parameter
         self.outerCircle = SKShapeNode(circleOfRadius: diameter / 2)
-        self.innerCircle = SKShapeNode(circleOfRadius: 0.8 * diameter / 2)
+        self.innerCircle = SKShapeNode(circleOfRadius: 0.7 * diameter / 2)
         self.label = SKLabelNode()
         
         super.init()

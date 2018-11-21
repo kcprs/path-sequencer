@@ -1,5 +1,5 @@
 //
-//  GUIDiscreteParameter.swift
+//  DiscreteParameter.swift
 //  pathSequencer
 //
 //  Created by Kacper Sagnowski on 11/20/18.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class GUIDiscreteParameter<T: Equatable & Hashable> {
+class DiscreteParameter<T: Equatable & Hashable> {
     private var values: Array<T>!
     private var valueLabels: Dictionary<T, String>!
     private let setClosure: (T) -> Void

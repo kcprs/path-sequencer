@@ -1,45 +1,53 @@
 //
-//  PathPointNode.swift
+//  TrackIconNode.swift
 //  pathSequencer
 //
-//  Created by Kacper Sagnowski on 11/15/18.
+//  Created by Kacper Sagnowski on 11/16/18.
 //  Copyright © 2018 Kacper Sagnowski. All rights reserved.
 //
 
 import SpriteKit
 
-class PathPointNode: SKNode {
-    
-    private var visibleNode: SKShapeNode!
-    private var parentPath: CursorPath!
+class TrackIconNode: SKNode {
+    private var track: Track!
+    private var controlPanel: SoundControlPanelNode?
+    private var label: SKLabelNode!
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override init() {
+    init(for track: Track) {
         super.init()
-        visibleNode = SKShapeNode(circleOfRadius: 30)
-        self.addChild(visibleNode)
         
+        self.track = track
         self.isUserInteractionEnabled = true
+        
+        label = SKLabelNode(text: "TrackIcon")
+        label.verticalAlignmentMode = .center
+        label.horizontalAlignmentMode = .left
+        self.addChild(label)
     }
     
-    func setParentPath(_ parentPath: CursorPath) {
-        self.parentPath = parentPath
+    func getWidth() -> CGFloat {
+        return label.frame.width
     }
     
     private func touchDown(atPoint pos: CGPoint) {
-        parentPath.saveProgress(node: self)
+        
     }
     
     private func touchMoved(toPoint pos: CGPoint) {
-        self.position = pos
-        parentPath.update(node: self)
+
     }
     
     private func touchUp(atPoint pos: CGPoint) {
-        parentPath.resumeMovement()
+        if controlPanel == nil {
+            controlPanel = SoundControlPanelNode(for: track.soundModule)
+        } else {
+            controlPanel!.close()
+            controlPanel = nil
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

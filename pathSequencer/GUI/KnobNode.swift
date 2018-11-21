@@ -9,7 +9,7 @@
 import SpriteKit
 
 class KnobNode: SKNode {
-    private let parameter: GUIContinuousParameter!
+    private let parameter: ContinuousParameter!
     private let circle: SKShapeNode!
     private let notch: SKShapeNode!
     private let knobRoot: SKNode!
@@ -37,7 +37,7 @@ class KnobNode: SKNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(parameter: GUIContinuousParameter, isLogarithmic: Bool) {
+    init(parameter: ContinuousParameter, isLogarithmic: Bool) {
         self.parameter = parameter
         self.isLogarithmic = isLogarithmic
         self.knobRoot = SKNode()
@@ -65,7 +65,7 @@ class KnobNode: SKNode {
         updateSelfFromParameterValue()
     }
     
-    convenience init(parameter: GUIContinuousParameter) {
+    convenience init(parameter: ContinuousParameter) {
         self.init(parameter: parameter, isLogarithmic: false)
     }
     

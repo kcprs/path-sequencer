@@ -1,53 +1,45 @@
 //
-//  PathIconNode.swift
+//  PathPointNode.swift
 //  pathSequencer
 //
-//  Created by Kacper Sagnowski on 11/16/18.
+//  Created by Kacper Sagnowski on 11/15/18.
 //  Copyright © 2018 Kacper Sagnowski. All rights reserved.
 //
 
 import SpriteKit
 
-class PathIconNode: SKNode {
-    private var path: CursorPath!
-    private var controlPanel: SynthControlPanelNode?
-    private var label: SKLabelNode!
+class PathPointNode: SKNode {
+    
+    private var visibleNode: SKShapeNode!
+    private var parentPath: SequencerPath!
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(path: CursorPath) {
+    override init() {
         super.init()
+        visibleNode = SKShapeNode(circleOfRadius: 30)
+        self.addChild(visibleNode)
         
-        self.path = path
         self.isUserInteractionEnabled = true
-        
-        label = SKLabelNode(text: "PathIcon")
-        label.verticalAlignmentMode = .center
-        label.horizontalAlignmentMode = .left
-        self.addChild(label)
     }
     
-    func getWidth() -> CGFloat {
-        return label.frame.width
+    func setParentPath(_ parentPath: SequencerPath) {
+        self.parentPath = parentPath
     }
     
     private func touchDown(atPoint pos: CGPoint) {
-        
+        parentPath.saveProgress(node: self)
     }
     
     private func touchMoved(toPoint pos: CGPoint) {
-
+        self.position = pos
+        parentPath.update(node: self)
     }
     
     private func touchUp(atPoint pos: CGPoint) {
-        if controlPanel == nil {
-            controlPanel = SynthControlPanelNode(parentScene: self.scene!, synthModule: path.getSynthModule())
-        } else {
-            controlPanel!.close()
-            controlPanel = nil
-        }
+        parentPath.resumeMovement()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

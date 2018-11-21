@@ -1,5 +1,5 @@
 //
-//  AudioCursor.swift
+//  CursorNode.swift
 //  pathSequencer
 //
 //  Created by Kacper Sagnowski on 10/30/18.
@@ -9,12 +9,11 @@
 import SpriteKit
 import AudioKit
 
-class AudioCursor: SKNode {
+class CursorNode: SKNode {
     private var visibleNode: SKShapeNode!
     private var cursorSpeed: CGFloat = 100
     private var moveProgress: CGFloat = 0
-    private var synthModule: SynthModule! // TODO: move synthModule to CursorPath
-    private var parentPath: CursorPath!
+    private var parentPath: SequencerPath!
     private var fromNode: PathPointNode!
     private var toNode: PathPointNode!
     
@@ -22,22 +21,17 @@ class AudioCursor: SKNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(onPath parentPath: CursorPath) {
+    init(onPath parentPath: SequencerPath) {
         super.init()
         self.parentPath = parentPath
         parentPath.addCursor(self)
         fromNode = parentPath.getStartNode()
         toNode = parentPath.getNextTarget(fromNode: fromNode)
-        synthModule = SynthModule()
         
         visibleNode = SKShapeNode(rectOf: CGSize(width: 30, height: 30))
         self.addChild(visibleNode)
         
         updatePosition()
-    }
-    
-    func startAudio() {
-        synthModule.start()
     }
     
     func saveProgress() {
@@ -71,7 +65,8 @@ class AudioCursor: SKNode {
     }
     
     private func targetReached() {
-        triggerSound(atNode: toNode)
+        let frequency = SceneManager.pitchGrid!.getFreqAt(node: self)
+        parentPath.track.soundModule.trigger(freq: frequency)
         
         fromNode = toNode
         toNode = parentPath.getNextTarget(fromNode: fromNode)
@@ -83,24 +78,29 @@ class AudioCursor: SKNode {
         self.run(SKAction.follow(path, asOffset: false, orientToPath: true, speed: cursorSpeed), withKey: "move", optionalCompletion: targetReached)
     }
     
-    private func triggerSound(atNode node: PathPointNode) {
-        let frequency = parentPath.getFreqAtNode(node: node)
-        synthModule.trigger(freq: frequency)
-    }
-    
-    func connectAudio(to inputNode: AKInput) {
-        synthModule.connect(to: inputNode)
-    }
-    
     func isNextTo(node: PathPointNode) -> Bool {
         if node == fromNode || node == toNode {
             return true
         }
-        
         return false
     }
-    
-    func getSynthModule() -> SynthModule {
-        return synthModule
+}
+
+// Adapted from example by Alessandro Ornano
+// https://stackoverflow.com/questions/29627613/skaction-completion-handlers-usage-in-swift
+extension SKNode
+{
+    func run(_ action: SKAction!, withKey: String!, optionalCompletion: Optional<() -> Void>)
+    {
+        if let completion = optionalCompletion
+        {
+            let completionAction = SKAction.run(completion)
+            let compositeAction = SKAction.sequence([action, completionAction])
+            run(compositeAction, withKey: withKey)
+        }
+        else
+        {
+            run(action, withKey: withKey)
+        }
     }
 }

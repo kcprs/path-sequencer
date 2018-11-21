@@ -1,5 +1,5 @@
 //
-//  CursorPath.swift
+//  SequencerPath.swift
 //  pathSequencer
 //
 //  Created by Kacper Sagnowski on 11/1/18.
@@ -8,17 +8,18 @@
 
 import SpriteKit
 
-class CursorPath: SKNode {
+class SequencerPath: SKNode {
+    let track: Track!
     private var pathNode: SKShapeNode!
-    private var pitchGrid: PitchGrid!
-    private var audioCursor: AudioCursor!  // TODO: Have an array of these?
+    private var cursor: CursorNode!  // TODO: Have an array of these?
     private var pathPointNodes: Array<PathPointNode>!
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(nodeCount: Int) {
+    init(for track: Track) {
+        self.track = track
         super.init()
         pathPointNodes = Array<PathPointNode>()
         
@@ -27,14 +28,17 @@ class CursorPath: SKNode {
         pathNode.strokeColor = .white
         self.addChild(pathNode)
         
-        for _ in 1...nodeCount {
+        for _ in 1...3 {
             let pointNode = PathPointNode()
             addPoint(pointNode)
         }
-    }
-    
-    func assignPitchGrid(_ pitchGrid: PitchGrid) {
-        self.pitchGrid = pitchGrid
+        
+        let scene = SceneManager.scene!
+        scene.addChild(self)
+        scatterRandomly(centre: scene.camera!.position, range: scene.size)
+        
+        let cursor = CursorNode(onPath: self)
+        cursor.resumeMovement()
     }
     
     private func updatePathNode() {
@@ -53,8 +57,8 @@ class CursorPath: SKNode {
     func update(node: PathPointNode) {
         updatePathNode()
 
-        if audioCursor.isNextTo(node: node) {
-            audioCursor.updatePosition()
+        if cursor.isNextTo(node: node) {
+            cursor.updatePosition()
         }
     }
     
@@ -75,12 +79,8 @@ class CursorPath: SKNode {
         scatterRandomly(xMin: centre.x - range.width / 2, yMin: centre.y - range.height / 2, xMax: centre.x + range.width / 2, yMax: centre.y + range.height / 2)
     }
     
-    func getFreqAtNode(node: SKNode) -> Double {
-        return pitchGrid.getFreqAt(node: node)
-    }
-    
-    func addCursor(_ cursor: AudioCursor) {
-        audioCursor = cursor
+    func addCursor(_ cursor: CursorNode) {
+        self.cursor = cursor
         self.addChild(cursor)
     }
     
@@ -92,13 +92,13 @@ class CursorPath: SKNode {
     }
     
     func saveProgress(node: PathPointNode) {
-        if audioCursor.isNextTo(node: node) {
-            audioCursor.saveProgress()
+        if cursor.isNextTo(node: node) {
+            cursor.saveProgress()
         }
     }
     
     func resumeMovement() {
-        audioCursor.resumeMovement()
+        cursor.resumeMovement()
     }
     
     func getNextTarget(fromNode: PathPointNode) -> PathPointNode {
@@ -108,9 +108,5 @@ class CursorPath: SKNode {
     
     func getStartNode() -> PathPointNode {
         return pathPointNodes[0]
-    }
-    
-    func getSynthModule() -> SynthModule {
-        return audioCursor.getSynthModule()
     }
 }

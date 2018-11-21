@@ -1,5 +1,5 @@
 //
-//  GUIContinuousParameter.swift
+//  ContinuousParameter.swift
 //  pathSequencer
 //
 //  Created by Kacper Sagnowski on 11/20/18.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class GUIContinuousParameter {
+class ContinuousParameter {
     private let maxValue: Double!
     private let minValue: Double!
     private let setClosure: (Double) -> Void
