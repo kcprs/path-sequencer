@@ -23,7 +23,7 @@ class GameScene: SKScene {
         cam = SKCameraNode()
         self.camera = cam
         cam.position = CGPoint(x: 0, y: SceneManager.pitchGrid!.getCentreY())
-        cam.zPosition = 2 // Keep camera above other nodes
+        cam.zPosition = 100 // Keep camera above other nodes
         self.addChild(cam)
         
         trackIconGroupNode = TrackIconGroupNode(TrackManager.staticSelf!)

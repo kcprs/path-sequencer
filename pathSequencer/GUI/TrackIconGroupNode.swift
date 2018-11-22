@@ -57,7 +57,7 @@ class TrackIconGroupNode: SKNode {
     private func touchUp(atPoint pos: CGPoint) {
         if self.scene!.nodes(at: pos).contains(addNewTrackButton) {
             let track = TrackManager.addNewTrack()
-            addIcon(TrackIconNode(for: track))  // TODO
+            addIcon(TrackIconNode(for: track))
         }
     }
     

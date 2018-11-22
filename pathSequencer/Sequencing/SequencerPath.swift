@@ -14,6 +14,11 @@ class SequencerPath: SKNode {
     private var cursor: CursorNode!
     private var pathPointNodes: Array<PathPointNode>!
     private var pathAddPointNodes: Array<PathAddPointNode>!
+    var centre: CGPoint {
+        let x = self.pathNode.frame.midX
+        let y = self.pathNode.frame.midY
+        return CGPoint(x: x, y: y)
+    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -121,6 +126,12 @@ class SequencerPath: SKNode {
     }
     
     func updateSelection() {
+        if track.isSelected {
+            self.pathNode.run(SKAction.fadeAlpha(to: 1, duration: 0.5))
+        } else {
+            self.pathNode.run(SKAction.fadeAlpha(to: 0.2, duration: 0.5))
+        }
+        
         for pointNode in pathPointNodes {
             pointNode.updateSelection()
         }
@@ -135,9 +146,9 @@ class SequencerPath: SKNode {
             let x = xMin + CGFloat(drand48()) * (xMax - xMin)
             let y = yMin + CGFloat(drand48()) * (yMax - yMin)
 
-            let newPosition = pointNode.scene?.convert(CGPoint(x: x, y: y), to: pointNode.parent!)
+            let newPosition = SceneManager.scene!.convert(CGPoint(x: x, y: y), to: pointNode.parent!)
             
-            pointNode.position = newPosition!
+            pointNode.position = newPosition
         }
         
         updatePathNode()

@@ -15,8 +15,9 @@ class NodeOnSequencerPath: SKNode {
     func updateSelection() {
         if parentPath.track.isSelected && !children.contains(visibleNode) {
             self.addChild(visibleNode)
+            self.run(SKAction.fadeIn(withDuration: 0.4))
         } else if children.contains(visibleNode) {
-            visibleNode.removeFromParent()
+            self.run(SKAction.fadeOut(withDuration: 0.4), completion: visibleNode.removeFromParent)
         }
     }
     

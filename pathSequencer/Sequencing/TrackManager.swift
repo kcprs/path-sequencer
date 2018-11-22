@@ -25,9 +25,12 @@ class TrackManager {
         TrackManager.staticSelf = self
     }
     
-    static func addNewTrack() -> Track {
+    static func addNewTrack(select: Bool = true) -> Track {
         let track = Track()
         TrackManager.tracks.append(track)
+        if select {
+            track.isSelected = true
+        }
         return track
     }
 }

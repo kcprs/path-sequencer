@@ -28,6 +28,8 @@ class TrackIconNode: SKNode {
         label.verticalAlignmentMode = .center
         label.horizontalAlignmentMode = .left
         self.addChild(label)
+        
+        self.update()
     }
     
     func getWidth() -> CGFloat {

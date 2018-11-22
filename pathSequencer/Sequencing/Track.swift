@@ -6,7 +6,7 @@
 //  Copyright © 2018 Kacper Sagnowski. All rights reserved.
 //
 
-import Foundation
+import SpriteKit
 
 class Track {
     var soundModule: SoundModule!
@@ -24,8 +24,11 @@ class Track {
         }
         
         didSet {
-            icon!.update()
+            if icon != nil {
+                icon!.update()
+            }
             sequencerPath.updateSelection()
+            SceneManager.scene!.camera!.run(SKAction.move(to: CGPoint(x: 0, y: sequencerPath.convert(sequencerPath.centre, to: SceneManager.scene!).y), duration: 0.2))
         }
     }
     
