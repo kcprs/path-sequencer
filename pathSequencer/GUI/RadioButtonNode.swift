@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class RadioButtonNode: SKNode {
+class RadioButtonNode: TouchableNode {
     private let parameter: DiscreteParameter<Bool>!
     private let outerCircle: SKShapeNode!
     private let innerCircle: SKShapeNode!
@@ -40,8 +40,6 @@ class RadioButtonNode: SKNode {
         label.fontSize = 20
         self.addChild(label)
         
-        self.isUserInteractionEnabled = true
-        
         updateSelfFromParameterValue()
     }
     
@@ -70,31 +68,8 @@ class RadioButtonNode: SKNode {
         label.text = parameter.label + valueLabel
     }
     
-    private func touchDown(atPoint pos: CGPoint) {
-        
-    }
-    
-    private func touchMoved(toPoint pos: CGPoint) {
-
-    }
-    
-    private func touchUp(atPoint pos: CGPoint) {
+    override func touchUp(at pos: CGPoint) {
         updateParameterValue()
     }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchDown(atPoint: t.location(in: self.scene!)) }
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self.scene!)) }
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self.scene!)) }
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self.scene!)) }
-    }
+
 }

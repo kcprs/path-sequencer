@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class Track {
+class Track: Equatable {
     var soundModule: SoundModule!
     private var sequencerPath: SequencerPath!
     var icon: TrackIconNode?
@@ -25,15 +25,24 @@ class Track {
         
         didSet {
             if icon != nil {
-                icon!.update()
+                icon!.updateSelection()
             }
             sequencerPath.updateSelection()
-            SceneManager.scene!.camera!.run(SKAction.move(to: CGPoint(x: 0, y: sequencerPath.convert(sequencerPath.centre, to: SceneManager.scene!).y), duration: 0.2))
+            SceneManager.scene!.setCamYPosition(sequencerPath.convert(sequencerPath.centre, to: SceneManager.scene!).y, duration: 0.5)
         }
     }
     
     init() {
         soundModule = SoundModule()
         sequencerPath = SequencerPath(for: self)
+    }
+    
+    func delete() {
+        AudioManager.removeSoundModule(soundModule)
+        sequencerPath.delete()
+    }
+    
+    static func == (lhs: Track, rhs: Track) -> Bool {
+        return lhs === rhs
     }
 }

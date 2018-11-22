@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class KnobNode: SKNode {
+class KnobNode: TouchableNode {
     private let parameter: ContinuousParameter!
     private let circle: SKShapeNode!
     private let notch: SKShapeNode!
@@ -60,8 +60,6 @@ class KnobNode: SKNode {
         updateLabel()
         self.addChild(label)
         
-        self.isUserInteractionEnabled = true
-        
         updateSelfFromParameterValue()
     }
     
@@ -95,11 +93,11 @@ class KnobNode: SKNode {
         }
     }
     
-    private func touchDown(atPoint pos: CGPoint) {
+    override func touchDown(at pos: CGPoint) {
         lastTouchPos = pos
     }
     
-    private func touchMoved(toPoint pos: CGPoint) {
+    override func touchMoved(to pos: CGPoint) {
         if lastTouchPos != nil {
             let increment = Double(pos.y - lastTouchPos!.y) / sensitivity
             proportion += increment
@@ -108,23 +106,7 @@ class KnobNode: SKNode {
         }
     }
     
-    private func touchUp(atPoint pos: CGPoint) {
+    override func touchUp(at pos: CGPoint) {
         lastTouchPos = nil
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchDown(atPoint: t.location(in: self.scene!)) }
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self.scene!)) }
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self.scene!)) }
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self.scene!)) }
     }
 }

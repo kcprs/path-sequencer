@@ -29,6 +29,7 @@
 		8871218D21A58EA20093FBC2 /* SceneManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8871218C21A58EA20093FBC2 /* SceneManager.swift */; };
 		88BDF80B21A5F49000819522 /* NodeOnSequencerPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BDF80A21A5F49000819522 /* NodeOnSequencerPath.swift */; };
 		88BDF80D21A5F60300819522 /* PathAddPointNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BDF80C21A5F60300819522 /* PathAddPointNode.swift */; };
+		88CD0A8E21A72DDC0025DE83 /* TouchableNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CD0A8D21A72DDC0025DE83 /* TouchableNode.swift */; };
 		88D2060B21A41A0F00DB74F7 /* ContinuousParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D2060A21A41A0F00DB74F7 /* ContinuousParameter.swift */; };
 		88D2060D21A4651F00DB74F7 /* DiscreteParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D2060C21A4651F00DB74F7 /* DiscreteParameter.swift */; };
 		88D2061121A468E600DB74F7 /* RadioButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D2061021A468E600DB74F7 /* RadioButtonNode.swift */; };
@@ -63,6 +64,7 @@
 		8871218C21A58EA20093FBC2 /* SceneManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneManager.swift; sourceTree = "<group>"; };
 		88BDF80A21A5F49000819522 /* NodeOnSequencerPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeOnSequencerPath.swift; sourceTree = "<group>"; };
 		88BDF80C21A5F60300819522 /* PathAddPointNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathAddPointNode.swift; sourceTree = "<group>"; };
+		88CD0A8D21A72DDC0025DE83 /* TouchableNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchableNode.swift; sourceTree = "<group>"; };
 		88D2060A21A41A0F00DB74F7 /* ContinuousParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinuousParameter.swift; sourceTree = "<group>"; };
 		88D2060C21A4651F00DB74F7 /* DiscreteParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscreteParameter.swift; sourceTree = "<group>"; };
 		88D2061021A468E600DB74F7 /* RadioButtonNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonNode.swift; sourceTree = "<group>"; };
@@ -163,9 +165,10 @@
 				88F34B46219DD34F005E598D /* PathPointNode.swift */,
 				88BDF80C21A5F60300819522 /* PathAddPointNode.swift */,
 				88F815AD219DD0CA0095B54F /* KnobNode.swift */,
-				8800A84F219EF4FA0010073D /* TrackIconNode.swift */,
 				88D2061021A468E600DB74F7 /* RadioButtonNode.swift */,
+				8800A84F219EF4FA0010073D /* TrackIconNode.swift */,
 				88D2061221A48B4700DB74F7 /* TrackIconGroupNode.swift */,
+				88CD0A8D21A72DDC0025DE83 /* TouchableNode.swift */,
 			);
 			path = GUI;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 				88F815AE219DD0CB0095B54F /* KnobNode.swift in Sources */,
 				8871218B21A58AD10093FBC2 /* Track.swift in Sources */,
 				88D2061321A48B4700DB74F7 /* TrackIconGroupNode.swift in Sources */,
+				88CD0A8E21A72DDC0025DE83 /* TouchableNode.swift in Sources */,
 				885273DF218B7CDB00D675C1 /* GameViewController.swift in Sources */,
 				88F815AC219DD0B70095B54F /* MidiUtil.swift in Sources */,
 				885273FE218B7DD000D675C1 /* AudioManager.swift in Sources */,

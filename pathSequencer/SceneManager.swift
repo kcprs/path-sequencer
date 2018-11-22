@@ -10,10 +10,10 @@ import SpriteKit
 
 class SceneManager {
     private static var staticSelf: SceneManager? = nil
-    static var scene: SKScene? = nil
+    static var scene: GameScene? = nil
     static var pitchGrid: PitchGrid? = nil
     
-    init(for scene: SKScene) {
+    init(for scene: GameScene) {
         if SceneManager.staticSelf != nil {
             fatalError("There can only be one SceneManager")
         }

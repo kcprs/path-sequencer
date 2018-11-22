@@ -8,7 +8,7 @@
 
 import AudioKit
 
-class SoundModule {
+class SoundModule: Equatable {
     var controlPanel: SoundModuleControlPanelNode?
     private var oscBank: AKMorphingOscillatorBank!
     private var filter: AKLowPassFilter!
@@ -75,8 +75,16 @@ class SoundModule {
         filter.start()
     }
     
+    func stop() {
+        filter.stop()
+    }
+    
     func connect(to inputNode: AKInput) {
         filter.connect(to: inputNode)
+    }
+    
+    func detach() {
+        filter.detach()
     }
     
     func trigger(freq: Double) {
@@ -102,5 +110,9 @@ class SoundModule {
     func setDecay(_ decay: Double) {
         oscBank.decayDuration = decay
         oscBank.releaseDuration = decay
+    }
+    
+    static func == (lhs: SoundModule, rhs: SoundModule) -> Bool {
+        return lhs === rhs
     }
 }

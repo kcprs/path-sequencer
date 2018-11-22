@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class NodeOnSequencerPath: SKNode {
+class NodeOnSequencerPath: TouchableNode {
     var visibleNode: SKShapeNode!
     var parentPath: SequencerPath!
     
@@ -19,27 +19,5 @@ class NodeOnSequencerPath: SKNode {
         } else if children.contains(visibleNode) {
             self.run(SKAction.fadeOut(withDuration: 0.4), completion: visibleNode.removeFromParent)
         }
-    }
-    
-    func touchDown(atPoint pos: CGPoint) {}
-    
-    func touchMoved(toPoint pos: CGPoint) {}
-    
-    func touchUp(atPoint pos: CGPoint) {}
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchDown(atPoint: t.location(in: self.scene!)) }
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self.scene!)) }
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self.scene!)) }
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self.scene!)) }
     }
 }

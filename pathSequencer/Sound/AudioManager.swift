@@ -37,4 +37,12 @@ class AudioManager {
         soundModules.append(module)
         module.connect(to: mainMixer)
     }
+    
+    static func removeSoundModule(_ module: SoundModule) {
+        let index = soundModules.index(of: module)
+        soundModules.remove(at: index!)
+        
+        module.detach()
+        module.stop()
+    }
 }

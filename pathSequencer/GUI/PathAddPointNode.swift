@@ -23,12 +23,13 @@ class PathAddPointNode: NodeOnSequencerPath {
         visibleNode = SKShapeNode(circleOfRadius: 10)
         visibleNode.strokeColor = .gray
         
-        self.isUserInteractionEnabled = true
         self.zPosition = 1
     }
     
-    override func touchUp(atPoint pos: CGPoint) {
-        parentPath.addNewPoint(from: self)
+    override func touchUp(at pos: CGPoint) {
+        if self.contains(pos) {
+            parentPath.addNewPoint(from: self)
+        }
     }
     
     func updatePosition() {

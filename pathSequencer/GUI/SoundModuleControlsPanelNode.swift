@@ -22,12 +22,13 @@ class SoundModuleControlPanelNode: SKNode {
         
         self.soundModule = soundModule
         soundModule.controlPanel = self
-        self.alpha = 0.9
         let scene = SceneManager.scene!
         scene.camera!.addChild(self)
         backgroundNode = SKShapeNode(rectOf: CGSize(width: scene.size.width - frameMargin, height: scene.size.height - frameMargin))
         backgroundNode.strokeColor = .white
         backgroundNode.fillColor = .darkGray
+        self.alpha = 0
+        self.run(SKAction.fadeAlpha(to: 0.9, duration: 0.3))
         self.addChild(backgroundNode)
         
         setupGUI()
@@ -61,6 +62,6 @@ class SoundModuleControlPanelNode: SKNode {
     }
     
     func close() {
-        self.removeFromParent()
+        self.run(SKAction.fadeOut(withDuration: 0.3), completion: self.removeFromParent)
     }
 }

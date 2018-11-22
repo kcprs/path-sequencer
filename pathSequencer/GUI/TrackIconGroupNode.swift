@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class TrackIconGroupNode: SKNode {
+class TrackIconGroupNode: TouchableNode {
     private let trackManager: TrackManager!
     private var icons: Array<TrackIconNode>!
     private var width: CGFloat = 0
@@ -27,53 +27,46 @@ class TrackIconGroupNode: SKNode {
         super.init()
         
         addNewTrackButton.fillColor = .gray
+        addNewTrackButton.zPosition = 1
         self.addChild(addNewTrackButton)
-        
-        self.isUserInteractionEnabled = true
+
     }
     
     private func addIcon(_ icon: TrackIconNode) {
         icons.append(icon)
         icon.position = CGPoint(x: width - 50, y: 0)
         self.addChild(icon)
+        icon.iconGroup = self
+        icon.alpha = 0
+        icon.run(SKAction.fadeIn(withDuration: 0.3))
         width += icon.getWidth()
         
         updatePosition()
     }
     
-    private func updatePosition() {
-        self.run(SKAction.move(to: CGPoint(x: -width / 2, y: self.position.y), duration: 0.5))
-        addNewTrackButton.run(SKAction.move(to: CGPoint(x: width - 25, y: 0), duration: 0.25))
-    }
-    
-    private func touchDown(atPoint pos: CGPoint) {
+    func removeIcon(_ icon: TrackIconNode) {
+        let index = icons.index(of: icon)
+        icons.remove(at: index!)
+        width -= icon.getWidth()
+        icon.run(SKAction.fadeOut(withDuration: 0.3), completion: icon.removeFromParent)
         
+        updatePosition()
     }
     
-    private func touchMoved(toPoint pos: CGPoint) {
-
+    private func updatePosition() {
+        let selfAction = SKAction.move(to: CGPoint(x: -width / 2, y: self.position.y), duration: 0.5)
+        selfAction.timingMode = .easeOut
+        self.run(selfAction)
+        
+        let buttonAction = SKAction.move(to: CGPoint(x: width - 25, y: 0), duration: 0.3)
+        buttonAction.timingMode = .easeOut
+        addNewTrackButton.run(buttonAction)
     }
     
-    private func touchUp(atPoint pos: CGPoint) {
+    override func touchUp(at pos: CGPoint) {
         if self.scene!.nodes(at: pos).contains(addNewTrackButton) {
             let track = TrackManager.addNewTrack()
             addIcon(TrackIconNode(for: track))
         }
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchDown(atPoint: t.location(in: self.scene!)) }
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self.scene!)) }
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self.scene!)) }
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self.scene!)) }
     }
 }

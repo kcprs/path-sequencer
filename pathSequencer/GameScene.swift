@@ -33,6 +33,20 @@ class GameScene: SKScene {
         SceneManager.run()
     }
     
+    func setCamYPosition(_ newYPosition: CGFloat, duration: TimeInterval = 0) {
+        let limitedY = max(self.size.height / 2, min(SceneManager.pitchGrid!.getHeight() - self.size.height, newYPosition))
+        
+        let limitedPos = CGPoint(x: 0, y: limitedY)
+        
+        if duration > 0 {
+            let moveAction = SKAction.move(to: limitedPos, duration: duration)
+            moveAction.timingMode = .easeOut
+            cam.run(moveAction)
+        } else {
+            cam.position = limitedPos
+        }
+    }
+    
     private func touchDown(atPoint pos: CGPoint) {
         if self.nodes(at: pos).count == 0 {
             touchedPoint = pos
@@ -41,15 +55,11 @@ class GameScene: SKScene {
     
     private func touchMoved(toPoint pos: CGPoint) {
         if touchedPoint != nil {
-            setCamPosition(cam.position.y + touchedPoint!.y - pos.y)
+            setCamYPosition(cam.position.y + touchedPoint!.y - pos.y)
         }
     }
     
-    private func setCamPosition(_ newPosition: CGFloat) {
-        cam.position = CGPoint(x: 0, y: max(self.size.height / 2, min(SceneManager.pitchGrid!.getHeight() - self.size.height, newPosition)))
-    }
-    
-    func touchUp(atPoint pos: CGPoint) {
+    private func touchUp(atPoint pos: CGPoint) {
         touchedPoint = nil
     }
     

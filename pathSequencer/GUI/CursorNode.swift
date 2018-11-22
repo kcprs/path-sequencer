@@ -64,6 +64,41 @@ class CursorNode: SKNode {
         self.run(SKAction.follow(path, asOffset: false, orientToPath: true, speed: cursorSpeed), withKey: "move", optionalCompletion: targetReached)
     }
     
+    func updateFromToNodes(basedOn node: PathAddPointNode) {
+        if fromNode == node.beforePoint {
+            saveProgress()
+            
+            if moveProgress < 0.5 {
+                toNode = parentPath.getNextTarget(fromNode: fromNode)
+            } else {
+                fromNode = parentPath.getPreviousTarget(toNode: toNode)
+            }
+            
+            saveProgress()
+            updatePosition()
+            resumeMovement()
+        }
+    }
+    
+    func updateFromToNodes(basedOn node: PathPointNode) {
+        var changesMade = false
+        if node == fromNode {
+            fromNode = parentPath.getPreviousTarget(toNode: toNode)
+            changesMade = true
+        }
+        
+        if node == toNode {
+            toNode = parentPath.getNextTarget(fromNode: fromNode)
+            changesMade = true
+        }
+        
+        if changesMade {
+            saveProgress()
+            updatePosition()
+            resumeMovement()
+        }
+    }
+    
     private func targetReached() {
         let frequency = SceneManager.pitchGrid!.getFreqAt(node: self)
         parentPath.track.soundModule.trigger(freq: frequency)

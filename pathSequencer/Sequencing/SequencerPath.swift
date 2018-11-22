@@ -46,6 +46,9 @@ class SequencerPath: SKNode {
         
         let cursor = CursorNode(onPath: self)
         cursor.resumeMovement()
+        
+        self.alpha = 0
+        self.run(SKAction.fadeIn(withDuration: 0.5))
     }
     
     private func addPointNode(_ node: NodeOnSequencerPath, index: Int = -1) {
@@ -79,6 +82,19 @@ class SequencerPath: SKNode {
         
         updatePathNode()
         recomputeAddPointNodes()
+        cursor.updateFromToNodes(basedOn: node)
+    }
+    
+    func removePoint(_ node: PathPointNode) {
+        if pathPointNodes.count > 3 {
+            let index = pathPointNodes.index(of: node)
+            pathPointNodes.remove(at: index!)
+            node.removeFromParent()
+            
+            updatePathNode()
+            recomputeAddPointNodes()
+            cursor.updateFromToNodes(basedOn: node)
+        }
     }
     
     private func recomputeAddPointNodes() {
@@ -179,7 +195,22 @@ class SequencerPath: SKNode {
         return pathPointNodes[index]
     }
     
+    func getPreviousTarget(toNode: PathPointNode) -> PathPointNode {
+        var index = (pathPointNodes.index(of: toNode)! - 1) % pathPointNodes.count
+        
+        // Account for the fact that in swift mod of negative numbers is negative
+        if index < 0 {
+            index += pathPointNodes.count
+        }
+        
+        return pathPointNodes[index]
+    }
+    
     func getStartNode() -> PathPointNode {
         return pathPointNodes[0]
+    }
+    
+    func delete() {
+        self.run(SKAction.fadeOut(withDuration: 0.5), completion: self.removeFromParent)
     }
 }

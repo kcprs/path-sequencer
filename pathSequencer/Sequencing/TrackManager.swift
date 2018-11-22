@@ -9,7 +9,7 @@ import SpriteKit
 
 class TrackManager {
     static var staticSelf: TrackManager? = nil
-    private static var tracks: [Track] = []
+    private static var tracks = Array<Track>()
     static var selectedTrack: Track? {
         willSet {
             for track in tracks {
@@ -23,6 +23,7 @@ class TrackManager {
             fatalError("There can only be one TrackManager")
         }
         TrackManager.staticSelf = self
+        TrackManager.tracks = Array<Track>()
     }
     
     static func addNewTrack(select: Bool = true) -> Track {
@@ -32,5 +33,16 @@ class TrackManager {
             track.isSelected = true
         }
         return track
+    }
+    
+    static func delete(_ track: Track) {
+        if track.isSelected {
+            track.isSelected = false
+        }
+        
+        let index = tracks.index(of: track)
+        tracks.remove(at: index!)
+        
+        track.delete()
     }
 }

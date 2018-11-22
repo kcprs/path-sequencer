@@ -17,20 +17,23 @@ class PathPointNode: NodeOnSequencerPath {
         super.init()
         visibleNode = SKShapeNode(circleOfRadius: 30)
         
-        self.isUserInteractionEnabled = true
         self.zPosition = 2
     }
     
-    override func touchDown(atPoint pos: CGPoint) {
+    override func touchDown(at pos: CGPoint) {
         parentPath.saveProgress(node: self)
     }
     
-    override func touchMoved(toPoint pos: CGPoint) {
+    override func touchMoved(to pos: CGPoint) {
         self.position = pos
         parentPath.updateAfterNodeMoved(node: self)
     }
     
-    override func touchUp(atPoint pos: CGPoint) {
+    override func touchUp(at pos: CGPoint) {
         parentPath.resumeMovement()
+    }
+    
+    override func doubleTap(at pos: CGPoint) {
+        parentPath.removePoint(self)
     }
 }
