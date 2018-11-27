@@ -11,7 +11,7 @@ import SpriteKit
 class SequencerPath: SKNode {
     unowned let track: Track
     private var pathNode: SKShapeNode!
-    private var cursor: CursorNode!
+    var cursor: CursorNode!
     private var pathPointNodes: Array<PathPointNode>!
     private var pathAddPointNodes: Array<PathAddPointNode>!
     var centre: CGPoint {

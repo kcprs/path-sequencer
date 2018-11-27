@@ -9,7 +9,7 @@
 import SpriteKit
 import AudioKit
 
-class CursorNode: SKNode {
+class CursorNode: SKNode, ModulationSource {
     private var visibleNode: SKShapeNode!
     private var cursorSpeed: CGFloat = 100
     private var moveProgress: CGFloat = 0
@@ -99,6 +99,10 @@ class CursorNode: SKNode {
             updatePosition()
             resumeMovement()
         }
+    }
+    
+    func getModulationValue() -> Double {
+        return SceneManager.pitchGrid!.getModAt(node: self)
     }
     
     private func targetReached() {

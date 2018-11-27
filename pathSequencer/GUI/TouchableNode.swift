@@ -8,8 +8,8 @@
 
 import SpriteKit
 
-// Having a hard time with protocols, so writing this as a class
-// TODO: Make this into a protocol
+// Having a hard time overriding touch methods AND using a protocol, so writing this as a class
+// TODO: Make this into a protocol?
 class TouchableNode: SKNode {
     let multiTapWaitTime: TimeInterval = 0.2
     let holdWaitTime: TimeInterval = 0.7

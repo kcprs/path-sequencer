@@ -27,6 +27,10 @@
 		8871218721A5816A0093FBC2 /* TrackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8871218621A5816A0093FBC2 /* TrackManager.swift */; };
 		8871218B21A58AD10093FBC2 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8871218A21A58AD10093FBC2 /* Track.swift */; };
 		8871218D21A58EA20093FBC2 /* SceneManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8871218C21A58EA20093FBC2 /* SceneManager.swift */; };
+		88A7433D21AD928400CDB7AC /* Modulatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A7433C21AD928400CDB7AC /* Modulatable.swift */; };
+		88A7433F21ADA37700CDB7AC /* UpdateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A7433E21ADA37700CDB7AC /* UpdateManager.swift */; };
+		88A7434321ADCA4B00CDB7AC /* Updatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A7434221ADCA4B00CDB7AC /* Updatable.swift */; };
+		88A7434521ADDD6D00CDB7AC /* ModulationSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A7434421ADDD6D00CDB7AC /* ModulationSource.swift */; };
 		88BDF80B21A5F49000819522 /* NodeOnSequencerPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BDF80A21A5F49000819522 /* NodeOnSequencerPath.swift */; };
 		88BDF80D21A5F60300819522 /* PathAddPointNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BDF80C21A5F60300819522 /* PathAddPointNode.swift */; };
 		88CD0A8E21A72DDC0025DE83 /* TouchableNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CD0A8D21A72DDC0025DE83 /* TouchableNode.swift */; };
@@ -62,6 +66,10 @@
 		8871218621A5816A0093FBC2 /* TrackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackManager.swift; sourceTree = "<group>"; };
 		8871218A21A58AD10093FBC2 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		8871218C21A58EA20093FBC2 /* SceneManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneManager.swift; sourceTree = "<group>"; };
+		88A7433C21AD928400CDB7AC /* Modulatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modulatable.swift; sourceTree = "<group>"; };
+		88A7433E21ADA37700CDB7AC /* UpdateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateManager.swift; sourceTree = "<group>"; };
+		88A7434221ADCA4B00CDB7AC /* Updatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updatable.swift; sourceTree = "<group>"; };
+		88A7434421ADDD6D00CDB7AC /* ModulationSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulationSource.swift; sourceTree = "<group>"; };
 		88BDF80A21A5F49000819522 /* NodeOnSequencerPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeOnSequencerPath.swift; sourceTree = "<group>"; };
 		88BDF80C21A5F60300819522 /* PathAddPointNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathAddPointNode.swift; sourceTree = "<group>"; };
 		88CD0A8D21A72DDC0025DE83 /* TouchableNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchableNode.swift; sourceTree = "<group>"; };
@@ -122,6 +130,8 @@
 				88F815A9219DCFFA0095B54F /* Util */,
 				8871218F21A5ABD10093FBC2 /* Sequencing */,
 				8871218C21A58EA20093FBC2 /* SceneManager.swift */,
+				88A7433E21ADA37700CDB7AC /* UpdateManager.swift */,
+				88A7434221ADCA4B00CDB7AC /* Updatable.swift */,
 				885273DC218B7CDB00D675C1 /* GameScene.swift */,
 				885273D6218B7CDB00D675C1 /* AppDelegate.swift */,
 				885273DE218B7CDB00D675C1 /* GameViewController.swift */,
@@ -141,6 +151,8 @@
 				8866942E219CB26B0014B455 /* SoundModule.swift */,
 				88D2060A21A41A0F00DB74F7 /* ContinuousParameter.swift */,
 				88D2060C21A4651F00DB74F7 /* DiscreteParameter.swift */,
+				88A7433C21AD928400CDB7AC /* Modulatable.swift */,
+				88A7434421ADDD6D00CDB7AC /* ModulationSource.swift */,
 			);
 			path = Sound;
 			sourceTree = "<group>";
@@ -261,13 +273,17 @@
 				88F815AE219DD0CB0095B54F /* KnobNode.swift in Sources */,
 				8871218B21A58AD10093FBC2 /* Track.swift in Sources */,
 				88D2061321A48B4700DB74F7 /* TrackIconGroupNode.swift in Sources */,
+				88A7433F21ADA37700CDB7AC /* UpdateManager.swift in Sources */,
+				88A7434321ADCA4B00CDB7AC /* Updatable.swift in Sources */,
 				88CD0A8E21A72DDC0025DE83 /* TouchableNode.swift in Sources */,
 				885273DF218B7CDB00D675C1 /* GameViewController.swift in Sources */,
 				88F815AC219DD0B70095B54F /* MidiUtil.swift in Sources */,
+				88A7434521ADDD6D00CDB7AC /* ModulationSource.swift in Sources */,
 				885273FE218B7DD000D675C1 /* AudioManager.swift in Sources */,
 				88BDF80B21A5F49000819522 /* NodeOnSequencerPath.swift in Sources */,
 				88BDF80D21A5F60300819522 /* PathAddPointNode.swift in Sources */,
 				88F34B47219DD34F005E598D /* PathPointNode.swift in Sources */,
+				88A7433D21AD928400CDB7AC /* Modulatable.swift in Sources */,
 				88527400218B7DD000D675C1 /* SequencerPath.swift in Sources */,
 				885273FF218B7DD000D675C1 /* CursorNode.swift in Sources */,
 				8866942F219CB26B0014B455 /* SoundModule.swift in Sources */,

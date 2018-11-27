@@ -10,7 +10,7 @@ import SpriteKit
 
 class Track: Equatable {
     var soundModule: SoundModule!
-    private var sequencerPath: SequencerPath!
+    var sequencerPath: SequencerPath!
     var icon: TrackIconNode?
     var isSelected = false {
         willSet {
@@ -33,8 +33,8 @@ class Track: Equatable {
     }
     
     init() {
-        soundModule = SoundModule()
         sequencerPath = SequencerPath(for: self)
+        soundModule = SoundModule(for: self)
     }
     
     func delete() {

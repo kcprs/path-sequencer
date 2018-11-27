@@ -52,4 +52,11 @@ class PitchGrid {
         let note = proportion * Float(topNote - bottomNote) + Float(bottomNote)
         return MidiUtil.noteToFreq(midiPitch: note)
     }
+    
+    func getModAt(node: SKNode) -> Double {
+        let position = SceneManager.scene!.convert(node.position, from: node.parent!)
+        let width = Double(SceneManager.scene!.size.width)
+        
+        return (Double(position.x) + 0.5 * width) / width
+    }
 }

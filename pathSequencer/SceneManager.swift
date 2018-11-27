@@ -23,6 +23,7 @@ class SceneManager {
         SceneManager.pitchGrid = PitchGrid()
         let _ = AudioManager()
         let _ = TrackManager()
+        let _ = UpdateManager()
     }
     
     static func run() {

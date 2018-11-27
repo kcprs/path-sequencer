@@ -8,11 +8,13 @@
 
 import SpriteKit
 
-class KnobNode: TouchableNode {
+class KnobNode: TouchableNode, Updatable {
     private let parameter: ContinuousParameter!
     private let circle: SKShapeNode!
     private let notch: SKShapeNode!
     private let knobRoot: SKNode!
+    private let modPreview: SKShapeNode!
+    private let modPreviewRoot: SKNode!
     private let rotationLimit: CGFloat = 2.5
     private let diameter: CGFloat = 50
     private let labelSpacer: CGFloat = 1.4
@@ -37,13 +39,15 @@ class KnobNode: TouchableNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(parameter: ContinuousParameter, isLogarithmic: Bool) {
+    init(parameter: ContinuousParameter, isLogarithmic: Bool = false) {
         self.parameter = parameter
         self.isLogarithmic = isLogarithmic
         self.knobRoot = SKNode()
         self.circle = SKShapeNode(circleOfRadius: diameter / 2)
         self.notch = SKShapeNode(rectOf: CGSize(width: 1, height: diameter / 2))
         self.label = SKLabelNode()
+        self.modPreview = SKShapeNode(circleOfRadius: diameter / 10)
+        self.modPreviewRoot = SKNode()
         
         super.init()
         
@@ -60,11 +64,18 @@ class KnobNode: TouchableNode {
         updateLabel()
         self.addChild(label)
         
+        self.addChild(modPreviewRoot)
+        modPreview.position = CGPoint(x: 0, y: diameter / 2)
+        modPreview.fillColor = .gray
+        modPreviewRoot.addChild(modPreview)
+        
         updateSelfFromParameterValue()
+        
+        UpdateManager.add(self)
     }
     
-    convenience init(parameter: ContinuousParameter) {
-        self.init(parameter: parameter, isLogarithmic: false)
+    deinit {
+        UpdateManager.remove(self)
     }
     
     private func updateLabel() {
@@ -74,22 +85,22 @@ class KnobNode: TouchableNode {
             unit = " " + parameter.displayUnit
         }
         
-        label.text = String(format: parameter.label + ": %.2f" + unit, parameter.getValue())
+        label.text = String(format: parameter.label + ": %.2f" + unit, parameter.getUserValue())
     }
     
     private func updateParameterValue() {
         if isLogarithmic {
-            parameter.setLogProportion(proportion)
+            parameter.setUserLogProportion(proportion)
         } else {
-            parameter.setProportion(proportion)
+            parameter.setUserProportion(proportion)
         }
     }
     
     private func updateSelfFromParameterValue() {
         if isLogarithmic {
-            proportion = parameter.getLogProportion()
+            proportion = parameter.getUserLogProportion()
         } else {
-            proportion = parameter.getProportion()
+            proportion = parameter.getUserProportion()
         }
     }
     
@@ -108,5 +119,16 @@ class KnobNode: TouchableNode {
     
     override func touchUp(at pos: CGPoint) {
         lastTouchPos = nil
+    }
+    
+    func update() {
+        if parameter.modAmount == 0 {
+            modPreview.isHidden = true
+        } else {
+            modPreview.isHidden = false
+            let newProp = parameter.getCurrentProportion()
+            let angle = rotationLimit - CGFloat(newProp) * 2 * rotationLimit
+            modPreviewRoot.run(SKAction.rotate(toAngle: angle, duration: 0))
+        }
     }
 }

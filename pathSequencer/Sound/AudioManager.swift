@@ -24,25 +24,25 @@ class AudioManager {
     }
     
     static func start() {
-//        AudioKit.output = mainMixer
-//        try!AudioKit.start()
-//
-//        mainMixer.start()
-//        for node in soundModules {
-//            node.start()
-//        }
+        AudioKit.output = mainMixer
+        try!AudioKit.start()
+
+        mainMixer.start()
+        for node in soundModules {
+            node.start()
+        }
     }
     
     static func addSoundModule(_ module: SoundModule) {
-//        soundModules.append(module)
-//        module.connect(to: mainMixer)
+        soundModules.append(module)
+        module.connect(to: mainMixer)
     }
     
     static func removeSoundModule(_ module: SoundModule) {
-//        let index = soundModules.index(of: module)
-//        soundModules.remove(at: index!)
-//        
-//        module.detach()
-//        module.stop()
+        let index = soundModules.index(of: module)
+        soundModules.remove(at: index!)
+        
+        module.detach()
+        module.stop()
     }
 }

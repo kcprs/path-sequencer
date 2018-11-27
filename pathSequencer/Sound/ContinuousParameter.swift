@@ -8,52 +8,77 @@
 
 import Foundation
 
-class ContinuousParameter {
+class ContinuousParameter: Modulatable {
     private let maxValue: Double!
     private let minValue: Double!
     private let setClosure: (Double) -> Void
     private let getClosure: () -> Double
     let label: String!
     let displayUnit: String!
+    var modAmount: Double! = 0 { didSet { update() }}
+    private var userValue: Double! { didSet { update() }}
+    var modSource: ModulationSource
     
-    init(label: String, minValue: Double, maxValue: Double, setClosure: @escaping (Double) -> Void, getClosure: @escaping () -> Double, displayUnit: String) {
+    init(label: String, minValue: Double, maxValue: Double, setClosure: @escaping (Double) -> Void, getClosure: @escaping () -> Double, displayUnit: String = "", modSource: ModulationSource) {
         self.label = label
         self.minValue = minValue
         self.maxValue = maxValue
         self.setClosure = setClosure
         self.getClosure = getClosure
         self.displayUnit = displayUnit
+        self.modSource = modSource
+        self.userValue = getCurrentValue()
+        
+        UpdateManager.add(self)
     }
-
-    convenience init(label: String, minValue: Double, maxValue: Double, setClosure: @escaping (Double) -> Void, getClosure: @escaping () -> Double) {
-        self.init(label: label, minValue: minValue, maxValue: maxValue, setClosure: setClosure, getClosure: getClosure, displayUnit: "")
+    
+    deinit {
+        UpdateManager.remove(self)
     }
-
-    func setValue(to newValue: Double) {
+    
+    private func setCurrentValue(to newValue: Double) {
         setClosure(max(minValue, min(maxValue, newValue)))
     }
-
-    func getValue() -> Double {
-        return getClosure()
+    
+    func getCurrentValue() -> Double {
+        let val = getClosure()
+        return val
     }
     
-    func setProportion(_ proportion: Double) {
-        setValue(to: minValue + proportion * (maxValue - minValue))
+    func getCurrentProportion() -> Double {
+        return (getCurrentValue() - minValue) / (maxValue - minValue)
     }
     
-    func getProportion() -> Double {
-        return (getValue() - minValue) / (maxValue - minValue)
+    func getCurrentLogProportion() -> Double {
+        return (log10(getCurrentValue()) - log10(minValue)) / (log10(maxValue) - log10(minValue))
     }
     
-    func setLogProportion(_ proportion: Double) {
-        setValue(to: pow(10, log10(minValue) + proportion * (log10(maxValue) - log10(minValue))))
+    func setUserValue(to newValue: Double) {
+        userValue = newValue
     }
     
-    func getLogProportion() -> Double {
-        return (log10(getValue()) - log10(minValue)) / (log10(maxValue) - log10(minValue))
+    func getUserValue() -> Double {
+        return userValue
     }
     
-    func isAtLimit() -> Bool {
-        return getValue() <= minValue || maxValue <= getValue()
+    func setUserProportion(_ proportion: Double) {
+        setUserValue(to: minValue + proportion * (maxValue - minValue))
+    }
+    
+    func getUserProportion() -> Double {
+        return (getUserValue() - minValue) / (maxValue - minValue)
+    }
+    
+    func setUserLogProportion(_ proportion: Double) {
+        setUserValue(to: pow(10, log10(minValue) + proportion * (log10(maxValue) - log10(minValue))))
+    }
+    
+    func getUserLogProportion() -> Double {
+        return (log10(getUserValue()) - log10(minValue)) / (log10(maxValue) - log10(minValue))
+    }
+    
+    func update() {
+        let newValue = userValue + (maxValue - minValue) * modAmount * modSource.getModulationValue()
+        setCurrentValue(to: newValue)
     }
 }
