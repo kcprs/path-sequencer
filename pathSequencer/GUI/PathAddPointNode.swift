@@ -19,16 +19,18 @@ class PathAddPointNode: NodeOnSequencerPath {
     init(beforePoint: PathPointNode, afterPoint: PathPointNode) {
         self.beforePoint = beforePoint
         self.afterPoint = afterPoint
-        super.init()
+        
+        super.init(parentPath: beforePoint.parentPath)
         visibleNode = SKShapeNode(circleOfRadius: 10)
         visibleNode.strokeColor = .gray
         
         self.zPosition = 1
     }
     
-    override func touchUp(at pos: CGPoint) {
+    override func touchDown(at pos: CGPoint) {
         if self.contains(pos) {
-            parentPath.addNewPoint(from: self)
+            let newPoint = parentPath.addNewPoint(from: self)
+            newPoint.touchDown(at: pos)
         }
     }
     

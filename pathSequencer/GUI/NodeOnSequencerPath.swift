@@ -10,7 +10,17 @@ import SpriteKit
 
 class NodeOnSequencerPath: TouchableNode {
     var visibleNode: SKShapeNode!
-    var parentPath: SequencerPath!
+    unowned let parentPath: SequencerPath
+    
+    init(parentPath: SequencerPath) {
+        self.parentPath = parentPath
+        
+        super.init()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     func updateSelection() {
         if parentPath.track.isSelected && !children.contains(visibleNode) {

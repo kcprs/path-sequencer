@@ -13,20 +13,22 @@ class CursorNode: SKNode {
     private var visibleNode: SKShapeNode!
     private var cursorSpeed: CGFloat = 100
     private var moveProgress: CGFloat = 0
-    private var parentPath: SequencerPath!
-    private var fromNode: PathPointNode!
-    private var toNode: PathPointNode!
+    unowned private let parentPath: SequencerPath
+    unowned private var fromNode: PathPointNode
+    unowned private var toNode: PathPointNode
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     init(onPath parentPath: SequencerPath) {
-        super.init()
         self.parentPath = parentPath
+        self.fromNode = parentPath.getStartNode()
+        self.toNode = parentPath.getNextTarget(fromNode: fromNode)
+        
+        super.init()
+        
         parentPath.addCursor(self)
-        fromNode = parentPath.getStartNode()
-        toNode = parentPath.getNextTarget(fromNode: fromNode)
         
         visibleNode = SKShapeNode(rectOf: CGSize(width: 30, height: 30))
         self.addChild(visibleNode)

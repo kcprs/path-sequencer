@@ -9,7 +9,7 @@
 import SpriteKit
 
 class TrackIconGroupNode: TouchableNode {
-    private let trackManager: TrackManager!
+    unowned private let trackManager: TrackManager
     private var icons: Array<TrackIconNode>!
     private var width: CGFloat = 0
     private var addNewTrackButton: SKShapeNode! // TODO: Make into a SpriteNode, add custom graphic

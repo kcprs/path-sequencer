@@ -13,8 +13,8 @@ class PathPointNode: NodeOnSequencerPath {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override init() {
-        super.init()
+    override init(parentPath: SequencerPath) {
+        super.init(parentPath: parentPath)
         visibleNode = SKShapeNode(circleOfRadius: 30)
         
         self.zPosition = 2

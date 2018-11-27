@@ -9,7 +9,7 @@
 import SpriteKit
 
 class SequencerPath: SKNode {
-    let track: Track!
+    unowned let track: Track
     private var pathNode: SKShapeNode!
     private var cursor: CursorNode!
     private var pathPointNodes: Array<PathPointNode>!
@@ -34,7 +34,7 @@ class SequencerPath: SKNode {
         self.addChild(pathNode)
         
         for _ in 1...3 {
-            let point = PathPointNode()
+            let point = PathPointNode(parentPath: self)
             addPointNode(point)
         }
         
@@ -52,7 +52,6 @@ class SequencerPath: SKNode {
     }
     
     private func addPointNode(_ node: NodeOnSequencerPath, index: Int = -1) {
-        node.parentPath = self
         self.addChild(node)
         
         if node is PathPointNode {
@@ -73,8 +72,8 @@ class SequencerPath: SKNode {
         node.updateSelection()
     }
     
-    func addNewPoint(from node: PathAddPointNode) {
-        let point = PathPointNode()
+    func addNewPoint(from node: PathAddPointNode) -> PathPointNode {
+        let point = PathPointNode(parentPath: self)
         point.position = node.position
         let index = pathPointNodes.index(of: node.afterPoint)
         
@@ -83,6 +82,8 @@ class SequencerPath: SKNode {
         updatePathNode()
         recomputeAddPointNodes()
         cursor.updateFromToNodes(basedOn: node)
+        
+        return point
     }
     
     func removePoint(_ node: PathPointNode) {

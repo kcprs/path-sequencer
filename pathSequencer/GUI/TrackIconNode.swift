@@ -9,8 +9,8 @@
 import SpriteKit
 
 class TrackIconNode: TouchableNode {
-    private var track: Track!
-    private var controlPanel: SoundModuleControlPanelNode?
+    unowned private let track: Track
+    weak private var controlPanel: SoundModuleControlPanelNode?
     private var label: SKLabelNode!
     var iconGroup: TrackIconGroupNode?
     
@@ -19,9 +19,10 @@ class TrackIconNode: TouchableNode {
     }
     
     init(for track: Track) {
+        self.track = track
+        
         super.init()
         
-        self.track = track
         track.icon = self
         
         label = SKLabelNode(text: "TrackIcon")
@@ -57,6 +58,8 @@ class TrackIconNode: TouchableNode {
         }
     }
     
+    // TODO: Find other way of deleting.
+    // Double tap causes reaction to single tap feel slow
     override func doubleTap(at pos: CGPoint) {
         TrackManager.delete(track)
         iconGroup!.removeIcon(self)

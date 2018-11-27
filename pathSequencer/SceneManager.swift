@@ -10,7 +10,7 @@ import SpriteKit
 
 class SceneManager {
     private static var staticSelf: SceneManager? = nil
-    static var scene: GameScene? = nil
+    weak static var scene: GameScene? = nil
     static var pitchGrid: PitchGrid? = nil
     
     init(for scene: GameScene) {

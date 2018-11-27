@@ -11,16 +11,17 @@ import SpriteKit
 class SoundModuleControlPanelNode: SKNode {
     private var backgroundNode: SKShapeNode!
     private let frameMargin: CGFloat = 100
-    private var soundModule: SoundModule!
+    unowned private var soundModule: SoundModule
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     init(for soundModule: SoundModule) {
+        self.soundModule = soundModule
+        
         super.init()
         
-        self.soundModule = soundModule
         soundModule.controlPanel = self
         let scene = SceneManager.scene!
         scene.camera!.addChild(self)
