@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol ModulationSource {
+protocol ModulationSource: AnyObject {
     func getModulationValue() -> Double
 }

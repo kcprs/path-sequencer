@@ -51,6 +51,10 @@ class SequencerPath: SKNode {
         self.run(SKAction.fadeIn(withDuration: 0.5))
     }
     
+    deinit {
+        print("Sequencer path deinit done")
+    }
+    
     private func addPointNode(_ node: NodeOnSequencerPath, index: Int = -1) {
         self.addChild(node)
         
@@ -212,6 +216,7 @@ class SequencerPath: SKNode {
     }
     
     func delete() {
-        self.run(SKAction.fadeOut(withDuration: 0.5), completion: self.removeFromParent)
+        self.removeFromParent()
+//        self.run(SKAction.fadeOut(withDuration: 0.5), completion: self.removeFromParent)
     }
 }

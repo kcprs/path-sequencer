@@ -36,6 +36,10 @@ class CursorNode: SKNode, ModulationSource {
         updatePosition()
     }
     
+    deinit {
+        print("CursorNode deinit done")
+    }
+    
     func saveProgress() {
         // Calculate progress between fromNode and toNode. To avoid square root operations, use proportion of difference between x or y coordinates (whichever is greater - for better accuracy)
         

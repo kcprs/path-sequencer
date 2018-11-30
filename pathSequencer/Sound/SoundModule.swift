@@ -79,6 +79,26 @@ class SoundModule: Equatable {
         pitchQuantisation.addValue(value: false, valueLabel: "Off")
     }
     
+    deinit {
+        print("SoundModule deinit done")
+    }
+    
+    // TODO: Clean this up
+    // Temp ugly hack
+    func delete() {
+        attack.delete()
+        attack = nil
+        hold.delete()
+        hold = nil
+        decay.delete()
+        decay = nil
+        wavetableIndex.delete()
+        wavetableIndex = nil
+        filterCutoff.delete()
+        filterCutoff = nil
+        pitchQuantisation = nil
+    }
+    
     func start() {
         filter.start()
     }

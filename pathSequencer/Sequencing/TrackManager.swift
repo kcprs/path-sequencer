@@ -38,11 +38,10 @@ class TrackManager {
     static func delete(_ track: Track) {
         if track.isSelected {
             track.isSelected = false
+            selectedTrack = nil
         }
         
         let index = tracks.index(of: track)
         tracks.remove(at: index!)
-        
-        track.delete()
     }
 }

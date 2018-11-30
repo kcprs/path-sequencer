@@ -32,9 +32,7 @@ class TouchableNode: SKNode {
     
     func singleTap(at pos: CGPoint) {}
 
-    func doubleTap(at pos: CGPoint) {
-        print("Double tap")
-    }
+    func doubleTap(at pos: CGPoint) {}
 
     // TODO: Call from below
     func heldTap(at pos: CGPoint) {}

@@ -48,7 +48,6 @@ extension Array where Element: AnyObject {
                 return i
             }
         }
-        
         return nil
     }
 }

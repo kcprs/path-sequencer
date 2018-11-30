@@ -46,9 +46,22 @@ class TrackIconGroupNode: TouchableNode {
     
     func removeIcon(_ icon: TrackIconNode) {
         let index = icons.index(of: icon)
+        
+        if index == nil {
+            return
+        }
+        
         icons.remove(at: index!)
         width -= icon.getWidth()
         icon.run(SKAction.fadeOut(withDuration: 0.3), completion: icon.removeFromParent)
+        
+        if index! < icons.count {
+            for i in index!..<icons.count {
+                let action = SKAction.move(by: CGVector(dx: -icons[i].getWidth(), dy: 0), duration: 0.5)
+                action.timingMode = .easeOut
+                icons[i].run(action)
+            }
+        }
         
         updatePosition()
     }
@@ -58,7 +71,7 @@ class TrackIconGroupNode: TouchableNode {
         selfAction.timingMode = .easeOut
         self.run(selfAction)
         
-        let buttonAction = SKAction.move(to: CGPoint(x: width - 25, y: 0), duration: 0.3)
+        let buttonAction = SKAction.move(to: CGPoint(x: width - 25, y: 0), duration: 0.5)
         buttonAction.timingMode = .easeOut
         addNewTrackButton.run(buttonAction)
     }

@@ -37,9 +37,12 @@ class Track: Equatable {
         soundModule = SoundModule(for: self)
     }
     
-    func delete() {
+    deinit {
+        print("Track deinit start")
         AudioManager.removeSoundModule(soundModule)
+        soundModule.delete()
         sequencerPath.delete()
+        print("Track deinit end")
     }
     
     static func == (lhs: Track, rhs: Track) -> Bool {

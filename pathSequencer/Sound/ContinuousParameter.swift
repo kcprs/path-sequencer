@@ -17,7 +17,7 @@ class ContinuousParameter: Modulatable {
     let displayUnit: String!
     var modAmount: Double! = 0 { didSet { update() }}
     private var userValue: Double! { didSet { update() }}
-    var modSource: ModulationSource
+    unowned let modSource: ModulationSource
     
     init(label: String, minValue: Double, maxValue: Double, setClosure: @escaping (Double) -> Void, getClosure: @escaping () -> Double, displayUnit: String = "", modSource: ModulationSource) {
         self.label = label
@@ -33,6 +33,12 @@ class ContinuousParameter: Modulatable {
     }
     
     deinit {
+        print("ContinuousParameter deinit start")
+        UpdateManager.remove(self)
+        print("ContinuousParameter deinit end")
+    }
+    
+    func delete() {
         UpdateManager.remove(self)
     }
     
@@ -78,7 +84,7 @@ class ContinuousParameter: Modulatable {
     }
     
     func update() {
-        let newValue = userValue + (maxValue - minValue) * modAmount * modSource.getModulationValue()
+        let newValue = userValue + (maxValue - userValue) * modAmount * modSource.getModulationValue()
         setCurrentValue(to: newValue)
     }
 }
