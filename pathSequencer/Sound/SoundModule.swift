@@ -79,10 +79,6 @@ class SoundModule: Equatable {
         pitchQuantisation.addValue(value: false, valueLabel: "Off")
     }
     
-    deinit {
-        print("SoundModule deinit done")
-    }
-    
     // TODO: Clean this up
     // Temp ugly hack
     func delete() {
@@ -111,8 +107,9 @@ class SoundModule: Equatable {
         filter.connect(to: inputNode)
     }
     
-    func detach() {
-        filter.detach()
+    func disconnect() {
+        filter.disconnect()
+        oscBank.detach()
     }
     
     func trigger(freq: Double) {

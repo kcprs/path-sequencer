@@ -32,12 +32,6 @@ class ContinuousParameter: Modulatable {
         UpdateManager.add(self)
     }
     
-    deinit {
-        print("ContinuousParameter deinit start")
-        UpdateManager.remove(self)
-        print("ContinuousParameter deinit end")
-    }
-    
     func delete() {
         UpdateManager.remove(self)
     }

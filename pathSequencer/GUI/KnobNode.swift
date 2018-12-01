@@ -9,7 +9,7 @@
 import SpriteKit
 
 class KnobNode: TouchableNode, Updatable {
-    private let parameter: ContinuousParameter!
+    unowned private let parameter: ContinuousParameter
     private let circle: SKShapeNode!
     private let notch: SKShapeNode!
     private let knobRoot: SKNode!
@@ -72,10 +72,6 @@ class KnobNode: TouchableNode, Updatable {
         updateSelfFromParameterValue()
         
         UpdateManager.add(self)
-    }
-    
-    deinit {
-        UpdateManager.remove(self)
     }
     
     private func updateLabel() {

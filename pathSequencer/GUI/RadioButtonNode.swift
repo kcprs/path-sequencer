@@ -9,7 +9,7 @@
 import SpriteKit
 
 class RadioButtonNode: TouchableNode {
-    private let parameter: DiscreteParameter<Bool>!
+    unowned private let parameter: DiscreteParameter<Bool>
     private let outerCircle: SKShapeNode!
     private let innerCircle: SKShapeNode!
     private let diameter: CGFloat = 25

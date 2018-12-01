@@ -36,8 +36,8 @@ class CursorNode: SKNode, ModulationSource {
         updatePosition()
     }
     
-    deinit {
-        print("CursorNode deinit done")
+    func stop() {
+        self.removeAllActions()
     }
     
     func saveProgress() {

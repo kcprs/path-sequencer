@@ -42,7 +42,7 @@ class AudioManager {
         let index = soundModules.index(of: module)
         soundModules.remove(at: index!)
         
-        module.detach()
+        module.disconnect()
         module.stop()
     }
 }

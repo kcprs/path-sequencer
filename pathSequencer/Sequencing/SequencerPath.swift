@@ -52,7 +52,7 @@ class SequencerPath: SKNode {
     }
     
     deinit {
-        print("Sequencer path deinit done")
+        cursor.stop()
     }
     
     private func addPointNode(_ node: NodeOnSequencerPath, index: Int = -1) {
