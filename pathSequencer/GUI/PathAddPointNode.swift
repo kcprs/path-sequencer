@@ -27,6 +27,10 @@ class PathAddPointNode: NodeOnSequencerPath {
         self.zPosition = 1
     }
     
+    deinit {
+        print("PathAddPointNode deinit done")
+    }
+    
     override func touchDown(at pos: CGPoint) {
         if self.contains(pos) {
             let newPoint = parentPath.addNewPoint(from: self)

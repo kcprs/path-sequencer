@@ -28,6 +28,10 @@ class DiscreteParameter<T: Equatable & Hashable> {
         valueLabels = Dictionary<T, String>()
     }
     
+    deinit {
+        print("DiscreteParameter deinit done")
+    }
+    
     func addValue(value: T, valueLabel: String) {
         values.append(value)
         valueLabels[value] = valueLabel

@@ -20,6 +20,10 @@ class PathPointNode: NodeOnSequencerPath {
         self.zPosition = 2
     }
     
+    deinit {
+        print("PathPointNode deinit done")
+    }
+    
     override func touchDown(at pos: CGPoint) {
         parentPath.saveProgress(node: self)
     }

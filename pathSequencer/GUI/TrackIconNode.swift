@@ -10,7 +10,7 @@ import SpriteKit
 
 class TrackIconNode: TouchableNode {
     unowned private let track: Track
-    weak private var controlPanel: SoundModuleControlPanelNode?
+    weak private var controlPanel: SoundModuleControlPanel?
     private var label: SKLabelNode!
     var iconGroup: TrackIconGroupNode?
     
@@ -33,6 +33,10 @@ class TrackIconNode: TouchableNode {
         self.updateSelection()
     }
     
+    deinit {
+        print("TrackIconNode deinit done")
+    }
+    
     func getWidth() -> CGFloat {
         return label.frame.width
     }
@@ -48,7 +52,7 @@ class TrackIconNode: TouchableNode {
     override func singleTap(at pos: CGPoint) {
         if track.isSelected {
             if controlPanel == nil {
-                controlPanel = SoundModuleControlPanelNode(for: track.soundModule)
+                controlPanel = track.soundModule.createControlPanel()
             } else {
                 controlPanel!.close()
                 controlPanel = nil

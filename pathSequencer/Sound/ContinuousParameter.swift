@@ -9,6 +9,7 @@
 import Foundation
 
 class ContinuousParameter: Modulatable {
+    var isActive: Bool = false
     private let maxValue: Double!
     private let minValue: Double!
     private let setClosure: (Double) -> Void
@@ -28,12 +29,10 @@ class ContinuousParameter: Modulatable {
         self.displayUnit = displayUnit
         self.modSource = modSource
         self.userValue = getCurrentValue()
-        
-        UpdateManager.add(self)
     }
     
-    func delete() {
-        UpdateManager.remove(self)
+    deinit {
+        print("ContinuousParameter deinit done")
     }
     
     private func setCurrentValue(to newValue: Double) {

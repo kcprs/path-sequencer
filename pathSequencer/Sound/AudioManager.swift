@@ -11,7 +11,7 @@ import AudioKit
 class AudioManager {
     private static var staticSelf: AudioManager? = nil
     private static var mainMixer: AKMixer!
-    private static var soundModules: Array<SoundModule>!
+    private static var soundModules: Array<AnyObject>!
     
     init() {
         if AudioManager.staticSelf != nil {
@@ -28,8 +28,8 @@ class AudioManager {
         try!AudioKit.start()
 
         mainMixer.start()
-        for node in soundModules {
-            node.start()
+        for module in soundModules {
+            (module as! SoundModule).start()
         }
     }
     
@@ -39,7 +39,7 @@ class AudioManager {
     }
     
     static func removeSoundModule(_ module: SoundModule) {
-        let index = soundModules.index(of: module)
+        let index = soundModules.indexByReference(module.anyObjectSelf())
         soundModules.remove(at: index!)
         
         module.disconnect()

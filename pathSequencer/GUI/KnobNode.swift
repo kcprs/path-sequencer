@@ -10,6 +10,7 @@ import SpriteKit
 
 class KnobNode: TouchableNode, Updatable {
     unowned private let parameter: ContinuousParameter
+    var isActive = false
     private let circle: SKShapeNode!
     private let notch: SKShapeNode!
     private let knobRoot: SKNode!
@@ -70,8 +71,10 @@ class KnobNode: TouchableNode, Updatable {
         modPreviewRoot.addChild(modPreview)
         
         updateSelfFromParameterValue()
-        
-        UpdateManager.add(self)
+    }
+    
+    deinit {
+        print("KnobNode deinit done")
     }
     
     private func updateLabel() {

@@ -43,6 +43,10 @@ class RadioButtonNode: TouchableNode {
         updateSelfFromParameterValue()
     }
     
+    deinit {
+        print("RadioButtonNode deinit done")
+    }
+    
     private func updateParameterValue() {
         parameter.goToNextState()
         updateSelfFromParameterValue()

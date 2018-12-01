@@ -18,7 +18,7 @@ class Track: Equatable {
                 TrackManager.selectedTrack = self
             } else {
                 if soundModule.controlPanel != nil {
-                    soundModule.controlPanel?.close()
+                    soundModule.controlPanel!.close()
                 }
             }
         }
@@ -34,13 +34,15 @@ class Track: Equatable {
     
     init() {
         sequencerPath = SequencerPath(for: self)
-        soundModule = SoundModule(for: self)
+        soundModule = WavetableSynthSoundModule(for: self)
     }
     
     deinit {
-        AudioManager.removeSoundModule(soundModule)
+        print("Track deinit start")
         soundModule.delete()
+        AudioManager.removeSoundModule(soundModule)
         sequencerPath.delete()
+        print("Track deinit end")
     }
     
     static func == (lhs: Track, rhs: Track) -> Bool {
