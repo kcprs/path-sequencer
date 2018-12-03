@@ -34,7 +34,7 @@ class PathPointNode: NodeOnSequencerPath {
     }
     
     override func touchUp(at pos: CGPoint) {
-        parentPath.resumeMovement()
+        parentPath.cursor.resumeMovement()
     }
     
     override func doubleTap(at pos: CGPoint) {

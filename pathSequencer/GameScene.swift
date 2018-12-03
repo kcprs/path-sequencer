@@ -15,6 +15,7 @@ class GameScene: SKScene {
     private var cam: SKCameraNode!
     private var touchedPoint: CGPoint?
     private var trackIconGroupNode: TrackIconGroupNode!
+    private var playbackManagerNode: PlaybackManagerNode!
     
     override func didMove(to view: SKView) {
         // Set up the scene
@@ -29,6 +30,10 @@ class GameScene: SKScene {
         trackIconGroupNode = TrackIconGroupNode(TrackManager.staticSelf!)
         trackIconGroupNode.position = CGPoint(x: 0, y: -self.size.height / 2 + 20)
         cam.addChild(trackIconGroupNode)
+        
+        playbackManagerNode = PlaybackManagerNode()
+        playbackManagerNode.position = CGPoint(x: self.size.width / 2 - 35, y: self.size.height / 2 - 35)
+        cam.addChild(playbackManagerNode)
 
         SceneManager.run()
     }

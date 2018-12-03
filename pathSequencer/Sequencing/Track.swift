@@ -45,6 +45,14 @@ class Track: Equatable {
         print("Track deinit end")
     }
     
+    func startPlayback() {
+        sequencerPath.cursor.resumeMovement()
+    }
+    
+    func stopPlayback() {
+        sequencerPath.cursor.stop()
+    }
+    
     static func == (lhs: Track, rhs: Track) -> Bool {
         return lhs === rhs
     }

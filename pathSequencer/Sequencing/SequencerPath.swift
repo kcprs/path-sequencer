@@ -44,8 +44,7 @@ class SequencerPath: SKNode {
         scene.addChild(self)
         scatterRandomly(centre: scene.camera!.position, range: scene.size)
         
-        let cursor = CursorNode(onPath: self)
-        cursor.resumeMovement()
+        cursor = CursorNode(onPath: self)
         
         self.alpha = 0
         self.run(SKAction.fadeIn(withDuration: 0.5))
@@ -191,10 +190,6 @@ class SequencerPath: SKNode {
         if cursor.isNextTo(node: node) {
             cursor.saveProgress()
         }
-    }
-    
-    func resumeMovement() {
-        cursor.resumeMovement()
     }
     
     func getNextTarget(fromNode: PathPointNode) -> PathPointNode {

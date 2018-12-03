@@ -67,6 +67,10 @@ class CursorNode: SKNode, ModulationSource {
     }
     
     func resumeMovement() {
+        if !PlaybackManager.isPlaying {
+            return
+        }
+        
         let path = CGMutablePath()
         path.move(to: self.position)
         path.addLine(to: toNode.position)

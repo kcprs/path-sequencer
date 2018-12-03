@@ -24,6 +24,7 @@ class SceneManager {
         let _ = AudioManager()
         let _ = TrackManager()
         let _ = UpdateManager()
+        let _ = PlaybackManager()
     }
     
     static func run() {

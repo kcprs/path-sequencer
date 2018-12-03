@@ -44,4 +44,16 @@ class TrackManager {
         let index = tracks.index(of: track)
         tracks.remove(at: index!)
     }
+    
+    static func startPlayback() {
+        for track in tracks {
+            track.startPlayback()
+        }
+    }
+    
+    static func stopPlayback() {
+        for track in tracks {
+            track.stopPlayback()
+        }
+    }
 }
