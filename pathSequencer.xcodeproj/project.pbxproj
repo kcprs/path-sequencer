@@ -99,6 +99,57 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		881FA3FA21B57C2A003E4F27 /* SoundModuleControls */ = {
+			isa = PBXGroup;
+			children = (
+				88C97F2921B2F3480039EAB7 /* SoundModuleControlPanels */,
+				88C97F2621B2DECD0039EAB7 /* SoundModuleControlsPanelNode.swift */,
+				88F815AD219DD0CA0095B54F /* KnobNode.swift */,
+				88D2061021A468E600DB74F7 /* RadioButtonNode.swift */,
+			);
+			path = SoundModuleControls;
+			sourceTree = "<group>";
+		};
+		881FA3FB21B57C56003E4F27 /* PathNodes */ = {
+			isa = PBXGroup;
+			children = (
+				88BDF80C21A5F60300819522 /* PathAddPointNode.swift */,
+				88F34B46219DD34F005E598D /* PathPointNode.swift */,
+				885273FC218B7DD000D675C1 /* CursorNode.swift */,
+				88BDF80A21A5F49000819522 /* NodeOnSequencerPath.swift */,
+			);
+			path = PathNodes;
+			sourceTree = "<group>";
+		};
+		881FA3FC21B57CA9003E4F27 /* TrackNodes */ = {
+			isa = PBXGroup;
+			children = (
+				8800A84F219EF4FA0010073D /* TrackIconNode.swift */,
+				88D2061221A48B4700DB74F7 /* TrackIconGroupNode.swift */,
+			);
+			path = TrackNodes;
+			sourceTree = "<group>";
+		};
+		881FA3FD21B57CE6003E4F27 /* SoundParameters */ = {
+			isa = PBXGroup;
+			children = (
+				88A7434421ADDD6D00CDB7AC /* ModulationSource.swift */,
+				88D2060A21A41A0F00DB74F7 /* ContinuousParameter.swift */,
+				88D2060C21A4651F00DB74F7 /* DiscreteParameter.swift */,
+				88A7433C21AD928400CDB7AC /* Modulatable.swift */,
+			);
+			path = SoundParameters;
+			sourceTree = "<group>";
+		};
+		881FA3FE21B57D6E003E4F27 /* Updatables */ = {
+			isa = PBXGroup;
+			children = (
+				88A7433E21ADA37700CDB7AC /* UpdateManager.swift */,
+				88A7434221ADCA4B00CDB7AC /* Updatable.swift */,
+			);
+			path = Updatables;
+			sourceTree = "<group>";
+		};
 		884607F7219B31DC00E8AE53 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -132,10 +183,9 @@
 				8871218E21A5AACE0093FBC2 /* Sound */,
 				88F815A8219DCF550095B54F /* GUI */,
 				88F815A9219DCFFA0095B54F /* Util */,
+				881FA3FE21B57D6E003E4F27 /* Updatables */,
 				8871218F21A5ABD10093FBC2 /* Sequencing */,
 				8871218C21A58EA20093FBC2 /* SceneManager.swift */,
-				88A7433E21ADA37700CDB7AC /* UpdateManager.swift */,
-				88A7434221ADCA4B00CDB7AC /* Updatable.swift */,
 				885273DC218B7CDB00D675C1 /* GameScene.swift */,
 				885273D6218B7CDB00D675C1 /* AppDelegate.swift */,
 				885273DE218B7CDB00D675C1 /* GameViewController.swift */,
@@ -151,13 +201,9 @@
 		8871218E21A5AACE0093FBC2 /* Sound */ = {
 			isa = PBXGroup;
 			children = (
-				885273FB218B7DD000D675C1 /* AudioManager.swift */,
-				88D2060A21A41A0F00DB74F7 /* ContinuousParameter.swift */,
-				88D2060C21A4651F00DB74F7 /* DiscreteParameter.swift */,
-				88A7433C21AD928400CDB7AC /* Modulatable.swift */,
-				88A7434421ADDD6D00CDB7AC /* ModulationSource.swift */,
-				8866942E219CB26B0014B455 /* SoundModule.swift */,
 				88C97F2821B2F3340039EAB7 /* SoundModules */,
+				881FA3FD21B57CE6003E4F27 /* SoundParameters */,
+				885273FB218B7DD000D675C1 /* AudioManager.swift */,
 			);
 			path = Sound;
 			sourceTree = "<group>";
@@ -176,6 +222,7 @@
 		88C97F2821B2F3340039EAB7 /* SoundModules */ = {
 			isa = PBXGroup;
 			children = (
+				8866942E219CB26B0014B455 /* SoundModule.swift */,
 				88C97F2021B2DA460039EAB7 /* WavetableSynthSoundModule.swift */,
 			);
 			path = SoundModules;
@@ -192,16 +239,9 @@
 		88F815A8219DCF550095B54F /* GUI */ = {
 			isa = PBXGroup;
 			children = (
-				885273FC218B7DD000D675C1 /* CursorNode.swift */,
-				88F815AD219DD0CA0095B54F /* KnobNode.swift */,
-				88BDF80A21A5F49000819522 /* NodeOnSequencerPath.swift */,
-				88BDF80C21A5F60300819522 /* PathAddPointNode.swift */,
-				88F34B46219DD34F005E598D /* PathPointNode.swift */,
-				88D2061021A468E600DB74F7 /* RadioButtonNode.swift */,
-				88C97F2621B2DECD0039EAB7 /* SoundModuleControlsPanelNode.swift */,
-				88C97F2921B2F3480039EAB7 /* SoundModuleControlPanels */,
-				8800A84F219EF4FA0010073D /* TrackIconNode.swift */,
-				88D2061221A48B4700DB74F7 /* TrackIconGroupNode.swift */,
+				881FA3FC21B57CA9003E4F27 /* TrackNodes */,
+				881FA3FB21B57C56003E4F27 /* PathNodes */,
+				881FA3FA21B57C2A003E4F27 /* SoundModuleControls */,
 				88CD0A8D21A72DDC0025DE83 /* TouchableNode.swift */,
 			);
 			path = GUI;
