@@ -13,6 +13,7 @@ class CursorNode: SKNode, ModulationSource {
     private var visibleNode: SKShapeNode!
     private var cursorSpeed: CGFloat = 100
     private var moveProgress: CGFloat = 0
+    private var isInTempoMode = true
     unowned private let parentPath: SequencerPath
     unowned private var fromNode: PathPointNode
     unowned private var toNode: PathPointNode
@@ -75,7 +76,15 @@ class CursorNode: SKNode, ModulationSource {
         path.move(to: self.position)
         path.addLine(to: toNode.position)
         
-        self.run(SKAction.follow(path, asOffset: false, orientToPath: true, speed: cursorSpeed), withKey: "move", optionalCompletion: targetReached)
+        saveProgress()
+        
+        if isInTempoMode {
+            let noteDuration = CGFloat(PlaybackManager.getNoteTime(parentPath.noteDuration))
+            let duration = TimeInterval((1 - moveProgress) * noteDuration)
+            self.run(SKAction.follow(path, asOffset: false, orientToPath: true, duration: duration), withKey: "move", optionalCompletion: targetReached)
+        } else {
+            self.run(SKAction.follow(path, asOffset: false, orientToPath: true, speed: cursorSpeed), withKey: "move", optionalCompletion: targetReached)
+        }
     }
     
     func updateFromToNodes(basedOn node: PathAddPointNode) {
@@ -124,11 +133,7 @@ class CursorNode: SKNode, ModulationSource {
         fromNode = toNode
         toNode = parentPath.getNextTarget(fromNode: fromNode)
         
-        let path = CGMutablePath()
-        path.move(to: fromNode.position)
-        path.addLine(to: toNode.position)
-        
-        self.run(SKAction.follow(path, asOffset: false, orientToPath: true, speed: cursorSpeed), withKey: "move", optionalCompletion: targetReached)
+        resumeMovement()
     }
     
     func isNextTo(node: PathPointNode) -> Bool {

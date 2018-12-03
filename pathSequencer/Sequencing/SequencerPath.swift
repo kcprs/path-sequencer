@@ -12,6 +12,7 @@ class SequencerPath: SKNode {
     unowned let track: Track
     private var pathNode: SKShapeNode!
     var cursor: CursorNode!
+    var noteDuration: NoteDuration = .quarter
     private var pathPointNodes: Array<PathPointNode>!
     private var pathAddPointNodes: Array<PathAddPointNode>!
     var centre: CGPoint {

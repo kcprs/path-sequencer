@@ -29,4 +29,8 @@ class PlaybackManager {
         isPlaying = false
         TrackManager.stopPlayback()
     }
+    
+    static func getNoteTime(_ note: NoteDuration) -> Double {
+        return note.rawValue * 240 / tempo
+    }
 }
