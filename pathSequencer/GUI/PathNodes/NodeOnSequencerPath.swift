@@ -9,12 +9,12 @@
 import SpriteKit
 
 class NodeOnSequencerPath: TouchableNode {
-    var visibleNode: SKShapeNode!
     unowned let parentPath: SequencerPath
+    
+    var visibleNode: SKShapeNode!
     
     init(parentPath: SequencerPath) {
         self.parentPath = parentPath
-        
         super.init()
     }
     

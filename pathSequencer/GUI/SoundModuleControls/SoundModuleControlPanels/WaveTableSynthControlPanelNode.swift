@@ -9,11 +9,12 @@
 import SpriteKit
 
 class WavetableSynthControlPanelNode: SKNode, SoundModuleControlPanel {
-    var backgroundNode: SKShapeNode?
-    internal var frameMargin: CGFloat = 100
     var soundModule: SoundModule { return _soundModule as SoundModule }
     unowned var _soundModule: WavetableSynthSoundModule
-    internal var updatables: Array<Updatable>
+    
+    var backgroundNode: SKShapeNode?
+    var frameMargin: CGFloat = 100
+    var updatables: Array<Updatable>
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -52,7 +53,7 @@ class WavetableSynthControlPanelNode: SKNode, SoundModuleControlPanel {
         print("WavetableSynthControlPanelNode deinit end")
     }
     
-    internal func setupGUI() {
+    func setupGUI() {
         // TODO: Find a good way to approach GUI layout
         var knob = KnobNode(parameter: _soundModule.attack)
         knob.position = CGPoint(x: -400, y: 0)
@@ -79,12 +80,12 @@ class WavetableSynthControlPanelNode: SKNode, SoundModuleControlPanel {
         self.addChild(knob)
         updatables.append(knob)
         
-        let radio = RadioButtonNode(parameter: _soundModule.pitchQuantisation)
-        radio.position = CGPoint(x: 0, y: 200)
-        self.addChild(radio)
+        let switchNode = SwitchNode(parameter: _soundModule.pitchQuantisation)
+        switchNode.position = CGPoint(x: 0, y: 200)
+        self.addChild(switchNode)
     }
     
-    internal func removeFromSoundModule() {
+    func removeFromSoundModule() {
         _soundModule.controlPanel = nil
     }
 }

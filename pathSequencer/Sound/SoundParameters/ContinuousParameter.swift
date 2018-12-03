@@ -9,16 +9,18 @@
 import Foundation
 
 class ContinuousParameter: Modulatable {
-    var isActive: Bool = false
+    unowned let modSource: ModulationSource
+    
     private let maxValue: Double!
     private let minValue: Double!
     private let setClosure: (Double) -> Void
     private let getClosure: () -> Double
+    private var userValue: Double! { didSet { update() }}
+    var modAmount: Double! = 0 { didSet { update() }}
+    var isActive: Bool = false
+    
     let label: String!
     let displayUnit: String!
-    var modAmount: Double! = 0 { didSet { update() }}
-    private var userValue: Double! { didSet { update() }}
-    unowned let modSource: ModulationSource
     
     init(label: String, minValue: Double, maxValue: Double, setClosure: @escaping (Double) -> Void, getClosure: @escaping () -> Double, displayUnit: String = "", modSource: ModulationSource) {
         self.label = label

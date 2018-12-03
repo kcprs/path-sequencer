@@ -17,8 +17,17 @@ class SequencingManager {
             }
         }
     }
-    private static var sequencer: AKSequencer!
-    static var tempo: Double = 120
+    static var sequencer: AKSequencer!
+    
+    static var tempo: Double {
+        get {
+            return sequencer.tempo
+        }
+        
+        set {
+            sequencer.setTempo(newValue)
+        }
+    }
     static var isPlaying: Bool { return sequencer.isPlaying }
     
     init() {
@@ -27,7 +36,6 @@ class SequencingManager {
         }
         SequencingManager.staticSelf = self
         SequencingManager.tracks = Array<Track>()
-        
         SequencingManager.sequencer = AKSequencer()
     }
     
@@ -42,7 +50,7 @@ class SequencingManager {
         return track
     }
     
-    static func delete(_ track: Track) {
+    static func deleteTrack(_ track: Track) {
         if track.isSelected {
             track.isSelected = false
             selectedTrack = nil
@@ -54,22 +62,12 @@ class SequencingManager {
     
     static func startPlayback() {
         for track in tracks {
-//            track.startPlayback()
             track.updateSequence()
         }
         sequencer.play()
     }
     
     static func stopPlayback() {
-//        for track in tracks {
-//            track.stopPlayback()
-//        }
         sequencer.stop()
-    }
-    
-    static func getNoteTime(_ note: AKDuration) -> Double {
-        var newNote = note
-        newNote.tempo = tempo
-        return newNote.seconds
     }
 }

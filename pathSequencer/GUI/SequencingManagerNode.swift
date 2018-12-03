@@ -9,15 +9,16 @@
 import SpriteKit
 
 class SequencingManagerNode: TouchableNode {
-    private var playButton: SKShapeNode!
+    // Graphics
+    private let playButton: SKShapeNode!
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     override init() {
-        super.init()
         playButton = SKShapeNode(rectOf: CGSize(width: 50, height: 50))
+        super.init()
         self.addChild(playButton)
         updatePlayButton()
     }

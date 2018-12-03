@@ -24,17 +24,9 @@ class PathPointNode: NodeOnSequencerPath {
         print("PathPointNode deinit done")
     }
     
-    override func touchDown(at pos: CGPoint) {
-        parentPath.saveProgress(node: self)
-    }
-    
     override func touchMoved(to pos: CGPoint) {
         self.position = pos
         parentPath.updateAfterNodeMoved(node: self)
-    }
-    
-    override func touchUp(at pos: CGPoint) {
-        parentPath.cursor.resumeMovement()
     }
     
     override func doubleTap(at pos: CGPoint) {

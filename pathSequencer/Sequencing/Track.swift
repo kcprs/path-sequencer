@@ -13,7 +13,11 @@ class Track: Equatable {
     var soundModule: SoundModule!
     var sequencerPath: SequencerPath!
     var sequencerTrack: AKMusicTrack!
+    
     var noteDuration: AKDuration = AKDuration(beats: 1)
+    var holdProportion: Double = 0.5
+    
+    // Graphics
     var icon: TrackIconNode?
     var isSelected = false {
         willSet {
@@ -39,12 +43,8 @@ class Track: Equatable {
         sequencerTrack = seqTrack
         sequencerPath = SequencerPath(for: self)
         soundModule = WavetableSynthSoundModule(for: self)
-        
-        // tmp midi instrument
-        let tmp = AKMIDISampler()
-        tmp.enableMIDI()
-        AudioManager.addNode(node: tmp)
-        seqTrack.setMIDIOutput(tmp.midiIn)
+
+        sequencerTrack.setMIDIOutput(soundModule.getMIDIInput())
     }
     
     deinit {
@@ -60,32 +60,22 @@ class Track: Equatable {
         for midiEvent in sequencerPath.getSequencingData() {
             sequencerTrack.add(midiNoteData: midiEvent)
         }
-        sequencerTrack.setLoopInfo(sequencerTrack.getLength(), numberOfLoops: 0)
+        
+        let length = AKDuration(beats: noteDuration.beats * sequencerPath.pointCount)
+        
+        sequencerTrack.setLoopInfo(length, numberOfLoops: 0)
     }
     
-    func startPlayback() {
-        sequencerPath.cursor.resumeMovement()
-    }
-    
-    func stopPlayback() {
-        sequencerPath.cursor.stop()
+    func getLoopProgress() -> (Int, Double) {
+        let sequenceProgress = SequencingManager.sequencer.currentPosition
+        let loopProgress = sequenceProgress.beats.truncatingRemainder(dividingBy: noteDuration.beats * sequencerPath.pointCount)
+        let currentNoteIndex = Int(loopProgress)
+        let currentNoteProgress = loopProgress - Double(currentNoteIndex)
+        
+        return (currentNoteIndex, currentNoteProgress)
     }
     
     static func == (lhs: Track, rhs: Track) -> Bool {
         return lhs === rhs
-    }
-}
-
-extension AKMusicTrack {
-    func getLength() -> AKDuration {
-        var length: AKDuration = AKDuration(seconds: 0)
-        
-        for event in self.getMIDINoteData() {
-            if event.position + event.duration > length {
-                length = event.position + event.duration
-            }
-        }
-        
-        return length
     }
 }

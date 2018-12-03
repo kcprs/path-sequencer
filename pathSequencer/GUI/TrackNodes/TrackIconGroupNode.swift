@@ -9,7 +9,6 @@
 import SpriteKit
 
 class TrackIconGroupNode: TouchableNode {
-    unowned private let sequencingManager: SequencingManager
     private var icons: Array<TrackIconNode>!
     private var width: CGFloat = 0
     private var addNewTrackButton: SKShapeNode! // TODO: Make into a SpriteNode, add custom graphic
@@ -18,8 +17,7 @@ class TrackIconGroupNode: TouchableNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(_ manager: SequencingManager) {
-        self.sequencingManager = manager
+    override init() {
         icons = Array<TrackIconNode>()
         addNewTrackButton = SKShapeNode(rectOf: CGSize(width: 50, height: 50))
         width = 50 // TODO: get from addNewTrackButton when it's changed into a SpriteNode
@@ -36,7 +34,7 @@ class TrackIconGroupNode: TouchableNode {
         icons.append(icon)
         icon.position = CGPoint(x: width - 50, y: 0)
         self.addChild(icon)
-        icon.iconGroup = self
+        icon.addToGroup(group: self)
         icon.alpha = 0
         icon.run(SKAction.fadeIn(withDuration: 0.3))
         width += icon.getWidth()

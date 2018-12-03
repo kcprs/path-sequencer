@@ -8,10 +8,11 @@
 
 import SpriteKit
 
-protocol SoundModuleControlPanel: AnyObject {    
+protocol SoundModuleControlPanel: AnyObject {
+    var soundModule: SoundModule { get }
+    
     var backgroundNode: SKShapeNode? { get set }
     var frameMargin: CGFloat { get set }
-    var soundModule: SoundModule { get }
     var updatables: Array<Updatable> { get set }
     
     func setupGUI()
@@ -21,6 +22,10 @@ protocol SoundModuleControlPanel: AnyObject {
 
 extension SoundModuleControlPanel where Self: SKNode {
     func close() {
+        for updatable in updatables {
+            UpdateManager.remove(updatable)
+        }
+        
         self.run(SKAction.fadeOut(withDuration: 0.3), completion: {
             self.removeFromParent()
             self.soundModule.controlPanel = nil

@@ -10,10 +10,9 @@ import AudioKit
 
 protocol SoundModule: AnyObject {
     var track: Track { get set }
-    var notesPlaying: Array<MIDINoteNumber>! { get set }
-    var lastPlayedNote: MIDINoteNumber { get set }
     var quantisePitch: Bool { get set }
     var controlPanel: SoundModuleControlPanel? { get set }
+    var callbackInstrument: AKCallbackInstrument! { get set }
     
     init(for track: Track)
     
@@ -29,7 +28,7 @@ protocol SoundModule: AnyObject {
     
     func disconnect()
     
-    func trigger(freq: Double)
+    func sequencerCallback(_ status: AKMIDIStatus, _ noteNumber: MIDINoteNumber, _ velocity: MIDIVelocity)
     
     func getMIDIInput() -> MIDIEndpointRef
     
@@ -39,5 +38,10 @@ protocol SoundModule: AnyObject {
 extension SoundModule where Self: AnyObject {
     func anyObjectSelf() -> AnyObject {
         return self as AnyObject
+    }
+    
+    func setupCallbackInstrument() {
+        self.callbackInstrument = AKCallbackInstrument()
+        self.callbackInstrument.callback = sequencerCallback(_:_:_:)
     }
 }

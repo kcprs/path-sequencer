@@ -1,5 +1,5 @@
 //
-//  RadioButtonNode.swift
+//  SwitchNode.swift
 //  pathSequencer
 //
 //  Created by Kacper Sagnowski on 11/20/18.
@@ -8,12 +8,14 @@
 
 import SpriteKit
 
-class RadioButtonNode: TouchableNode {
+class SwitchNode: TouchableNode {
     unowned private let parameter: DiscreteParameter<Bool>
+    
+    // Graphics
     private let outerCircle: SKShapeNode!
     private let innerCircle: SKShapeNode!
-    private let diameter: CGFloat = 25
     private let label: SKLabelNode!
+    private let diameter: CGFloat = 25
     private let labelSpacer: CGFloat = 1.5
     
     required init?(coder aDecoder: NSCoder) {
@@ -22,7 +24,7 @@ class RadioButtonNode: TouchableNode {
     
     init(parameter: DiscreteParameter<Bool>) {
         if parameter.valueCount != 2 {
-            fatalError("RadioButton can only have two states")
+            fatalError("Switch can only have two states")
         }
         
         self.parameter = parameter
@@ -44,7 +46,7 @@ class RadioButtonNode: TouchableNode {
     }
     
     deinit {
-        print("RadioButtonNode deinit done")
+        print("SwitchNode deinit done")
     }
     
     private func updateParameterValue() {

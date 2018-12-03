@@ -11,40 +11,17 @@ import AudioKit
 
 class PitchManager {
     private static var staticSelf: PitchManager? = nil
-    private static var pitchLabels: Array<SKLabelNode>!
-    private static var topNote = 108  // MIDI pitch
-    private static var bottomNote = 21  // MIDI pitch
-    private static let yGap: Int = 40
+    static var pitchManagerNode: PitchManagerNode!
+    
+    static var topNote = 108  // MIDI pitch
+    static var bottomNote = 21  // MIDI pitch
+    static let yGap: Int = 40
     
     init() {
         if PitchManager.staticSelf != nil {
             fatalError("There can only be one PitchManager")
         }
         PitchManager.staticSelf = self
-        
-        // TODO: Move to a GUI class
-        PitchManager.pitchLabels = Array<SKLabelNode>()
-        
-        let xPos =  -SceneManager.scene!.size.width / 2 + 10
-        
-        for note in PitchManager.bottomNote...PitchManager.topNote {
-            let labelNode = SKLabelNode(text: MidiUtil.noteToName(midiPitch: MIDINoteNumber(note)))
-            PitchManager.pitchLabels.append(labelNode)
-            
-            let yPos = (note - PitchManager.bottomNote) * PitchManager.yGap
-            
-            labelNode.position = CGPoint(x: xPos, y: CGFloat(yPos))
-            labelNode.horizontalAlignmentMode = .left
-            SceneManager.scene!.addChild(labelNode)
-        }
-    }
-    
-    static func getCentreY() -> CGFloat {
-        return CGFloat(yGap * (topNote - bottomNote) / 2)
-    }
-    
-    static func getHeight() -> CGFloat {
-        return CGFloat(yGap * pitchLabels.count)
     }
     
     static func getUnquantisedMIDINoteAt(node: SKNode) -> Double {
@@ -69,5 +46,9 @@ class PitchManager {
         let width = Double(SceneManager.scene!.size.width)
         
         return (Double(position.x) + 0.5 * width) / width
+    }
+    
+    static func getCentreY() -> CGFloat {
+        return CGFloat(yGap * (topNote - bottomNote) / 2)
     }
 }

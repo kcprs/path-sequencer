@@ -11,10 +11,14 @@ import AudioKit
 
 class SequencerPath: SKNode {
     unowned let track: Track
-    private var pathNode: SKShapeNode!
     var cursor: CursorNode!
-    private var pathPointNodes: Array<PathPointNode>!
+    var pathPointNodes: Array<PathPointNode>!
     private var pathAddPointNodes: Array<PathAddPointNode>!
+    var pointCount: Int { return pathPointNodes.count }
+    
+    // Graphics
+    private var pathNode: SKShapeNode!
+    
     var centre: CGPoint {
         let x = self.pathNode.frame.midX
         let y = self.pathNode.frame.midY
@@ -53,7 +57,7 @@ class SequencerPath: SKNode {
     
     deinit {
         print("SequencerPath deinit start")
-        cursor.stop()
+        cursor.setActive(false)
         print("SequencerPath deinit end")
     }
     
@@ -184,13 +188,8 @@ class SequencerPath: SKNode {
     
     func addCursor(_ cursor: CursorNode) {
         self.cursor = cursor
+        self.cursor.setActive(true)
         self.addChild(cursor)
-    }
-    
-    func saveProgress(node: PathPointNode) {
-        if cursor.isNextTo(node: node) {
-            cursor.saveProgress()
-        }
     }
     
     func getNextTarget(fromNode: PathPointNode) -> PathPointNode {
@@ -214,16 +213,17 @@ class SequencerPath: SKNode {
     }
     
     func delete() {
-        self.removeFromParent()
-//        self.run(SKAction.fadeOut(withDuration: 0.5), completion: self.removeFromParent)
+        self.run(SKAction.fadeOut(withDuration: 0.5), completion: self.removeFromParent)
     }
     
+    // TODO: Needs to be updated every time hold time is changed
     func getSequencingData() -> Array<AKMIDINoteData> {
         var data = Array<AKMIDINoteData>()
         var position = AKDuration(seconds: 0)
+        let duration = AKDuration(beats: track.noteDuration.beats * track.holdProportion)
         
         for node in pathPointNodes {
-            data.append(AKMIDINoteData(noteNumber: PitchManager.getMIDINoteAt(node: node), velocity: 127, channel: 1, duration: track.noteDuration, position: position))
+            data.append(AKMIDINoteData(noteNumber: PitchManager.getMIDINoteAt(node: node), velocity: 127, channel: 1, duration: duration, position: position))
             
             position += track.noteDuration
         }

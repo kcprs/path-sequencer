@@ -10,18 +10,11 @@ import SpriteKit
 
 class KnobNode: TouchableNode, Updatable {
     unowned private let parameter: ContinuousParameter
+    
     var isActive = false
-    private let circle: SKShapeNode!
-    private let notch: SKShapeNode!
-    private let knobRoot: SKNode!
-    private let modPreview: SKShapeNode!
-    private let modPreviewRoot: SKNode!
-    private let rotationLimit: CGFloat = 2.5
-    private let diameter: CGFloat = 50
-    private let labelSpacer: CGFloat = 1.4
     private let sensitivity: Double = 200 // Movement by how many pixels maps to full range of assigned parameter?
     private var lastTouchPos: CGPoint?
-    private var label: SKLabelNode!
+    
     private var isLogarithmic = false
     private var proportion: Double {
         set {
@@ -35,6 +28,17 @@ class KnobNode: TouchableNode, Updatable {
             return Double((rotationLimit - knobRoot.zRotation) / (2 * rotationLimit))
         }
     }
+    
+    // Graphics
+    private let circle: SKShapeNode!
+    private let notch: SKShapeNode!
+    private let knobRoot: SKNode!
+    private let modPreview: SKShapeNode!
+    private let modPreviewRoot: SKNode!
+    private let rotationLimit: CGFloat = 2.5
+    private let diameter: CGFloat = 50
+    private let labelSpacer: CGFloat = 1.4
+    private var label: SKLabelNode!
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

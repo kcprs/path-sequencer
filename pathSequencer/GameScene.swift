@@ -16,6 +16,7 @@ class GameScene: SKScene {
     private var touchedPoint: CGPoint?
     private var trackIconGroupNode: TrackIconGroupNode!
     private var sequencingManagerNode: SequencingManagerNode!
+    private var pitchManagerNode: PitchManagerNode!
     
     override func didMove(to view: SKView) {
         // Set up the scene
@@ -27,19 +28,22 @@ class GameScene: SKScene {
         cam.zPosition = 100 // Keep camera above other nodes
         self.addChild(cam)
         
-        trackIconGroupNode = TrackIconGroupNode(SequencingManager.staticSelf!)
+        trackIconGroupNode = TrackIconGroupNode()
         trackIconGroupNode.position = CGPoint(x: 0, y: -self.size.height / 2 + 20)
         cam.addChild(trackIconGroupNode)
         
         sequencingManagerNode = SequencingManagerNode()
         sequencingManagerNode.position = CGPoint(x: self.size.width / 2 - 35, y: self.size.height / 2 - 35)
         cam.addChild(sequencingManagerNode)
+        
+        pitchManagerNode = PitchManagerNode()
+        self.addChild(pitchManagerNode)
 
         SceneManager.run()
     }
     
     func setCamYPosition(_ newYPosition: CGFloat, duration: TimeInterval = 0) {
-        let limitedY = max(self.size.height / 2, min(PitchManager.getHeight() - self.size.height, newYPosition))
+        let limitedY = max(self.size.height / 2, min(pitchManagerNode.getHeight() - self.size.height, newYPosition))
         
         let limitedPos = CGPoint(x: 0, y: limitedY)
         

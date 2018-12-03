@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8800A850219EF4FA0010073D /* TrackIconNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8800A84F219EF4FA0010073D /* TrackIconNode.swift */; };
-		881FA40221B5817E003E4F27 /* PlaybackManagerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881FA40121B5817E003E4F27 /* PlaybackManagerNode.swift */; };
+		881FA40221B5817E003E4F27 /* SequencingManagerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881FA40121B5817E003E4F27 /* SequencingManagerNode.swift */; };
 		884607F8219B31DC00E8AE53 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 885273EE218B7D4200D675C1 /* AudioKit.framework */; };
 		884607F9219B31DC00E8AE53 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 885273EF218B7D4600D675C1 /* AudioKitUI.framework */; };
 		8846084F219B549D00E8AE53 /* PitchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8846084E219B549D00E8AE53 /* PitchManager.swift */; };
@@ -38,8 +38,9 @@
 		88CD0A8E21A72DDC0025DE83 /* TouchableNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CD0A8D21A72DDC0025DE83 /* TouchableNode.swift */; };
 		88D2060B21A41A0F00DB74F7 /* ContinuousParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D2060A21A41A0F00DB74F7 /* ContinuousParameter.swift */; };
 		88D2060D21A4651F00DB74F7 /* DiscreteParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D2060C21A4651F00DB74F7 /* DiscreteParameter.swift */; };
-		88D2061121A468E600DB74F7 /* RadioButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D2061021A468E600DB74F7 /* RadioButtonNode.swift */; };
+		88D2061121A468E600DB74F7 /* SwitchNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D2061021A468E600DB74F7 /* SwitchNode.swift */; };
 		88D2061321A48B4700DB74F7 /* TrackIconGroupNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D2061221A48B4700DB74F7 /* TrackIconGroupNode.swift */; };
+		88D69B6421B5D26E00D83662 /* PitchManagerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D69B6321B5D26E00D83662 /* PitchManagerNode.swift */; };
 		88F34B47219DD34F005E598D /* PathPointNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F34B46219DD34F005E598D /* PathPointNode.swift */; };
 		88F815AC219DD0B70095B54F /* MidiUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F815AB219DD0B70095B54F /* MidiUtil.swift */; };
 		88F815AE219DD0CB0095B54F /* KnobNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F815AD219DD0CA0095B54F /* KnobNode.swift */; };
@@ -47,7 +48,7 @@
 
 /* Begin PBXFileReference section */
 		8800A84F219EF4FA0010073D /* TrackIconNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackIconNode.swift; sourceTree = "<group>"; };
-		881FA40121B5817E003E4F27 /* PlaybackManagerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackManagerNode.swift; sourceTree = "<group>"; };
+		881FA40121B5817E003E4F27 /* SequencingManagerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequencingManagerNode.swift; sourceTree = "<group>"; };
 		8846084E219B549D00E8AE53 /* PitchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchManager.swift; sourceTree = "<group>"; };
 		885273D3218B7CDB00D675C1 /* pathSequencer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pathSequencer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		885273D6218B7CDB00D675C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -80,8 +81,9 @@
 		88CD0A8D21A72DDC0025DE83 /* TouchableNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchableNode.swift; sourceTree = "<group>"; };
 		88D2060A21A41A0F00DB74F7 /* ContinuousParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinuousParameter.swift; sourceTree = "<group>"; };
 		88D2060C21A4651F00DB74F7 /* DiscreteParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscreteParameter.swift; sourceTree = "<group>"; };
-		88D2061021A468E600DB74F7 /* RadioButtonNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonNode.swift; sourceTree = "<group>"; };
+		88D2061021A468E600DB74F7 /* SwitchNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchNode.swift; sourceTree = "<group>"; };
 		88D2061221A48B4700DB74F7 /* TrackIconGroupNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackIconGroupNode.swift; sourceTree = "<group>"; };
+		88D69B6321B5D26E00D83662 /* PitchManagerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchManagerNode.swift; sourceTree = "<group>"; };
 		88F34B46219DD34F005E598D /* PathPointNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathPointNode.swift; sourceTree = "<group>"; };
 		88F815AB219DD0B70095B54F /* MidiUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MidiUtil.swift; sourceTree = "<group>"; };
 		88F815AD219DD0CA0095B54F /* KnobNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KnobNode.swift; sourceTree = "<group>"; };
@@ -106,7 +108,7 @@
 				88C97F2921B2F3480039EAB7 /* SoundModuleControlPanels */,
 				88C97F2621B2DECD0039EAB7 /* SoundModuleControlsPanelNode.swift */,
 				88F815AD219DD0CA0095B54F /* KnobNode.swift */,
-				88D2061021A468E600DB74F7 /* RadioButtonNode.swift */,
+				88D2061021A468E600DB74F7 /* SwitchNode.swift */,
 			);
 			path = SoundModuleControls;
 			sourceTree = "<group>";
@@ -117,6 +119,7 @@
 				88BDF80C21A5F60300819522 /* PathAddPointNode.swift */,
 				88F34B46219DD34F005E598D /* PathPointNode.swift */,
 				88BDF80A21A5F49000819522 /* NodeOnSequencerPath.swift */,
+				885273FC218B7DD000D675C1 /* CursorNode.swift */,
 			);
 			path = PathNodes;
 			sourceTree = "<group>";
@@ -211,7 +214,6 @@
 		8871218F21A5ABD10093FBC2 /* Sequencing */ = {
 			isa = PBXGroup;
 			children = (
-				885273FC218B7DD000D675C1 /* CursorNode.swift */,
 				8846084E219B549D00E8AE53 /* PitchManager.swift */,
 				885273FD218B7DD000D675C1 /* SequencerPath.swift */,
 				8871218621A5816A0093FBC2 /* SequencingManager.swift */,
@@ -243,7 +245,8 @@
 				881FA3FC21B57CA9003E4F27 /* TrackNodes */,
 				881FA3FB21B57C56003E4F27 /* PathNodes */,
 				881FA3FA21B57C2A003E4F27 /* SoundModuleControls */,
-				881FA40121B5817E003E4F27 /* PlaybackManagerNode.swift */,
+				88D69B6321B5D26E00D83662 /* PitchManagerNode.swift */,
+				881FA40121B5817E003E4F27 /* SequencingManagerNode.swift */,
 				88CD0A8D21A72DDC0025DE83 /* TouchableNode.swift */,
 			);
 			path = GUI;
@@ -335,7 +338,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				88D2060D21A4651F00DB74F7 /* DiscreteParameter.swift in Sources */,
-				88D2061121A468E600DB74F7 /* RadioButtonNode.swift in Sources */,
+				88D2061121A468E600DB74F7 /* SwitchNode.swift in Sources */,
 				8871218D21A58EA20093FBC2 /* SceneManager.swift in Sources */,
 				88C97F2521B2DC170039EAB7 /* WaveTableSynthControlPanelNode.swift in Sources */,
 				885273DD218B7CDB00D675C1 /* GameScene.swift in Sources */,
@@ -343,9 +346,10 @@
 				8871218B21A58AD10093FBC2 /* Track.swift in Sources */,
 				88C97F2721B2DECD0039EAB7 /* SoundModuleControlsPanelNode.swift in Sources */,
 				88D2061321A48B4700DB74F7 /* TrackIconGroupNode.swift in Sources */,
-				881FA40221B5817E003E4F27 /* PlaybackManagerNode.swift in Sources */,
+				881FA40221B5817E003E4F27 /* SequencingManagerNode.swift in Sources */,
 				88A7433F21ADA37700CDB7AC /* UpdateManager.swift in Sources */,
 				88A7434321ADCA4B00CDB7AC /* Updatable.swift in Sources */,
+				88D69B6421B5D26E00D83662 /* PitchManagerNode.swift in Sources */,
 				88CD0A8E21A72DDC0025DE83 /* TouchableNode.swift in Sources */,
 				885273DF218B7CDB00D675C1 /* GameViewController.swift in Sources */,
 				88F815AC219DD0B70095B54F /* MidiUtil.swift in Sources */,

@@ -9,15 +9,16 @@
 import AudioKit
 
 class WavetableSynthSoundModule: SoundModule {
+    unowned var track: Track
+    
+    var callbackInstrument: AKCallbackInstrument!
     var controlPanel: SoundModuleControlPanel?
-    unowned internal var track: Track
+    var quantisePitch = true
+    
+    // AudioKit stuff
     private var oscBank: AKMorphingOscillatorBank!
     private var filter: AKLowPassFilter!
     private var waveforms: Array<AKTable>!
-    internal var notesPlaying: Array<MIDINoteNumber>!
-    internal var lastPlayedNote: MIDINoteNumber = 0
-    private var holdTime = 0.5
-    internal var quantisePitch = true
     
     // GUI-controlled parameters
     var attack: ContinuousParameter!
@@ -29,7 +30,7 @@ class WavetableSynthSoundModule: SoundModule {
     
     required init(for track: Track) {
         self.track = track
-        notesPlaying = Array<MIDINoteNumber>()
+        setupCallbackInstrument()
         waveforms = Array<AKTable>()
         waveforms.append(AKTable(.sine))
         waveforms.append(AKTable(.triangle))
@@ -50,10 +51,10 @@ class WavetableSynthSoundModule: SoundModule {
                                      getClosure: {() -> Double in return self.oscBank.attackDuration},
                                      displayUnit: "s",
                                      modSource: track.sequencerPath.cursor)
-        hold = ContinuousParameter(label: "Hold Time", minValue: 0.01, maxValue: 1,
-                                   setClosure: {(newValue: Double) in self.holdTime = newValue},
-                                   getClosure: {() -> Double in return self.holdTime},
-                                   displayUnit: "s",
+        hold = ContinuousParameter(label: "Hold Time", minValue: 1, maxValue: 100,
+                                   setClosure: {(newValue: Double) in self.track.holdProportion = newValue / 100},
+                                   getClosure: {() -> Double in return self.track.holdProportion * 100},
+                                   displayUnit: "%",
                                    modSource: track.sequencerPath.cursor)
         decay = ContinuousParameter(label: "Decay Time", minValue: 0.01, maxValue: 1,
                                     setClosure: {(newValue: Double) in
@@ -91,6 +92,7 @@ class WavetableSynthSoundModule: SoundModule {
     // TODO: Clean this up
     // Temp ugly hack
     func delete() {
+        controlPanel?.close()
         attack.setActive(false)
         attack = nil
         hold.setActive(false)
@@ -121,37 +123,21 @@ class WavetableSynthSoundModule: SoundModule {
         oscBank.detach()
     }
     
-    func trigger(freq: Double) {
-        var processedFreq: Double!
-        if quantisePitch {
-            processedFreq = MidiUtil.freqToClosestNoteFreq(freq)
-        } else {
-            processedFreq = freq
-        }
-        
-        // Disregard MIDI pitch, only use frequency
-        oscBank.play(noteNumber: lastPlayedNote, velocity: 127, frequency: processedFreq)
-        
-        let savedNote = lastPlayedNote  // Avoid using lastPlayedNote after increment
-        let stopLag = max(oscBank.attackDuration + holdTime, 0.02)  // Avoid sending stop message too soon after the start message - causes extremely short notes not to play at all
-        DispatchQueue.main.asyncAfter(deadline: .now() + stopLag, execute: {self.oscBank.stop(noteNumber: savedNote)})
-        
-        // Keep using different MIDI note numbers to avoid notes cutting each other off
-        lastPlayedNote += 1
-        lastPlayedNote %= 128
-    }
-    
     func setDecay(_ decay: Double) {
         oscBank.decayDuration = decay
         oscBank.releaseDuration = decay
     }
     
-    func getMIDIInput() -> MIDIEndpointRef {
-        let tmp = AKCallbackInstrument()
-        tmp.callback = {(status: AKMIDIStatus, number: MIDINoteNumber, velocity: MIDIVelocity) in
-            self.trigger(freq: MidiUtil.noteToFreq(midiPitch: number))
+    func sequencerCallback(_ status: AKMIDIStatus, _ noteNumber: MIDINoteNumber, _ velocity: MIDIVelocity) {
+        if status == .noteOn {
+            oscBank.play(noteNumber: noteNumber, velocity: velocity)
+        } else if status == .noteOff {
+            oscBank.stop(noteNumber: noteNumber)
         }
-        return tmp.midiIn
+    }
+    
+    func getMIDIInput() -> MIDIEndpointRef {
+        return callbackInstrument.midiIn
     }
 }
 

@@ -11,8 +11,9 @@ import SpriteKit
 class TrackIconNode: TouchableNode {
     unowned private let track: Track
     weak private var controlPanel: SoundModuleControlPanel?
+    weak private var iconGroup: TrackIconGroupNode?
+
     private var label: SKLabelNode!
-    var iconGroup: TrackIconGroupNode?
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -49,6 +50,10 @@ class TrackIconNode: TouchableNode {
         }
     }
     
+    func addToGroup(group: TrackIconGroupNode) {
+        iconGroup = group
+    }
+    
     override func singleTap(at pos: CGPoint) {
         if track.isSelected {
             if controlPanel == nil {
@@ -65,7 +70,7 @@ class TrackIconNode: TouchableNode {
     // TODO: Find other way of deleting.
     // Double tap causes reaction to single tap feel slow
     override func doubleTap(at pos: CGPoint) {
-        SequencingManager.delete(track)
+        SequencingManager.deleteTrack(track)
         iconGroup!.removeIcon(self)
     }
 }
