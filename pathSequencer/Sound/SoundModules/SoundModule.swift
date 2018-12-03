@@ -31,6 +31,8 @@ protocol SoundModule: AnyObject {
     
     func trigger(freq: Double)
     
+    func getMIDIInput() -> MIDIEndpointRef
+    
     func anyObjectSelf() -> AnyObject
 }
 

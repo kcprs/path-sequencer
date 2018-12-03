@@ -7,15 +7,18 @@
 //
 
 import SpriteKit
+import AudioKit
 
 class Track: Equatable {
     var soundModule: SoundModule!
     var sequencerPath: SequencerPath!
+    var sequencerTrack: AKMusicTrack!
+    var noteDuration: AKDuration = AKDuration(beats: 1)
     var icon: TrackIconNode?
     var isSelected = false {
         willSet {
             if newValue == true {
-                TrackManager.selectedTrack = self
+                SequencingManager.selectedTrack = self
             } else {
                 if soundModule.controlPanel != nil {
                     soundModule.controlPanel!.close()
@@ -32,9 +35,16 @@ class Track: Equatable {
         }
     }
     
-    init() {
+    init(_ seqTrack: AKMusicTrack) {
+        sequencerTrack = seqTrack
         sequencerPath = SequencerPath(for: self)
         soundModule = WavetableSynthSoundModule(for: self)
+        
+        // tmp midi instrument
+        let tmp = AKMIDISampler()
+        tmp.enableMIDI()
+        AudioManager.addNode(node: tmp)
+        seqTrack.setMIDIOutput(tmp.midiIn)
     }
     
     deinit {
@@ -43,6 +53,14 @@ class Track: Equatable {
         AudioManager.removeSoundModule(soundModule)
         sequencerPath.delete()
         print("Track deinit end")
+    }
+    
+    func updateSequence() {
+        sequencerTrack.clear()
+        for midiEvent in sequencerPath.getSequencingData() {
+            sequencerTrack.add(midiNoteData: midiEvent)
+        }
+        sequencerTrack.setLoopInfo(sequencerTrack.getLength(), numberOfLoops: 0)
     }
     
     func startPlayback() {
@@ -55,5 +73,19 @@ class Track: Equatable {
     
     static func == (lhs: Track, rhs: Track) -> Bool {
         return lhs === rhs
+    }
+}
+
+extension AKMusicTrack {
+    func getLength() -> AKDuration {
+        var length: AKDuration = AKDuration(seconds: 0)
+        
+        for event in self.getMIDINoteData() {
+            if event.position + event.duration > length {
+                length = event.position + event.duration
+            }
+        }
+        
+        return length
     }
 }

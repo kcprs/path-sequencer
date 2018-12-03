@@ -45,4 +45,9 @@ class AudioManager {
         module.disconnect()
         module.stop()
     }
+    
+    //tmp
+    static func addNode(node: AKNode) {
+        node.connect(to: mainMixer)
+    }
 }

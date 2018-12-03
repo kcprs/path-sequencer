@@ -1,5 +1,5 @@
 //
-//  PlaybackManagerNode.swift
+//  SequencingManagerNode.swift
 //  pathSequencer
 //
 //  Created by Kacper Sagnowski on 12/3/18.
@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class PlaybackManagerNode: TouchableNode {
+class SequencingManagerNode: TouchableNode {
     private var playButton: SKShapeNode!
     
     required init?(coder aDecoder: NSCoder) {
@@ -23,16 +23,16 @@ class PlaybackManagerNode: TouchableNode {
     }
     
     override func touchUp(at pos: CGPoint) {
-        if PlaybackManager.isPlaying {
-            PlaybackManager.stop()
+        if SequencingManager.isPlaying {
+            SequencingManager.stopPlayback()
         } else {
-            PlaybackManager.start()
+            SequencingManager.startPlayback()
         }
         updatePlayButton()
     }
     
     private func updatePlayButton() {
-        if PlaybackManager.isPlaying {
+        if SequencingManager.isPlaying {
             playButton.fillColor = .red
         } else {
             playButton.fillColor = .green

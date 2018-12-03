@@ -145,5 +145,13 @@ class WavetableSynthSoundModule: SoundModule {
         oscBank.decayDuration = decay
         oscBank.releaseDuration = decay
     }
+    
+    func getMIDIInput() -> MIDIEndpointRef {
+        let tmp = AKCallbackInstrument()
+        tmp.callback = {(status: AKMIDIStatus, number: MIDINoteNumber, velocity: MIDIVelocity) in
+            self.trigger(freq: MidiUtil.noteToFreq(midiPitch: number))
+        }
+        return tmp.midiIn
+    }
 }
 

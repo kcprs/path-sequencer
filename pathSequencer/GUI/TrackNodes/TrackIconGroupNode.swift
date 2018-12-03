@@ -9,7 +9,7 @@
 import SpriteKit
 
 class TrackIconGroupNode: TouchableNode {
-    unowned private let trackManager: TrackManager
+    unowned private let sequencingManager: SequencingManager
     private var icons: Array<TrackIconNode>!
     private var width: CGFloat = 0
     private var addNewTrackButton: SKShapeNode! // TODO: Make into a SpriteNode, add custom graphic
@@ -18,8 +18,8 @@ class TrackIconGroupNode: TouchableNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(_ manager: TrackManager) {
-        self.trackManager = manager
+    init(_ manager: SequencingManager) {
+        self.sequencingManager = manager
         icons = Array<TrackIconNode>()
         addNewTrackButton = SKShapeNode(rectOf: CGSize(width: 50, height: 50))
         width = 50 // TODO: get from addNewTrackButton when it's changed into a SpriteNode
@@ -78,7 +78,7 @@ class TrackIconGroupNode: TouchableNode {
     
     override func touchUp(at pos: CGPoint) {
         if self.scene!.nodes(at: pos).contains(addNewTrackButton) {
-            let track = TrackManager.addNewTrack()
+            let track = SequencingManager.addNewTrack()
             addIcon(TrackIconNode(for: track))
         }
     }

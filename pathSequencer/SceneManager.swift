@@ -11,7 +11,6 @@ import SpriteKit
 class SceneManager {
     private static var staticSelf: SceneManager? = nil
     weak static var scene: GameScene? = nil
-    static var pitchGrid: PitchGrid? = nil
     
     init(for scene: GameScene) {
         if SceneManager.staticSelf != nil {
@@ -20,11 +19,10 @@ class SceneManager {
         SceneManager.staticSelf = self
         
         SceneManager.scene = scene
-        SceneManager.pitchGrid = PitchGrid()
+        let _ = PitchManager()
         let _ = AudioManager()
-        let _ = TrackManager()
+        let _ = SequencingManager()
         let _ = UpdateManager()
-        let _ = PlaybackManager()
     }
     
     static func run() {

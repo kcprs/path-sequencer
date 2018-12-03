@@ -65,7 +65,7 @@ class TrackIconNode: TouchableNode {
     // TODO: Find other way of deleting.
     // Double tap causes reaction to single tap feel slow
     override func doubleTap(at pos: CGPoint) {
-        TrackManager.delete(track)
+        SequencingManager.delete(track)
         iconGroup!.removeIcon(self)
     }
 }

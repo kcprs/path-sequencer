@@ -10,10 +10,10 @@ import AudioKit
 
 class MidiUtil {
     static func noteToFreq(midiPitch: MIDINoteNumber) -> Double {
-        return noteToFreq(midiPitch: Float(midiPitch))
+        return noteToFreq(midiPitch: Double(midiPitch))
     }
     
-    static func noteToFreq(midiPitch: Float) -> Double {
+    static func noteToFreq(midiPitch: Double) -> Double {
         // Have to calculate with respect to A0 and not A4
         // because pow(a, b) in Swift doesn't support negative exponents
         return Double((pow(2, (midiPitch - 21)/12) * 27.5).description)!

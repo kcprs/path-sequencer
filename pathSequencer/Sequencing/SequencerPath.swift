@@ -7,12 +7,12 @@
 //
 
 import SpriteKit
+import AudioKit
 
 class SequencerPath: SKNode {
     unowned let track: Track
     private var pathNode: SKShapeNode!
     var cursor: CursorNode!
-    var noteDuration: NoteDuration = .quarter
     private var pathPointNodes: Array<PathPointNode>!
     private var pathAddPointNodes: Array<PathAddPointNode>!
     var centre: CGPoint {
@@ -216,5 +216,18 @@ class SequencerPath: SKNode {
     func delete() {
         self.removeFromParent()
 //        self.run(SKAction.fadeOut(withDuration: 0.5), completion: self.removeFromParent)
+    }
+    
+    func getSequencingData() -> Array<AKMIDINoteData> {
+        var data = Array<AKMIDINoteData>()
+        var position = AKDuration(seconds: 0)
+        
+        for node in pathPointNodes {
+            data.append(AKMIDINoteData(noteNumber: PitchManager.getMIDINoteAt(node: node), velocity: 127, channel: 1, duration: track.noteDuration, position: position))
+            
+            position += track.noteDuration
+        }
+        
+        return data
     }
 }
