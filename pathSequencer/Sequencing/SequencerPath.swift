@@ -57,7 +57,6 @@ class SequencerPath: SKNode {
     
     deinit {
         print("SequencerPath deinit start")
-        cursor.setActive(false)
         print("SequencerPath deinit end")
     }
     
@@ -150,6 +149,8 @@ class SequencerPath: SKNode {
                 addPointNode.updatePosition()
             }
         }
+        
+        self.track.updateSequence()
     }
     
     func updateSelection() {
@@ -213,6 +214,7 @@ class SequencerPath: SKNode {
     }
     
     func delete() {
+        cursor.setActive(false)
         self.run(SKAction.fadeOut(withDuration: 0.5), completion: self.removeFromParent)
     }
     

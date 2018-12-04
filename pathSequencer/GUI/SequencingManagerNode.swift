@@ -20,6 +20,7 @@ class SequencingManagerNode: TouchableNode {
         playButton = SKShapeNode(rectOf: CGSize(width: 50, height: 50))
         super.init()
         self.addChild(playButton)
+        self.zPosition = 10
         updatePlayButton()
     }
     

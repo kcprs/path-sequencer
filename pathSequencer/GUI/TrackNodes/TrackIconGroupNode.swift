@@ -25,7 +25,7 @@ class TrackIconGroupNode: TouchableNode {
         super.init()
         
         addNewTrackButton.fillColor = .gray
-        addNewTrackButton.zPosition = 1
+        addNewTrackButton.zPosition = 10
         self.addChild(addNewTrackButton)
 
     }

@@ -42,6 +42,6 @@ extension SoundModule where Self: AnyObject {
     
     func setupCallbackInstrument() {
         self.callbackInstrument = AKCallbackInstrument()
-        self.callbackInstrument.callback = sequencerCallback(_:_:_:)
+        self.callbackInstrument.callback = self.sequencerCallback(_:_:_:)
     }
 }

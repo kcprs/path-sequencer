@@ -41,6 +41,7 @@
 		88D2061121A468E600DB74F7 /* SwitchNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D2061021A468E600DB74F7 /* SwitchNode.swift */; };
 		88D2061321A48B4700DB74F7 /* TrackIconGroupNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D2061221A48B4700DB74F7 /* TrackIconGroupNode.swift */; };
 		88D69B6421B5D26E00D83662 /* PitchManagerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D69B6321B5D26E00D83662 /* PitchManagerNode.swift */; };
+		88E87EB321B6E3FE00A039E1 /* CameraMoveNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E87EB221B6E3FE00A039E1 /* CameraMoveNode.swift */; };
 		88F34B47219DD34F005E598D /* PathPointNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F34B46219DD34F005E598D /* PathPointNode.swift */; };
 		88F815AC219DD0B70095B54F /* MidiUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F815AB219DD0B70095B54F /* MidiUtil.swift */; };
 		88F815AE219DD0CB0095B54F /* KnobNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F815AD219DD0CA0095B54F /* KnobNode.swift */; };
@@ -84,6 +85,7 @@
 		88D2061021A468E600DB74F7 /* SwitchNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchNode.swift; sourceTree = "<group>"; };
 		88D2061221A48B4700DB74F7 /* TrackIconGroupNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackIconGroupNode.swift; sourceTree = "<group>"; };
 		88D69B6321B5D26E00D83662 /* PitchManagerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchManagerNode.swift; sourceTree = "<group>"; };
+		88E87EB221B6E3FE00A039E1 /* CameraMoveNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraMoveNode.swift; sourceTree = "<group>"; };
 		88F34B46219DD34F005E598D /* PathPointNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathPointNode.swift; sourceTree = "<group>"; };
 		88F815AB219DD0B70095B54F /* MidiUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MidiUtil.swift; sourceTree = "<group>"; };
 		88F815AD219DD0CA0095B54F /* KnobNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KnobNode.swift; sourceTree = "<group>"; };
@@ -106,7 +108,6 @@
 			isa = PBXGroup;
 			children = (
 				88C97F2921B2F3480039EAB7 /* SoundModuleControlPanels */,
-				88C97F2621B2DECD0039EAB7 /* SoundModuleControlsPanelNode.swift */,
 				88F815AD219DD0CA0095B54F /* KnobNode.swift */,
 				88D2061021A468E600DB74F7 /* SwitchNode.swift */,
 			);
@@ -234,6 +235,7 @@
 		88C97F2921B2F3480039EAB7 /* SoundModuleControlPanels */ = {
 			isa = PBXGroup;
 			children = (
+				88C97F2621B2DECD0039EAB7 /* SoundModuleControlsPanelNode.swift */,
 				88C97F2421B2DC160039EAB7 /* WaveTableSynthControlPanelNode.swift */,
 			);
 			path = SoundModuleControlPanels;
@@ -242,6 +244,7 @@
 		88F815A8219DCF550095B54F /* GUI */ = {
 			isa = PBXGroup;
 			children = (
+				88E87EB221B6E3FE00A039E1 /* CameraMoveNode.swift */,
 				881FA3FC21B57CA9003E4F27 /* TrackNodes */,
 				881FA3FB21B57C56003E4F27 /* PathNodes */,
 				881FA3FA21B57C2A003E4F27 /* SoundModuleControls */,
@@ -358,6 +361,7 @@
 				88BDF80B21A5F49000819522 /* NodeOnSequencerPath.swift in Sources */,
 				88BDF80D21A5F60300819522 /* PathAddPointNode.swift in Sources */,
 				88F34B47219DD34F005E598D /* PathPointNode.swift in Sources */,
+				88E87EB321B6E3FE00A039E1 /* CameraMoveNode.swift in Sources */,
 				88A7433D21AD928400CDB7AC /* Modulatable.swift in Sources */,
 				88527400218B7DD000D675C1 /* SequencerPath.swift in Sources */,
 				885273FF218B7DD000D675C1 /* CursorNode.swift in Sources */,

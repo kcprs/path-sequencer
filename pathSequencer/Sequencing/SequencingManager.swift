@@ -37,14 +37,26 @@ class SequencingManager {
         SequencingManager.staticSelf = self
         SequencingManager.tracks = Array<Track>()
         SequencingManager.sequencer = AKSequencer()
+        SequencingManager.tempo = 120
     }
     
     static func addNewTrack(select: Bool = true) -> Track {
+        // Adding tracks to a playing sequencer causes issues
+        // Stop, add track and resume if necessary
+        let wasPlaying = sequencer.isPlaying
+        sequencer.stop()
+        
         let seqTrack = sequencer.newTrack()
         let track = Track(seqTrack!)
         SequencingManager.tracks.append(track)
         if select {
             track.isSelected = true
+        }
+        
+        track.updateSequence()
+        
+        if wasPlaying {
+            sequencer.play()
         }
         
         return track
@@ -56,11 +68,18 @@ class SequencingManager {
             selectedTrack = nil
         }
         
-        let index = tracks.index(of: track)
+        var index = sequencer.tracks.indexByReference(track.sequencerTrack)
+        sequencer.deleteTrack(trackIndex: index!)
+        
+        index = tracks.index(of: track)
         tracks.remove(at: index!)
     }
     
     static func startPlayback() {
+        if tracks.count == 0 {
+            return
+        }
+        
         for track in tracks {
             track.updateSequence()
         }

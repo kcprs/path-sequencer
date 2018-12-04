@@ -13,7 +13,6 @@ class GameScene: SKScene {
     // Should only contain graphical elements and the SceneManager
     private var sceneManager: SceneManager!
     private var cam: SKCameraNode!
-    private var touchedPoint: CGPoint?
     private var trackIconGroupNode: TrackIconGroupNode!
     private var sequencingManagerNode: SequencingManagerNode!
     private var pitchManagerNode: PitchManagerNode!
@@ -25,8 +24,9 @@ class GameScene: SKScene {
         cam = SKCameraNode()
         self.camera = cam
         cam.position = CGPoint(x: 0, y: PitchManager.getCentreY())
-        cam.zPosition = 100 // Keep camera above other nodes
         self.addChild(cam)
+        
+        cam.addChild(CameraMoveNode(for: self))
         
         trackIconGroupNode = TrackIconGroupNode()
         trackIconGroupNode.position = CGPoint(x: 0, y: -self.size.height / 2 + 20)
@@ -56,36 +56,8 @@ class GameScene: SKScene {
         }
     }
     
-    private func touchDown(atPoint pos: CGPoint) {
-        if self.nodes(at: pos).count == 0 {
-            touchedPoint = pos
-        }
-    }
-    
-    private func touchMoved(toPoint pos: CGPoint) {
-        if touchedPoint != nil {
-            setCamYPosition(cam.position.y + touchedPoint!.y - pos.y)
-        }
-    }
-    
-    private func touchUp(atPoint pos: CGPoint) {
-        touchedPoint = nil
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
+    func moveCamYPosition(by: CGFloat) {
+        setCamYPosition(cam.position.y + by)
     }
     
     override func update(_ currentTime: TimeInterval) {

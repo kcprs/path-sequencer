@@ -26,6 +26,7 @@ class WavetableSynthControlPanelNode: SKNode, SoundModuleControlPanel {
         self.updatables = Array<Updatable>()
         
         super.init()
+        self.zPosition = 20
         
         let scene = SceneManager.scene!
         scene.camera!.addChild(self)

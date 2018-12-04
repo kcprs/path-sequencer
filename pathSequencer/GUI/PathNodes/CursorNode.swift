@@ -95,7 +95,7 @@ class CursorNode: SKNode, ModulationSource, Updatable {
         return false
     }
     
-    func update() {
+    func update() {       
         let loopProgress = parentPath.track.getLoopProgress()
         
         fromNode = parentPath.pathPointNodes[loopProgress.0]

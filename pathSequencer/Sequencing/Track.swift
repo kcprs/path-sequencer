@@ -51,7 +51,8 @@ class Track: Equatable {
         print("Track deinit start")
         soundModule.delete()
         AudioManager.removeSoundModule(soundModule)
-        sequencerPath.delete()
+        sequencerPath.delete()        
+        
         print("Track deinit end")
     }
     
