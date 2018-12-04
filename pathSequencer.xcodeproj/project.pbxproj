@@ -42,6 +42,8 @@
 		88D2061321A48B4700DB74F7 /* TrackIconGroupNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D2061221A48B4700DB74F7 /* TrackIconGroupNode.swift */; };
 		88D69B6421B5D26E00D83662 /* PitchManagerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D69B6321B5D26E00D83662 /* PitchManagerNode.swift */; };
 		88E87EB321B6E3FE00A039E1 /* CameraMoveNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E87EB221B6E3FE00A039E1 /* CameraMoveNode.swift */; };
+		88E87EB621B6F54000A039E1 /* PlayButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E87EB521B6F54000A039E1 /* PlayButtonNode.swift */; };
+		88E87EB821B6F61D00A039E1 /* ScrollSelectorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E87EB721B6F61D00A039E1 /* ScrollSelectorNode.swift */; };
 		88F34B47219DD34F005E598D /* PathPointNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F34B46219DD34F005E598D /* PathPointNode.swift */; };
 		88F815AC219DD0B70095B54F /* MidiUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F815AB219DD0B70095B54F /* MidiUtil.swift */; };
 		88F815AE219DD0CB0095B54F /* KnobNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F815AD219DD0CA0095B54F /* KnobNode.swift */; };
@@ -86,6 +88,8 @@
 		88D2061221A48B4700DB74F7 /* TrackIconGroupNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackIconGroupNode.swift; sourceTree = "<group>"; };
 		88D69B6321B5D26E00D83662 /* PitchManagerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchManagerNode.swift; sourceTree = "<group>"; };
 		88E87EB221B6E3FE00A039E1 /* CameraMoveNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraMoveNode.swift; sourceTree = "<group>"; };
+		88E87EB521B6F54000A039E1 /* PlayButtonNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayButtonNode.swift; sourceTree = "<group>"; };
+		88E87EB721B6F61D00A039E1 /* ScrollSelectorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollSelectorNode.swift; sourceTree = "<group>"; };
 		88F34B46219DD34F005E598D /* PathPointNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathPointNode.swift; sourceTree = "<group>"; };
 		88F815AB219DD0B70095B54F /* MidiUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MidiUtil.swift; sourceTree = "<group>"; };
 		88F815AD219DD0CA0095B54F /* KnobNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KnobNode.swift; sourceTree = "<group>"; };
@@ -110,6 +114,7 @@
 				88C97F2921B2F3480039EAB7 /* SoundModuleControlPanels */,
 				88F815AD219DD0CA0095B54F /* KnobNode.swift */,
 				88D2061021A468E600DB74F7 /* SwitchNode.swift */,
+				88E87EB721B6F61D00A039E1 /* ScrollSelectorNode.swift */,
 			);
 			path = SoundModuleControls;
 			sourceTree = "<group>";
@@ -241,6 +246,15 @@
 			path = SoundModuleControlPanels;
 			sourceTree = "<group>";
 		};
+		88E87EB421B6F51B00A039E1 /* SequencingManagerNode */ = {
+			isa = PBXGroup;
+			children = (
+				881FA40121B5817E003E4F27 /* SequencingManagerNode.swift */,
+				88E87EB521B6F54000A039E1 /* PlayButtonNode.swift */,
+			);
+			path = SequencingManagerNode;
+			sourceTree = "<group>";
+		};
 		88F815A8219DCF550095B54F /* GUI */ = {
 			isa = PBXGroup;
 			children = (
@@ -249,7 +263,7 @@
 				881FA3FB21B57C56003E4F27 /* PathNodes */,
 				881FA3FA21B57C2A003E4F27 /* SoundModuleControls */,
 				88D69B6321B5D26E00D83662 /* PitchManagerNode.swift */,
-				881FA40121B5817E003E4F27 /* SequencingManagerNode.swift */,
+				88E87EB421B6F51B00A039E1 /* SequencingManagerNode */,
 				88CD0A8D21A72DDC0025DE83 /* TouchableNode.swift */,
 			);
 			path = GUI;
@@ -362,12 +376,14 @@
 				88BDF80D21A5F60300819522 /* PathAddPointNode.swift in Sources */,
 				88F34B47219DD34F005E598D /* PathPointNode.swift in Sources */,
 				88E87EB321B6E3FE00A039E1 /* CameraMoveNode.swift in Sources */,
+				88E87EB821B6F61D00A039E1 /* ScrollSelectorNode.swift in Sources */,
 				88A7433D21AD928400CDB7AC /* Modulatable.swift in Sources */,
 				88527400218B7DD000D675C1 /* SequencerPath.swift in Sources */,
 				885273FF218B7DD000D675C1 /* CursorNode.swift in Sources */,
 				8866942F219CB26B0014B455 /* SoundModule.swift in Sources */,
 				88D2060B21A41A0F00DB74F7 /* ContinuousParameter.swift in Sources */,
 				8800A850219EF4FA0010073D /* TrackIconNode.swift in Sources */,
+				88E87EB621B6F54000A039E1 /* PlayButtonNode.swift in Sources */,
 				885273D7218B7CDB00D675C1 /* AppDelegate.swift in Sources */,
 				8846084F219B549D00E8AE53 /* PitchManager.swift in Sources */,
 				8871218721A5816A0093FBC2 /* SequencingManager.swift in Sources */,

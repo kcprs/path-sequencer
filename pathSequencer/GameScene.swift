@@ -38,21 +38,21 @@ class GameScene: SKScene {
         
         pitchManagerNode = PitchManagerNode()
         self.addChild(pitchManagerNode)
+        
+        cam.constraints = [SKConstraint.positionY(SKRange(lowerLimit: self.size.height / 2, upperLimit: pitchManagerNode.getHeight() - self.size.height))]
 
         SceneManager.run()
     }
     
     func setCamYPosition(_ newYPosition: CGFloat, duration: TimeInterval = 0) {
-        let limitedY = max(self.size.height / 2, min(pitchManagerNode.getHeight() - self.size.height, newYPosition))
-        
-        let limitedPos = CGPoint(x: 0, y: limitedY)
+        let newPos = CGPoint(x: 0, y: newYPosition)
         
         if duration > 0 {
-            let moveAction = SKAction.move(to: limitedPos, duration: duration)
+            let moveAction = SKAction.move(to: newPos, duration: duration)
             moveAction.timingMode = .easeOut
             cam.run(moveAction)
         } else {
-            cam.position = limitedPos
+            cam.position = newPos
         }
     }
     

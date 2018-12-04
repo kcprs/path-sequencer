@@ -14,6 +14,7 @@ class TouchableNode: SKNode {
     let multiTapWaitTime: TimeInterval = 0.2
     let holdWaitTime: TimeInterval = 0.7
     var numConsecutiveTouches: Int = 0
+    var numTouches = 0
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -39,6 +40,12 @@ class TouchableNode: SKNode {
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches {
+            numTouches += 1
+            
+            if numTouches > 1 {
+                return
+            }
+            
             self.touchDown(at: t.location(in: SceneManager.scene!))
             numConsecutiveTouches += 1
             
@@ -59,14 +66,34 @@ class TouchableNode: SKNode {
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(to: t.location(in: SceneManager.scene!)) }
+        for t in touches {
+            if numTouches > 1 {
+                return
+            }
+            
+            self.touchMoved(to: t.location(in: SceneManager.scene!))
+        }
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(at: t.location(in: SceneManager.scene!)) }
+        for t in touches {
+            numTouches -= 1
+            
+            if numTouches > 0 {
+                return
+            }
+            
+            self.touchUp(at: t.location(in: SceneManager.scene!))
+        }
     }
 
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(at: t.location(in: SceneManager.scene!)) }
+        for t in touches {
+            if numTouches > 1 {
+                return
+            }
+            
+            self.touchUp(at: t.location(in: SceneManager.scene!))
+        }
     }
 }

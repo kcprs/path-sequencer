@@ -8,9 +8,9 @@
 
 import Foundation
 
-class DiscreteParameter<T: Equatable & Hashable> {
-    private var values: Array<T>!
-    private var valueLabels: Dictionary<T, String>!
+class DiscreteParameter<T: Hashable> {
+    var values: Array<T>!
+    var valueLabels: Dictionary<T, String>!
     private let setClosure: (T) -> Void
     private let getClosure: () -> T
     let label: String
@@ -33,11 +33,19 @@ class DiscreteParameter<T: Equatable & Hashable> {
     }
     
     func addValue(value: T, valueLabel: String) {
+        if values.contains(value) {
+            fatalError("Value already added")
+        }
+        
         values.append(value)
         valueLabels[value] = valueLabel
     }
     
     func setValue(newValue: T) {
+        if !values.contains(newValue) {
+            fatalError("Value not allowed")
+        }
+        
         setClosure(newValue)
     }
     
@@ -50,6 +58,10 @@ class DiscreteParameter<T: Equatable & Hashable> {
     // No guarantee that the returned value is among allowed values
     func getValue() -> T {
         return getClosure()
+    }
+    
+    func getCurrentIndex() -> Int? {
+        return values.index(of: getValue())
     }
     
     func goToNextState() {

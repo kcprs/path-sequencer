@@ -18,16 +18,7 @@ class SequencingManager {
         }
     }
     static var sequencer: AKSequencer!
-    
-    static var tempo: Double {
-        get {
-            return sequencer.tempo
-        }
-        
-        set {
-            sequencer.setTempo(newValue)
-        }
-    }
+    static var tempo: DiscreteParameter<Double>!
     static var isPlaying: Bool { return sequencer.isPlaying }
     
     init() {
@@ -37,7 +28,12 @@ class SequencingManager {
         SequencingManager.staticSelf = self
         SequencingManager.tracks = Array<Track>()
         SequencingManager.sequencer = AKSequencer()
-        SequencingManager.tempo = 120
+        SequencingManager.tempo = DiscreteParameter<Double>(label: "Tempo",
+                                                         setClosure: {(newTempo: Double) in SequencingManager.sequencer.setTempo(newTempo)},
+                                                         getClosure: {() -> Double in return SequencingManager.sequencer.tempo})
+        for i in 6...24 {
+            SequencingManager.tempo.addValue(value: i * 10, valueLabel: "\(i * 10)")
+        }
     }
     
     static func addNewTrack(select: Bool = true) -> Track {
