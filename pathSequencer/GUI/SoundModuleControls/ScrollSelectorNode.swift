@@ -60,6 +60,7 @@ class ScrollSelectorNode<T: Hashable>: TouchableNode {
     
     private func snapToClosest() {
         scrollRoot.removeAllActions()
+        print("Value: \(valueIndex)")
         let action = SKAction.move(to: CGPoint(x: 0, y: CGFloat(-valueIndex) * yGap), duration: 0.2)
         action.timingMode = .easeOut
         scrollRoot.run(action)
@@ -67,7 +68,7 @@ class ScrollSelectorNode<T: Hashable>: TouchableNode {
     
     private func updateValue() {
         valueIndex = -Int((scrollRoot.position.y / yGap).rounded())
-        valueIndex = max(valueIndex, 0)
+        valueIndex = min(max(valueIndex, 0), parameter.valueCount - 1)
         
         parameter.setValue(index: valueIndex)
     }

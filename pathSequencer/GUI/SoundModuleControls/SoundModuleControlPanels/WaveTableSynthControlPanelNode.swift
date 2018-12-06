@@ -56,7 +56,12 @@ class WavetableSynthControlPanelNode: SKNode, SoundModuleControlPanel {
     
     func setupGUI() {
         // TODO: Find a good way to approach GUI layout
-        var knob = KnobNode(parameter: _soundModule.attack)
+        var knob = KnobNode(parameter: _soundModule.volume)
+        knob.position = CGPoint(x: -300, y: 100)
+        self.addChild(knob)
+        updatables.append(knob)
+        
+        knob = KnobNode(parameter: _soundModule.attack)
         knob.position = CGPoint(x: -400, y: 0)
         self.addChild(knob)
         updatables.append(knob)

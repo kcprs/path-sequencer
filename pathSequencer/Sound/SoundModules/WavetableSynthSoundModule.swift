@@ -19,8 +19,10 @@ class WavetableSynthSoundModule: SoundModule {
     private var oscBank: AKMorphingOscillatorBank!
     private var filter: AKLowPassFilter!
     private var waveforms: Array<AKTable>!
+    private var gainStage: AKBooster!
     
     // GUI-controlled parameters
+    var volume: ContinuousParameter!
     var attack: ContinuousParameter!
     var hold: ContinuousParameter!
     var decay: ContinuousParameter!
@@ -41,11 +43,20 @@ class WavetableSynthSoundModule: SoundModule {
         oscBank.rampDuration = 0
         oscBank.sustainLevel = 1
         filter = AKLowPassFilter()
+        gainStage = AKBooster()
+        gainStage.rampDuration = 0.05
         
         oscBank.connect(to: filter)
+        filter.connect(to: gainStage)
         
         AudioManager.addSoundModule(self)
         
+        volume = ContinuousParameter(label: "Volume", minValue: 0, maxValue: 1,
+                                     setClosure: {(newValue: Double) in self.gainStage.gain = newValue * newValue},
+                                     getClosure: {() -> Double in return sqrt(self.gainStage.gain)},
+                                     modSource: track.sequencerPath.cursor)
+        volume.modAmount = 1
+        volume.setActive(true)
         attack = ContinuousParameter(label: "Attack Time", minValue: 0.01, maxValue: 1,
                                      setClosure: {(newValue: Double) in self.oscBank.attackDuration = newValue},
                                      getClosure: {() -> Double in return self.oscBank.attackDuration},
@@ -67,8 +78,6 @@ class WavetableSynthSoundModule: SoundModule {
                                              setClosure: {(newValue: Double) in self.oscBank.index = newValue * (self.waveforms.count - 1)},
                                              getClosure: {() -> Double in return self.oscBank.index / (self.waveforms.count - 1)},
                                              modSource: track.sequencerPath.cursor)
-        wavetableIndex.modAmount = 1
-        wavetableIndex.setActive(true)
         filterCutoff = ContinuousParameter(label: "Filter Cutoff", minValue: 20, maxValue: 20000,
                                            setClosure: {(newValue: Double) in self.filter.cutoffFrequency = newValue},
                                            getClosure: { () -> Double in return self.filter.cutoffFrequency},
@@ -93,6 +102,8 @@ class WavetableSynthSoundModule: SoundModule {
     // Temp ugly hack
     func delete() {
         controlPanel?.close()
+        volume.setActive(false)
+        volume = nil
         attack.setActive(false)
         attack = nil
         hold.setActive(false)
@@ -108,19 +119,22 @@ class WavetableSynthSoundModule: SoundModule {
     
     func start() {
         filter.start()
+        gainStage.start()
     }
     
     func stop() {
         filter.stop()
+        gainStage.stop()
     }
     
     func connect(to inputNode: AKInput) {
-        filter.connect(to: inputNode)
+        gainStage.connect(to: inputNode)
     }
     
     func disconnect() {
-        filter.disconnect()
+        gainStage.detach()
         oscBank.detach()
+        filter.detach()
     }
     
     func setDecay(_ decay: Double) {
