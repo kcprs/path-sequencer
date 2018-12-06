@@ -10,7 +10,7 @@ import SpriteKit
 
 class TrackIconNode: TouchableNode {
     unowned private let track: Track
-    weak private var controlPanel: SoundModuleControlPanel?
+    weak private var controlPanel: SoundModuleControlsPanelNode?
     weak private var iconGroup: TrackIconGroupNode?
 
     private var label: SKLabelNode!

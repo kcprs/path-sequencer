@@ -42,8 +42,7 @@ class ContinuousParameter: Modulatable {
     }
     
     func getCurrentValue() -> Double {
-        let val = getClosure()
-        return val
+        return getClosure()
     }
     
     func getCurrentProportion() -> Double {
@@ -78,8 +77,24 @@ class ContinuousParameter: Modulatable {
         return (log10(getUserValue()) - log10(minValue)) / (log10(maxValue) - log10(minValue))
     }
     
+    func setModAmount(to newValue: Double) {
+        let furthestModValue = userValue + newValue * (maxValue - minValue)
+        if  minValue < furthestModValue && furthestModValue < maxValue {
+            modAmount = min(1, max(-1, newValue))
+        }
+    }
+    
+    func getModAmount() -> Double {
+        return modAmount
+    }
+    
+    func incrementModAmount(by increment: Double) {
+        let newValue = modAmount + increment
+        setModAmount(to: newValue)
+    }
+    
     func update() {
-        let newValue = userValue + (maxValue - userValue) * modAmount * modSource.getModulationValue()
+        let newValue = userValue + (maxValue - minValue) * modAmount * modSource.getModulationValue()
         setCurrentValue(to: newValue)
     }
 }

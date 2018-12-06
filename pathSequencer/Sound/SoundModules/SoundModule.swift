@@ -11,12 +11,12 @@ import AudioKit
 protocol SoundModule: AnyObject {
     var track: Track { get set }
     var quantisePitch: Bool { get set }
-    var controlPanel: SoundModuleControlPanel? { get set }
+    var controlPanel: SoundModuleControlsPanelNode? { get set }
     var callbackInstrument: AKCallbackInstrument! { get set }
     
     init(for track: Track)
     
-    func createControlPanel() -> SoundModuleControlPanel
+    func createControlPanel() -> SoundModuleControlsPanelNode
 
     func delete()
     

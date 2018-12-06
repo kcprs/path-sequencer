@@ -12,7 +12,7 @@ class WavetableSynthSoundModule: SoundModule {
     unowned var track: Track
     
     var callbackInstrument: AKCallbackInstrument!
-    var controlPanel: SoundModuleControlPanel?
+    var controlPanel: SoundModuleControlsPanelNode?
     var quantisePitch = true
     
     // AudioKit stuff
@@ -55,7 +55,7 @@ class WavetableSynthSoundModule: SoundModule {
                                      setClosure: {(newValue: Double) in self.gainStage.gain = newValue * newValue},
                                      getClosure: {() -> Double in return sqrt(self.gainStage.gain)},
                                      modSource: track.sequencerPath.cursor)
-        volume.modAmount = 1
+        volume.modAmount = 0
         volume.setActive(true)
         attack = ContinuousParameter(label: "Attack Time", minValue: 0.01, maxValue: 1,
                                      setClosure: {(newValue: Double) in self.oscBank.attackDuration = newValue},
@@ -94,7 +94,7 @@ class WavetableSynthSoundModule: SoundModule {
         print("WavetableSynthSoundModule deinit done")
     }
     
-    func createControlPanel() -> SoundModuleControlPanel {
+    func createControlPanel() -> SoundModuleControlsPanelNode {
         return WavetableSynthControlPanelNode(for: self)
     }
     

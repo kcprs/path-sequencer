@@ -8,9 +8,10 @@
 
 import SpriteKit
 
-class WavetableSynthControlPanelNode: SKNode, SoundModuleControlPanel {
+class WavetableSynthControlPanelNode: SKNode, SoundModuleControlsPanelNode {
     var soundModule: SoundModule { return _soundModule as SoundModule }
     unowned var _soundModule: WavetableSynthSoundModule
+    var isInModAssignMode: Bool = false
     
     var backgroundNode: SKShapeNode?
     var frameMargin: CGFloat = 100
@@ -89,6 +90,10 @@ class WavetableSynthControlPanelNode: SKNode, SoundModuleControlPanel {
         let switchNode = SwitchNode(parameter: _soundModule.pitchQuantisation)
         switchNode.position = CGPoint(x: 0, y: 200)
         self.addChild(switchNode)
+        
+        let modButton = ModAssignModeButtonNode(for: self)
+        modButton.position = CGPoint(x: 0, y: -200)
+        self.addChild(modButton)
     }
     
     func removeFromSoundModule() {

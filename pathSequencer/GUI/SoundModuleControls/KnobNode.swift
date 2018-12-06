@@ -28,6 +28,20 @@ class KnobNode: TouchableNode, Updatable {
             return Double((rotationLimit - knobRoot.zRotation) / (2 * rotationLimit))
         }
     }
+    var isInModAssignMode = false {
+        didSet {
+            if self.isInModAssignMode {
+                circle.fillColor = .orange
+                notch.fillColor = .orange
+                redrawModAmountPreview()
+                knobRoot.addChild(modAmountPreview)
+            } else {
+                circle.fillColor = .clear
+                notch.fillColor = .clear
+                modAmountPreview.removeFromParent()
+            }
+        }
+    }
     
     // Graphics
     private let circle: SKShapeNode!
@@ -35,6 +49,7 @@ class KnobNode: TouchableNode, Updatable {
     private let knobRoot: SKNode!
     private let modPreview: SKShapeNode!
     private let modPreviewRoot: SKNode!
+    private var modAmountPreview: SKShapeNode!
     private let rotationLimit: CGFloat = 2.5
     private let diameter: CGFloat = 50
     private let labelSpacer: CGFloat = 1.4
@@ -53,6 +68,7 @@ class KnobNode: TouchableNode, Updatable {
         self.label = SKLabelNode()
         self.modPreview = SKShapeNode(circleOfRadius: diameter / 10)
         self.modPreviewRoot = SKNode()
+        self.modAmountPreview = SKShapeNode()
         
         super.init()
         
@@ -114,14 +130,32 @@ class KnobNode: TouchableNode, Updatable {
     override func touchMoved(to pos: CGPoint) {
         if lastTouchPos != nil {
             let increment = Double(pos.y - lastTouchPos!.y) / sensitivity
-            proportion += increment
-            updateParameterValue()
+            
+            if !isInModAssignMode {
+                proportion += increment
+                updateParameterValue()
+            } else {
+                parameter.incrementModAmount(by: increment)
+                redrawModAmountPreview()
+            }
+            
             lastTouchPos = pos
         }
     }
     
     override func touchUp(at pos: CGPoint) {
         lastTouchPos = nil
+    }
+    
+    private func redrawModAmountPreview() {
+        let path = CGMutablePath()
+        let angle = CGFloat.pi / 2 - 2 * rotationLimit * CGFloat(parameter.getModAmount())
+        let clockwise = (parameter.getModAmount() > 0 ? true : false)
+        path.addArc(center: CGPoint(x: 0, y: 0), radius: self.diameter / 2, startAngle: CGFloat.pi / 2, endAngle: angle, clockwise: clockwise)
+        
+        modAmountPreview.path = path
+        modAmountPreview.strokeColor = .green
+        modAmountPreview.glowWidth = 2
     }
     
     func update() {
