@@ -18,6 +18,7 @@ class ContinuousParameter: Modulatable {
     private var userValue: Double! { didSet { update() }}
     var modAmount: Double! = 0 { didSet { update() }}
     var isActive: Bool = false
+    var defaultValue: Double?
     
     let label: String!
     let displayUnit: String!
@@ -91,6 +92,14 @@ class ContinuousParameter: Modulatable {
     func incrementModAmount(by increment: Double) {
         let newValue = modAmount + increment
         setModAmount(to: newValue)
+    }
+    
+    func resetToDefaultValue() {
+        if defaultValue != nil {
+            setUserValue(to: defaultValue!)
+        } else {
+            setUserValue(to: (maxValue + minValue) / 2)
+        }
     }
     
     func update() {

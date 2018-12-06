@@ -57,6 +57,7 @@ class WavetableSynthSoundModule: SoundModule {
                                      modSource: track.sequencerPath.cursor)
         volume.modAmount = 0
         volume.setActive(true)
+        volume.defaultValue = 1
         attack = ContinuousParameter(label: "Attack Time", minValue: 0.01, maxValue: 1,
                                      setClosure: {(newValue: Double) in self.oscBank.attackDuration = newValue},
                                      getClosure: {() -> Double in return self.oscBank.attackDuration},

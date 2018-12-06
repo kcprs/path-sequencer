@@ -147,7 +147,22 @@ class KnobNode: TouchableNode, Updatable {
         lastTouchPos = nil
     }
     
+    override func doubleTap(at pos: CGPoint) {
+        if !isInModAssignMode {
+            parameter.resetToDefaultValue()
+            updateSelfFromParameterValue()
+        } else {
+            parameter.modAmount = 0
+            redrawModAmountPreview()
+        }
+    }
+    
     private func redrawModAmountPreview() {
+        if parameter.modAmount == 0 {
+            modAmountPreview.path = nil
+            return
+        }
+        
         let path = CGMutablePath()
         let angle = CGFloat.pi / 2 - 2 * rotationLimit * CGFloat(parameter.getModAmount())
         let clockwise = (parameter.getModAmount() > 0 ? true : false)
