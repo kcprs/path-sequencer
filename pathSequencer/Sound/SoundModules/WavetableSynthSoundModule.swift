@@ -54,7 +54,7 @@ class WavetableSynthSoundModule: SoundModule {
         hold = ContinuousParameter(label: "Hold Time", minValue: 1, maxValue: 100,
                                    setClosure: {(newValue: Double) in self.track.holdProportion = newValue / 100},
                                    getClosure: {() -> Double in return self.track.holdProportion * 100},
-                                   displayUnit: "%",
+                                   displayUnit: "%%",
                                    modSource: track.sequencerPath.cursor)
         decay = ContinuousParameter(label: "Decay Time", minValue: 0.01, maxValue: 1,
                                     setClosure: {(newValue: Double) in

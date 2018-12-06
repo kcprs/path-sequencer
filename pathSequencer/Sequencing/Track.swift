@@ -15,7 +15,11 @@ class Track: Equatable {
     var sequencerTrack: AKMusicTrack!
     
     var noteDuration: AKDuration = AKDuration(beats: 1)
-    var holdProportion: Double = 0.5
+    var holdProportion: Double = 0.5 {
+        didSet {
+            updateSequence()
+        }
+    }
     
     // Graphics
     var icon: TrackIconNode?
