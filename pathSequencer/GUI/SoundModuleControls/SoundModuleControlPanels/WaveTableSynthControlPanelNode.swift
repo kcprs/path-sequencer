@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import AudioKit
 
 class WavetableSynthControlPanelNode: SKNode, SoundModuleControlsPanelNode {
     var soundModule: SoundModule { return _soundModule as SoundModule }
@@ -43,14 +44,14 @@ class WavetableSynthControlPanelNode: SKNode, SoundModuleControlsPanelNode {
         setupGUI()
         
         for updatable in updatables {
-            updatable.setActive(true)
+            updatable.setUpdatesActive(true)
         }
     }
     
     deinit {
         print("WavetableSynthControlPanelNode deinit start")
         for updatable in updatables {
-            updatable.setActive(false)
+            updatable.setUpdatesActive(false)
         }
         print("WavetableSynthControlPanelNode deinit end")
     }
@@ -94,6 +95,10 @@ class WavetableSynthControlPanelNode: SKNode, SoundModuleControlsPanelNode {
         let modButton = ModAssignModeButtonNode(for: self)
         modButton.position = CGPoint(x: 0, y: -200)
         self.addChild(modButton)
+        
+        let speedSelector = ScrollSelectorNode<AKDuration>(parameter: soundModule.track.noteDuration)
+        speedSelector.position = CGPoint(x: 200, y: -200)
+        self.addChild(speedSelector)
     }
     
     func removeFromSoundModule() {

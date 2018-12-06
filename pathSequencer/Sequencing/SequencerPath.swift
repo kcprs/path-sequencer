@@ -190,7 +190,7 @@ class SequencerPath: SKNode {
     
     func addCursor(_ cursor: CursorNode) {
         self.cursor = cursor
-        self.cursor.setActive(true)
+        self.cursor.setUpdatesActive(true)
         self.addChild(cursor)
     }
     
@@ -215,7 +215,7 @@ class SequencerPath: SKNode {
     }
     
     func delete() {
-        cursor.setActive(false)
+        cursor.setUpdatesActive(false)
         self.run(SKAction.fadeOut(withDuration: 0.5), completion: self.removeFromParent)
     }
     
@@ -223,12 +223,12 @@ class SequencerPath: SKNode {
     func getSequencingData() -> Array<AKMIDINoteData> {
         var data = Array<AKMIDINoteData>()
         var position = AKDuration(seconds: 0)
-        let duration = AKDuration(beats: track.noteDuration.beats * track.holdProportion)
+        let duration = AKDuration(beats: track.noteDuration.getValue().beats * track.holdProportion)
         
         for node in pathPointNodes {
             data.append(AKMIDINoteData(noteNumber: PitchManager.getMIDINoteAt(node: node), velocity: 127, channel: 1, duration: duration, position: position))
             
-            position += track.noteDuration
+            position += track.noteDuration.getValue()
         }
         
         return data

@@ -55,19 +55,20 @@ class WavetableSynthSoundModule: SoundModule {
                                      setClosure: {(newValue: Double) in self.gainStage.gain = newValue * newValue},
                                      getClosure: {() -> Double in return sqrt(self.gainStage.gain)},
                                      modSource: track.sequencerPath.cursor)
-        volume.modAmount = 0
-        volume.setActive(true)
+        volume.setUpdatesActive(true)
         volume.defaultValue = 1
         attack = ContinuousParameter(label: "Attack Time", minValue: 0.01, maxValue: 1,
                                      setClosure: {(newValue: Double) in self.oscBank.attackDuration = newValue},
                                      getClosure: {() -> Double in return self.oscBank.attackDuration},
                                      displayUnit: "s",
                                      modSource: track.sequencerPath.cursor)
+        attack.setUpdatesActive(true)
         hold = ContinuousParameter(label: "Hold Time", minValue: 1, maxValue: 100,
                                    setClosure: {(newValue: Double) in self.track.holdProportion = newValue / 100},
                                    getClosure: {() -> Double in return self.track.holdProportion * 100},
                                    displayUnit: "%%",
                                    modSource: track.sequencerPath.cursor)
+        hold.setUpdatesActive(true)
         decay = ContinuousParameter(label: "Decay Time", minValue: 0.01, maxValue: 1,
                                     setClosure: {(newValue: Double) in
                                         self.oscBank.decayDuration = newValue
@@ -75,15 +76,18 @@ class WavetableSynthSoundModule: SoundModule {
                                     getClosure: {() -> Double in return self.oscBank.decayDuration},
                                     displayUnit: "s",
                                     modSource: track.sequencerPath.cursor)
+        decay.setUpdatesActive(true)
         wavetableIndex = ContinuousParameter(label: "Wavetable Index", minValue: 0, maxValue: 1,
                                              setClosure: {(newValue: Double) in self.oscBank.index = newValue * (self.waveforms.count - 1)},
                                              getClosure: {() -> Double in return self.oscBank.index / (self.waveforms.count - 1)},
                                              modSource: track.sequencerPath.cursor)
+        wavetableIndex.setUpdatesActive(true)
         filterCutoff = ContinuousParameter(label: "Filter Cutoff", minValue: 20, maxValue: 20000,
                                            setClosure: {(newValue: Double) in self.filter.cutoffFrequency = newValue},
                                            getClosure: { () -> Double in return self.filter.cutoffFrequency},
                                            displayUnit: "Hz",
                                            modSource: track.sequencerPath.cursor)
+        filterCutoff.setUpdatesActive(true)
         pitchQuantisation = DiscreteParameter(label: "Pitch Quantisation",
                                               setClosure: {(newValue: Bool) in self.quantisePitch = newValue},
                                               getClosure: {() -> Bool in return self.quantisePitch})
@@ -103,17 +107,17 @@ class WavetableSynthSoundModule: SoundModule {
     // Temp ugly hack
     func delete() {
         controlPanel?.close()
-        volume.setActive(false)
+        volume.setUpdatesActive(false)
         volume = nil
-        attack.setActive(false)
+        attack.setUpdatesActive(false)
         attack = nil
-        hold.setActive(false)
+        hold.setUpdatesActive(false)
         hold = nil
-        decay.setActive(false)
+        decay.setUpdatesActive(false)
         decay = nil
-        wavetableIndex.setActive(false)
+        wavetableIndex.setUpdatesActive(false)
         wavetableIndex = nil
-        filterCutoff.setActive(false)
+        filterCutoff.setUpdatesActive(false)
         filterCutoff = nil
         pitchQuantisation = nil
     }

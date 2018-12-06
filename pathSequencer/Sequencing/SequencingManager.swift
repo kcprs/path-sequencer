@@ -69,6 +69,8 @@ class SequencingManager {
         
         index = tracks.index(of: track)
         tracks.remove(at: index!)
+        
+        track.delete()
     }
     
     static func startPlayback() {

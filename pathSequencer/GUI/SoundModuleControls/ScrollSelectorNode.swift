@@ -66,10 +66,13 @@ class ScrollSelectorNode<T: Hashable>: TouchableNode {
     }
     
     private func updateValue() {
+        let oldValueIndex = valueIndex
         valueIndex = -Int((scrollRoot.position.y / yGap).rounded())
         valueIndex = min(max(valueIndex, 0), parameter.valueCount - 1)
         
-        parameter.setValue(index: valueIndex)
+        if valueIndex != oldValueIndex {
+            parameter.setValue(index: valueIndex)
+        }
     }
     
     private func addAllLabelNodes() {

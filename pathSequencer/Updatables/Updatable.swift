@@ -11,11 +11,11 @@ import Foundation
 protocol Updatable: AnyObject {
     var isActive: Bool { get set }
     func update()
-    func setActive(_ active: Bool)
+    func setUpdatesActive(_ active: Bool)
 }
 
 extension Updatable {
-    func setActive(_ active: Bool) {
+    func setUpdatesActive(_ active: Bool) {
         if active && !self.isActive {
             UpdateManager.add(self)
         } else {
