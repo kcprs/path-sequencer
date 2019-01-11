@@ -83,7 +83,7 @@ class WavetableSynthControlPanelNode: SKNode, SoundModuleControlsPanelNode {
         self.addChild(knob)
         updatables.append(knob)
         
-        knob = KnobNode(parameter: _soundModule.filterCutoff, isLogarithmic: true)
+        knob = KnobNode(parameter: _soundModule.filterCutoff)
         knob.position = CGPoint(x: 400, y: 0)
         self.addChild(knob)
         updatables.append(knob)

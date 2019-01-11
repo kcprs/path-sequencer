@@ -15,7 +15,6 @@ class KnobNode: TouchableNode, Updatable {
     private let sensitivity: Double = 200 // Movement by how many pixels maps to full range of assigned parameter?
     private var lastTouchPos: CGPoint?
     
-    private var isLogarithmic = false
     private var proportion: Double {
         set {
             let newProp = max(0, min(1, newValue))
@@ -59,9 +58,8 @@ class KnobNode: TouchableNode, Updatable {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(parameter: ContinuousParameter, isLogarithmic: Bool = false) {
+    init(parameter: ContinuousParameter) {
         self.parameter = parameter
-        self.isLogarithmic = isLogarithmic
         self.knobRoot = SKNode()
         self.circle = SKShapeNode(circleOfRadius: diameter / 2)
         self.notch = SKShapeNode(rectOf: CGSize(width: 1, height: diameter / 2))
@@ -108,19 +106,11 @@ class KnobNode: TouchableNode, Updatable {
     }
     
     private func updateParameterValue() {
-        if isLogarithmic {
-            parameter.setUserLogProportion(proportion)
-        } else {
-            parameter.setUserProportion(proportion)
-        }
+        parameter.setUserProportion(proportion)
     }
     
     private func updateSelfFromParameterValue() {
-        if isLogarithmic {
-            proportion = parameter.getUserLogProportion()
-        } else {
-            proportion = parameter.getUserProportion()
-        }
+        proportion = parameter.getUserProportion()
     }
     
     override func touchDown(at pos: CGPoint) {
@@ -180,7 +170,7 @@ class KnobNode: TouchableNode, Updatable {
             modPreview.isHidden = false
             let newProp = parameter.getCurrentProportion()
             let angle = rotationLimit - CGFloat(newProp) * 2 * rotationLimit
-            modPreviewRoot.run(SKAction.rotate(toAngle: angle, duration: 0))
+            modPreviewRoot.zRotation = angle
         }
     }
 }

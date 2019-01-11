@@ -86,7 +86,8 @@ class WavetableSynthSoundModule: SoundModule {
                                            setClosure: {(newValue: Double) in self.filter.cutoffFrequency = newValue},
                                            getClosure: { () -> Double in return self.filter.cutoffFrequency},
                                            displayUnit: "Hz",
-                                           modSource: track.sequencerPath.cursor)
+                                           modSource: track.sequencerPath.cursor,
+                                           isLogarithmic: true)
         filterCutoff.setUpdatesActive(true)
         pitchQuantisation = DiscreteParameter(label: "Pitch Quantisation",
                                               setClosure: {(newValue: Bool) in self.quantisePitch = newValue},

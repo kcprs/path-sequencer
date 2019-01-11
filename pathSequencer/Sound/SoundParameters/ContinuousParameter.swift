@@ -19,11 +19,12 @@ class ContinuousParameter: Modulatable {
     var modAmount: Double! = 0 { didSet { update() }}
     var isActive: Bool = false
     var defaultValue: Double?
+    private var isLogarithmic = false
     
     let label: String!
     let displayUnit: String!
     
-    init(label: String, minValue: Double, maxValue: Double, setClosure: @escaping (Double) -> Void, getClosure: @escaping () -> Double, displayUnit: String = "", modSource: ModulationSource) {
+    init(label: String, minValue: Double, maxValue: Double, setClosure: @escaping (Double) -> Void, getClosure: @escaping () -> Double, displayUnit: String = "", modSource: ModulationSource, isLogarithmic: Bool = false) {
         self.label = label
         self.minValue = minValue
         self.maxValue = maxValue
@@ -31,6 +32,7 @@ class ContinuousParameter: Modulatable {
         self.getClosure = getClosure
         self.displayUnit = displayUnit
         self.modSource = modSource
+        self.isLogarithmic = isLogarithmic
         self.userValue = getCurrentValue()
     }
     
@@ -47,11 +49,11 @@ class ContinuousParameter: Modulatable {
     }
     
     func getCurrentProportion() -> Double {
+        if isLogarithmic {
+            return (log10(getCurrentValue()) - log10(minValue)) / (log10(maxValue) - log10(minValue))
+        }
+        
         return (getCurrentValue() - minValue) / (maxValue - minValue)
-    }
-    
-    func getCurrentLogProportion() -> Double {
-        return (log10(getCurrentValue()) - log10(minValue)) / (log10(maxValue) - log10(minValue))
     }
     
     func setUserValue(to newValue: Double) {
@@ -63,19 +65,19 @@ class ContinuousParameter: Modulatable {
     }
     
     func setUserProportion(_ proportion: Double) {
-        setUserValue(to: minValue + proportion * (maxValue - minValue))
+        if isLogarithmic {
+            setUserValue(to: pow(10, log10(minValue) + proportion * (log10(maxValue) - log10(minValue))))
+        } else {
+            setUserValue(to: minValue + proportion * (maxValue - minValue))
+        }
     }
     
     func getUserProportion() -> Double {
+        if isLogarithmic {
+            return (log10(getUserValue()) - log10(minValue)) / (log10(maxValue) - log10(minValue))
+        }
+        
         return (getUserValue() - minValue) / (maxValue - minValue)
-    }
-    
-    func setUserLogProportion(_ proportion: Double) {
-        setUserValue(to: pow(10, log10(minValue) + proportion * (log10(maxValue) - log10(minValue))))
-    }
-    
-    func getUserLogProportion() -> Double {
-        return (log10(getUserValue()) - log10(minValue)) / (log10(maxValue) - log10(minValue))
     }
     
     func setModAmount(to newValue: Double) {
@@ -103,7 +105,13 @@ class ContinuousParameter: Modulatable {
     }
     
     func update() {
-        let newValue = userValue + (maxValue - minValue) * modAmount * modSource.getModulationValue()
+        var newValue: Double
+        if isLogarithmic {
+            newValue = pow(10, log10(userValue) + (log10(maxValue / minValue)) * modAmount * modSource.getModulationValue())
+        } else {
+            newValue = userValue + (maxValue - minValue) * modAmount * modSource.getModulationValue()
+        }
+        
         setCurrentValue(to: newValue)
     }
 }
