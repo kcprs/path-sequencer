@@ -23,9 +23,9 @@ class CameraMoveNode: TouchableNode {
         // Fill the whole screen with a translucent rectangle
         // This will force camera bounds to span the whole screen
         let fullScreenRect = SKShapeNode(rectOf: scene.size)
-        fullScreenRect.alpha = 0
+        fullScreenRect.alpha = 0.000000001  // Hack to make the rectangle respond to touch while remaining practically invisible
         self.addChild(fullScreenRect)
-        self.zPosition = 9
+        self.zPosition = 1
     }
     
     override func touchDown(at pos: CGPoint) {

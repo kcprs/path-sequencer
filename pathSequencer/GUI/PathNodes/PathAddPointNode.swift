@@ -24,7 +24,7 @@ class PathAddPointNode: NodeOnSequencerPath {
         visibleNode = SKShapeNode(circleOfRadius: 10)
         visibleNode.strokeColor = .gray
         
-        self.zPosition = 1
+        self.zPosition = 2
     }
     
     deinit {

@@ -30,6 +30,7 @@ class TrackIconNode: TouchableNode {
         label.verticalAlignmentMode = .center
         label.horizontalAlignmentMode = .left
         self.addChild(label)
+        self.zPosition = 10
         
         self.updateSelection()
     }

@@ -36,7 +36,6 @@ class SequencerPath: SKNode {
         pathAddPointNodes = Array<PathAddPointNode>()
         
         pathNode = SKShapeNode()
-        pathNode.zPosition = 0
         self.addChild(pathNode)
         
         for _ in 1...3 {
@@ -53,7 +52,6 @@ class SequencerPath: SKNode {
         cursor = CursorNode(onPath: self)
         
         self.alpha = 0
-        self.zPosition = 0
         self.run(SKAction.fadeIn(withDuration: 0.5))
     }
     

@@ -18,6 +18,8 @@ class GameScene: SKScene {
     private var pitchManagerNode: PitchManagerNode!
     
     override func didMove(to view: SKView) {
+        view.ignoresSiblingOrder = true
+        
         // Set up the scene
         sceneManager = SceneManager(for: self)
 

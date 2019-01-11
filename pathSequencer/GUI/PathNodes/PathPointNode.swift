@@ -17,7 +17,7 @@ class PathPointNode: NodeOnSequencerPath {
         super.init(parentPath: parentPath)
         visibleNode = SKShapeNode(circleOfRadius: 30)
         
-        self.zPosition = 2
+        self.zPosition = 3
     }
     
     deinit {
