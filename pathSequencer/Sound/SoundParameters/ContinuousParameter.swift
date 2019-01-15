@@ -18,7 +18,7 @@ class ContinuousParameter: Modulatable {
     private var userValue: Double! { didSet { update() }}
     var modAmount: Double! = 0 { didSet { update() }}
     var isActive: Bool = false
-    var defaultValue: Double?
+    var defaultValue: Double? { didSet { resetToDefaultValue() }}
     private var isLogarithmic = false
     
     let label: String!

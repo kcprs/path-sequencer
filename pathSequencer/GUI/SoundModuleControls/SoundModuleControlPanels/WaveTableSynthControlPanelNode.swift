@@ -59,9 +59,21 @@ class WavetableSynthControlPanelNode: SKNode, SoundModuleControlsPanelNode {
     func setupGUI() {
         // TODO: Find a good way to approach GUI layout
         var knob = KnobNode(parameter: _soundModule.volume)
-        knob.position = CGPoint(x: -300, y: 100)
+        knob.position = CGPoint(x: -400, y: 200)
         self.addChild(knob)
         updatables.append(knob)
+        
+        let switchNode = SwitchNode(parameter: _soundModule.pitchQuantisation)
+        switchNode.position = CGPoint(x: -200, y: 200)
+        self.addChild(switchNode)
+        
+        let modButton = ModAssignModeButtonNode(for: self)
+        modButton.position = CGPoint(x: 0, y: 200)
+        self.addChild(modButton)
+        
+        let speedSelector = ScrollSelectorNode<AKDuration>(parameter: soundModule.track.noteDuration)
+        speedSelector.position = CGPoint(x: 200, y: 200)
+        self.addChild(speedSelector)
         
         knob = KnobNode(parameter: _soundModule.attack)
         knob.position = CGPoint(x: -400, y: 0)
@@ -88,17 +100,31 @@ class WavetableSynthControlPanelNode: SKNode, SoundModuleControlsPanelNode {
         self.addChild(knob)
         updatables.append(knob)
         
-        let switchNode = SwitchNode(parameter: _soundModule.pitchQuantisation)
-        switchNode.position = CGPoint(x: 0, y: 200)
-        self.addChild(switchNode)
+        knob = KnobNode(parameter: _soundModule.effectsModule.delayMix)
+        knob.position = CGPoint(x: -400, y: -200)
+        self.addChild(knob)
+        updatables.append(knob)
         
-        let modButton = ModAssignModeButtonNode(for: self)
-        modButton.position = CGPoint(x: 0, y: -200)
-        self.addChild(modButton)
+        knob = KnobNode(parameter: _soundModule.effectsModule.delayFeedback)
+        knob.position = CGPoint(x: -200, y: -200)
+        self.addChild(knob)
+        updatables.append(knob)
         
-        let speedSelector = ScrollSelectorNode<AKDuration>(parameter: soundModule.track.noteDuration)
-        speedSelector.position = CGPoint(x: 200, y: -200)
-        self.addChild(speedSelector)
+        knob = KnobNode(parameter: _soundModule.effectsModule.delayTime)
+        knob.position = CGPoint(x: 0, y: -200)
+        self.addChild(knob)
+        updatables.append(knob)
+        
+        knob = KnobNode(parameter: _soundModule.effectsModule.reverbMix)
+        knob.position = CGPoint(x: 200, y: -200)
+        self.addChild(knob)
+        updatables.append(knob)
+        
+        knob = KnobNode(parameter: _soundModule.effectsModule.reverbFeedback)
+        knob.position = CGPoint(x: 400, y: -200)
+        self.addChild(knob)
+        updatables.append(knob)
+
     }
     
     func removeFromSoundModule() {

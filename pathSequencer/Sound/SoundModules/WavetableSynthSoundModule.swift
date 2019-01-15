@@ -14,6 +14,7 @@ class WavetableSynthSoundModule: SoundModule {
     var callbackInstrument: AKCallbackInstrument!
     var controlPanel: SoundModuleControlsPanelNode?
     var quantisePitch = true
+    var effectsModule: EffectsModule
     
     // AudioKit stuff
     private var oscBank: AKMorphingOscillatorBank!
@@ -32,6 +33,7 @@ class WavetableSynthSoundModule: SoundModule {
     
     required init(for track: Track) {
         self.track = track
+        self.effectsModule = EffectsModule(for: track)
         setupCallbackInstrument()
         waveforms = Array<AKTable>()
         waveforms.append(AKTable(.sine))
@@ -47,7 +49,8 @@ class WavetableSynthSoundModule: SoundModule {
         gainStage.rampDuration = 0.05
         
         oscBank.connect(to: filter)
-        filter.connect(to: gainStage)
+        filter.connect(to: effectsModule.input)
+        effectsModule.connect(to: gainStage)
         
         AudioManager.addSoundModule(self)
         
@@ -121,6 +124,7 @@ class WavetableSynthSoundModule: SoundModule {
         filterCutoff.setUpdatesActive(false)
         filterCutoff = nil
         pitchQuantisation = nil
+        effectsModule.delete()
     }
     
     func start() {

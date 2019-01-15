@@ -26,6 +26,7 @@
 		8871218721A5816A0093FBC2 /* SequencingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8871218621A5816A0093FBC2 /* SequencingManager.swift */; };
 		8871218B21A58AD10093FBC2 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8871218A21A58AD10093FBC2 /* Track.swift */; };
 		8871218D21A58EA20093FBC2 /* SceneManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8871218C21A58EA20093FBC2 /* SceneManager.swift */; };
+		8893F8D321EDEF6F0057A1FD /* EffectsModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8893F8D221EDEF6F0057A1FD /* EffectsModule.swift */; };
 		88A7433D21AD928400CDB7AC /* Modulatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A7433C21AD928400CDB7AC /* Modulatable.swift */; };
 		88A7433F21ADA37700CDB7AC /* UpdateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A7433E21ADA37700CDB7AC /* UpdateManager.swift */; };
 		88A7434321ADCA4B00CDB7AC /* Updatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A7434221ADCA4B00CDB7AC /* Updatable.swift */; };
@@ -73,6 +74,7 @@
 		8871218621A5816A0093FBC2 /* SequencingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequencingManager.swift; sourceTree = "<group>"; };
 		8871218A21A58AD10093FBC2 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		8871218C21A58EA20093FBC2 /* SceneManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneManager.swift; sourceTree = "<group>"; };
+		8893F8D221EDEF6F0057A1FD /* EffectsModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsModule.swift; sourceTree = "<group>"; };
 		88A7433C21AD928400CDB7AC /* Modulatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modulatable.swift; sourceTree = "<group>"; };
 		88A7433E21ADA37700CDB7AC /* UpdateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateManager.swift; sourceTree = "<group>"; };
 		88A7434221ADCA4B00CDB7AC /* Updatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updatable.swift; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 		8871218E21A5AACE0093FBC2 /* Sound */ = {
 			isa = PBXGroup;
 			children = (
+				8893F8D121EDEF4B0057A1FD /* EffectsModules */,
 				88C97F2821B2F3340039EAB7 /* SoundModules */,
 				881FA3FD21B57CE6003E4F27 /* SoundParameters */,
 				885273FB218B7DD000D675C1 /* AudioManager.swift */,
@@ -229,6 +232,14 @@
 				8871218A21A58AD10093FBC2 /* Track.swift */,
 			);
 			path = Sequencing;
+			sourceTree = "<group>";
+		};
+		8893F8D121EDEF4B0057A1FD /* EffectsModules */ = {
+			isa = PBXGroup;
+			children = (
+				8893F8D221EDEF6F0057A1FD /* EffectsModule.swift */,
+			);
+			path = EffectsModules;
 			sourceTree = "<group>";
 		};
 		88C97F2821B2F3340039EAB7 /* SoundModules */ = {
@@ -385,6 +396,7 @@
 				885273FF218B7DD000D675C1 /* CursorNode.swift in Sources */,
 				8866942F219CB26B0014B455 /* SoundModule.swift in Sources */,
 				88E4FDB421B9924800913B37 /* ModAssignModeButtonNode.swift in Sources */,
+				8893F8D321EDEF6F0057A1FD /* EffectsModule.swift in Sources */,
 				88D2060B21A41A0F00DB74F7 /* ContinuousParameter.swift in Sources */,
 				8800A850219EF4FA0010073D /* TrackIconNode.swift in Sources */,
 				88E87EB621B6F54000A039E1 /* PlayButtonNode.swift in Sources */,
