@@ -108,4 +108,26 @@ class SequencingManager {
             print("Error while saving sequencer to JSON")
         }
     }
+    
+    static func loadFromJSON(path: String) {
+        if let path = Bundle.main.path(forResource: path, ofType: "json") {
+            do {
+                let jsonData = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+                let data = try JSONDecoder().decode(SequencingManagerData.self, from: jsonData)
+                
+                SequencingManager.tempo.setValue(newValue: data.tempo)
+                
+                for track in SequencingManager.tracks {
+                    SequencingManager.deleteTrack(track)
+                }
+                
+                for trackData in data.tracks {
+                    let track = SequencingManager.addNewTrack(select: false)
+                    track.loadData(trackData)
+                }
+            } catch {
+                print("Error while loading data from JSON")
+            }
+        }
+    }
 }

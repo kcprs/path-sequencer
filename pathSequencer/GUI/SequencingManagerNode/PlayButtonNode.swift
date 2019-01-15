@@ -31,13 +31,12 @@ class PlayButtonNode: TouchableNode {
     }
     
     override func touchUp(at pos: CGPoint) {
-//        if SequencingManager.isPlaying {
-//            SequencingManager.stopPlayback()
-//        } else {
-//            SequencingManager.startPlayback()
-//        }
-//
-//        update()
-        SequencingManager.saveToJSON()
+        if SequencingManager.isPlaying {
+            SequencingManager.stopPlayback()
+        } else {
+            SequencingManager.startPlayback()
+        }
+
+        update()
     }
 }

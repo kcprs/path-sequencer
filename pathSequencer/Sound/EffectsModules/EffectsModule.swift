@@ -119,4 +119,17 @@ class EffectsModule {
         
         return data
     }
+    
+    func loadData(_ data: EffectsModuleData) {
+        delayMix.setUserValue(to: data.delayMix)
+        delayMix.setModAmount(to: data.delayMixMod)
+        delayTime.setUserValue(to: data.delayTime)
+        delayTime.setModAmount(to: data.delayTimeMod)
+        delayFeedback.setUserValue(to: data.delayFeedback)
+        delayFeedback.setModAmount(to: data.delayFeedbackMod)
+        reverbMix.setUserValue(to: data.reverbMix)
+        reverbMix.setModAmount(to: data.reverbMixMod)
+        reverbFeedback.setUserValue(to: data.reverbFeedback)
+        reverbFeedback.setModAmount(to: data.reverbFeedbackMod)
+    }
 }

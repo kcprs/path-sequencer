@@ -184,4 +184,22 @@ class WavetableSynthSoundModule: SoundModule {
     
         return data
     }
+    
+    func loadData(_ data: SoundModuleData) {
+        let data = data as! WavetableSynthSoundModuleData
+        volume.setUserValue(to: data.volume)
+        volume.setModAmount(to: data.volumeMod)
+        attack.setUserValue(to: data.attack)
+        attack.setModAmount(to: data.attackMod)
+        hold.setUserValue(to: data.hold)
+        hold.setModAmount(to: data.holdMod)
+        decay.setUserValue(to: data.decay)
+        decay.setModAmount(to: data.decayMod)
+        wavetableIndex.setUserValue(to: data.wavetableIndex)
+        wavetableIndex.setModAmount(to: data.wavetableIndexMod)
+        filterCutoff.setUserValue(to: data.filterCutoff)
+        filterCutoff.setModAmount(to: data.filterCutoffMod)
+        pitchQuantisation.setValue(newValue: data.pitchQuantisation)
+        effectsModule.loadData(data.effectsData)
+    }
 }

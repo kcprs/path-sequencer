@@ -130,6 +130,20 @@ class Track: Equatable {
         
         return data
     }
+    
+    func loadData(_ data: TrackData) {
+        noteDuration.setValue(newValue: AKDuration(beats: data.noteDuration))
+        
+        while sequencerPath.pathPointNodes.count < data.pathPoints.count {
+            _ = sequencerPath.addNewPoint(from: sequencerPath.pathAddPointNodes[0])
+        }
+        
+        for i in 0..<sequencerPath.pathAddPointNodes.count {
+            sequencerPath.pathAddPointNodes[i].position = CGPoint(x: data.pathPoints[i].x, y: data.pathPoints[i].y)
+        }
+        
+        soundModule.loadData(data.soundModuleData)
+    }
 }
 
 extension AKDuration: Hashable {

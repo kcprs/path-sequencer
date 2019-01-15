@@ -35,6 +35,8 @@ protocol SoundModule: AnyObject {
     func anyObjectSelf() -> AnyObject
     
     func getSaveData() -> SoundModuleData
+    
+    func loadData(_ data: SoundModuleData)
 }
 
 extension SoundModule where Self: AnyObject {

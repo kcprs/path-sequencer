@@ -13,7 +13,7 @@ class SequencerPath: SKNode {
     unowned let track: Track
     var cursor: CursorNode!
     var pathPointNodes: Array<PathPointNode>!
-    private var pathAddPointNodes: Array<PathAddPointNode>!
+    var pathAddPointNodes: Array<PathAddPointNode>!
     var pointCount: Int { return pathPointNodes.count }
     
     // Graphics
