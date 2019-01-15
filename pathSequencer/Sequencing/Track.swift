@@ -114,6 +114,22 @@ class Track: Equatable {
     static func == (lhs: Track, rhs: Track) -> Bool {
         return lhs === rhs
     }
+    
+    func getSaveData() -> TrackData {
+        var data = TrackData()
+        data.noteDuration = noteDuration.getValue().beats
+        data.soundModuleData = soundModule.getSaveData()
+        
+        if soundModule is WavetableSynthSoundModule {
+            data.soundModuleType = "WavetableSynthModule"
+        }
+
+        for node in sequencerPath.pathPointNodes {
+            data.pathPoints.append(PathPointNodeData(node))
+        }
+        
+        return data
+    }
 }
 
 extension AKDuration: Hashable {

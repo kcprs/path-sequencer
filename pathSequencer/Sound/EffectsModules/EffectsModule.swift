@@ -102,4 +102,21 @@ class EffectsModule {
         reverb.detach()
         delay.detach()
     }
+    
+    func getSaveData() -> EffectsModuleData {
+        var data = EffectsModuleData()
+        
+        data.delayMix = delayMix.getUserValue()
+        data.delayMixMod = delayMix.getModAmount()
+        data.delayTime = delayTime.getUserValue()
+        data.delayTimeMod = delayTime.getModAmount()
+        data.delayFeedback = delayFeedback.getUserValue()
+        data.delayFeedbackMod = delayFeedback.getModAmount()
+        data.reverbMix = reverbMix.getUserValue()
+        data.reverbMixMod = reverbMix.getModAmount()
+        data.reverbFeedback = reverbFeedback.getUserValue()
+        data.reverbFeedbackMod = reverbFeedback.getModAmount()
+        
+        return data
+    }
 }

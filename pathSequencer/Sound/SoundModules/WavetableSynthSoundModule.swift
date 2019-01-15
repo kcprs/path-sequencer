@@ -8,7 +8,7 @@
 
 import AudioKit
 
-class WavetableSynthSoundModule: SoundModule {
+class WavetableSynthSoundModule: SoundModule {    
     unowned var track: Track
     
     var callbackInstrument: AKCallbackInstrument!
@@ -164,5 +164,24 @@ class WavetableSynthSoundModule: SoundModule {
     func getMIDIInput() -> MIDIEndpointRef {
         return callbackInstrument.midiIn
     }
+    
+    func getSaveData() -> SoundModuleData {
+        let data = WavetableSynthSoundModuleData()
+        data.volume = volume.getUserValue()
+        data.volumeMod = volume.getModAmount()
+        data.attack = attack.getUserValue()
+        data.attackMod = attack.getModAmount()
+        data.hold = hold.getUserValue()
+        data.holdMod = hold.getModAmount()
+        data.decay = decay.getUserValue()
+        data.decayMod = decay.getModAmount()
+        data.wavetableIndex = wavetableIndex.getUserValue()
+        data.wavetableIndexMod = wavetableIndex.getModAmount()
+        data.filterCutoff = filterCutoff.getUserValue()
+        data.filterCutoffMod = filterCutoff.getModAmount()
+        data.pitchQuantisation = pitchQuantisation.getValue()
+        data.effectsData = effectsModule.getSaveData()
+    
+        return data
+    }
 }
-

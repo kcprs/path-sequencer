@@ -33,6 +33,8 @@ protocol SoundModule: AnyObject {
     func getMIDIInput() -> MIDIEndpointRef
     
     func anyObjectSelf() -> AnyObject
+    
+    func getSaveData() -> SoundModuleData
 }
 
 extension SoundModule where Self: AnyObject {
