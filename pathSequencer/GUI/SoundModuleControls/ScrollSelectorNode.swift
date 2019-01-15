@@ -19,6 +19,8 @@ class ScrollSelectorNode<T: Hashable>: TouchableNode {
     private var touchedPoint: CGPoint?
     private let yGap: CGFloat = 30
     private var valueIndex: Int = 0
+    private let nameLabel: SKLabelNode!
+    private let labelSpacer: CGFloat = 20
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -31,6 +33,7 @@ class ScrollSelectorNode<T: Hashable>: TouchableNode {
         frameNode = SKShapeNode(rectOf: CGSize(width: 100, height: yGap))
         scrollRoot = SKNode()
         labels = Array<SKLabelNode>()
+        nameLabel = SKLabelNode()
         super.init()
         
         maskNode.fillColor = .black
@@ -56,6 +59,15 @@ class ScrollSelectorNode<T: Hashable>: TouchableNode {
         valueIndex = self.parameter.getCurrentIndex()!
         scrollRoot.addChild(labels[valueIndex])
         snapToClosest()
+        
+        nameLabel.position.y = labelSpacer
+        nameLabel.fontSize = 20
+        self.addChild(nameLabel)
+        updateLabel()
+    }
+    
+    private func updateLabel() {
+        nameLabel.text = parameter.label
     }
     
     private func snapToClosest() {

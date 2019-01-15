@@ -20,7 +20,7 @@ class KnobNode: TouchableNode, Updatable {
             let newProp = max(0, min(1, newValue))
             let angle = rotationLimit - CGFloat(newProp) * 2 * rotationLimit
             knobRoot.run(SKAction.rotate(toAngle: angle, duration: 0))
-            updateLabel()
+            updateLabels()
         }
         
         get {
@@ -51,8 +51,9 @@ class KnobNode: TouchableNode, Updatable {
     private var modAmountPreview: SKShapeNode!
     private let rotationLimit: CGFloat = 2.5
     private let diameter: CGFloat = 50
-    private let labelSpacer: CGFloat = 1.4
-    private var label: SKLabelNode!
+    private let labelSpacer: CGFloat = 35
+    private var nameLabel: SKLabelNode!
+    private var valueLabel: SKLabelNode!
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -63,7 +64,8 @@ class KnobNode: TouchableNode, Updatable {
         self.knobRoot = SKNode()
         self.circle = SKShapeNode(circleOfRadius: diameter / 2)
         self.notch = SKShapeNode(rectOf: CGSize(width: 1, height: diameter / 2))
-        self.label = SKLabelNode()
+        self.nameLabel = SKLabelNode()
+        self.valueLabel = SKLabelNode()
         self.modPreview = SKShapeNode(circleOfRadius: diameter / 10)
         self.modPreviewRoot = SKNode()
         self.modAmountPreview = SKShapeNode()
@@ -78,10 +80,11 @@ class KnobNode: TouchableNode, Updatable {
         notch.fillColor = .white
         knobRoot.addChild(notch)
         
-        label.position = CGPoint(x: 0, y: labelSpacer * diameter / 2)
-        label.fontSize = 20
-        updateLabel()
-        self.addChild(label)
+        nameLabel.position = CGPoint(x: 0, y: labelSpacer)
+        valueLabel.position = CGPoint(x: 0, y: -labelSpacer)
+        self.addChild(nameLabel)
+        self.addChild(valueLabel)
+        updateLabels()
         
         self.addChild(modPreviewRoot)
         modPreview.position = CGPoint(x: 0, y: diameter / 2)
@@ -95,14 +98,29 @@ class KnobNode: TouchableNode, Updatable {
         print("KnobNode deinit done")
     }
     
-    private func updateLabel() {
+    private func updateLabels() {
         // Avoid redundant space if no unit specified
         var unit = ""
         if parameter.displayUnit != "" {
             unit = " " + parameter.displayUnit
         }
         
-        label.text = String(format: parameter.label + ": %.2f" + unit, parameter.getUserValue())
+        let widthLimit = 3 * diameter
+        
+        nameLabel.text = String(format: parameter.label)
+        nameLabel.fontSize = 20
+        
+        if nameLabel.frame.width > widthLimit {
+            nameLabel.xScale = widthLimit / nameLabel.frame.width
+        }
+        
+        valueLabel.text = String(format: "%.2f" + unit, parameter.getUserValue())
+        valueLabel.fontSize = 20
+        valueLabel.verticalAlignmentMode = .top
+        
+        if valueLabel.frame.width > widthLimit {
+            valueLabel.xScale = widthLimit / nameLabel.frame.width
+        }
     }
     
     private func updateParameterValue() {

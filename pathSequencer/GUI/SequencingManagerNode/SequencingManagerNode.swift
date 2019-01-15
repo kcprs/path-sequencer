@@ -22,7 +22,7 @@ class SequencingManagerNode: TouchableNode {
         tempoSelectorNode = ScrollSelectorNode<Double>(parameter: SequencingManager.tempo)
         super.init()
         self.addChild(playButton)
-        tempoSelectorNode.position = CGPoint(x: -100, y: 0)
+        tempoSelectorNode.position = CGPoint(x: -100, y: -10)
         self.addChild(tempoSelectorNode)
         self.zPosition = 10
     }
