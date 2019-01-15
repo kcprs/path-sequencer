@@ -20,6 +20,7 @@ class ContinuousParameter: Modulatable {
     var isActive: Bool = false
     var defaultValue: Double? { didSet { resetToDefaultValue() }}
     private var isLogarithmic = false
+//    private let maxDelta: Double!
     
     let label: String!
     let displayUnit: String!
@@ -33,6 +34,7 @@ class ContinuousParameter: Modulatable {
         self.displayUnit = displayUnit
         self.modSource = modSource
         self.isLogarithmic = isLogarithmic
+//        self.maxDelta = (maxValue - minValue) / 100
         self.userValue = getCurrentValue()
     }
     
@@ -111,6 +113,15 @@ class ContinuousParameter: Modulatable {
         } else {
             newValue = userValue + (maxValue - minValue) * modAmount * modSource.getModulationValue()
         }
+//
+//        let currentValue = getCurrentValue()
+//        if abs(newValue - currentValue) > maxDelta {
+//            if newValue > currentValue {
+//                newValue = currentValue + maxDelta
+//            } else {
+//                newValue = currentValue - maxDelta
+//            }
+//        }
         
         setCurrentValue(to: newValue)
     }

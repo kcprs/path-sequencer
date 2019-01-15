@@ -30,6 +30,9 @@ class EffectsModule {
         self.reverb = AKCostelloReverb(delayMixer)
         self.reverbMixer = AKDryWetMixer(delayMixer, reverb)
         
+        reverb.rampDuration = 0.05
+        delay.rampDuration = 0.05
+        
         delayMix = ContinuousParameter(label: "Delay Mix", minValue: 0, maxValue: 100,
                                        setClosure: {(newValue: Double) in self.delayMixer.balance = newValue / 100},
                                        getClosure: {() -> Double in return self.delayMixer.balance * 100},

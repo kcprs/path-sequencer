@@ -18,7 +18,7 @@ class WavetableSynthSoundModule: SoundModule {
     
     // AudioKit stuff
     private var oscBank: AKMorphingOscillatorBank!
-    private var filter: AKLowPassFilter!
+    private var filter: AKMoogLadder!
     private var waveforms: Array<AKTable>!
     private var gainStage: AKBooster!
     
@@ -42,9 +42,10 @@ class WavetableSynthSoundModule: SoundModule {
         waveforms.append(AKTable(.square))
         
         oscBank = AKMorphingOscillatorBank(waveformArray: waveforms)
-        oscBank.rampDuration = 0
+        oscBank.rampDuration = 0.0005
         oscBank.sustainLevel = 1
-        filter = AKLowPassFilter()
+        filter = AKMoogLadder()
+        filter.rampDuration = 0.05
         gainStage = AKBooster()
         gainStage.rampDuration = 0.05
         
