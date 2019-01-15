@@ -27,6 +27,7 @@
 		8871218B21A58AD10093FBC2 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8871218A21A58AD10093FBC2 /* Track.swift */; };
 		8871218D21A58EA20093FBC2 /* SceneManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8871218C21A58EA20093FBC2 /* SceneManager.swift */; };
 		8893F8D321EDEF6F0057A1FD /* EffectsModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8893F8D221EDEF6F0057A1FD /* EffectsModule.swift */; };
+		8893F8D721EE40670057A1FD /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8893F8D621EE40670057A1FD /* MenuViewController.swift */; };
 		88A7433D21AD928400CDB7AC /* Modulatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A7433C21AD928400CDB7AC /* Modulatable.swift */; };
 		88A7433F21ADA37700CDB7AC /* UpdateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A7433E21ADA37700CDB7AC /* UpdateManager.swift */; };
 		88A7434321ADCA4B00CDB7AC /* Updatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A7434221ADCA4B00CDB7AC /* Updatable.swift */; };
@@ -75,6 +76,7 @@
 		8871218A21A58AD10093FBC2 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		8871218C21A58EA20093FBC2 /* SceneManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneManager.swift; sourceTree = "<group>"; };
 		8893F8D221EDEF6F0057A1FD /* EffectsModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsModule.swift; sourceTree = "<group>"; };
+		8893F8D621EE40670057A1FD /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		88A7433C21AD928400CDB7AC /* Modulatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modulatable.swift; sourceTree = "<group>"; };
 		88A7433E21ADA37700CDB7AC /* UpdateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateManager.swift; sourceTree = "<group>"; };
 		88A7434221ADCA4B00CDB7AC /* Updatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updatable.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 				885273DC218B7CDB00D675C1 /* GameScene.swift */,
 				885273D6218B7CDB00D675C1 /* AppDelegate.swift */,
 				885273DE218B7CDB00D675C1 /* GameViewController.swift */,
+				8893F8D621EE40670057A1FD /* MenuViewController.swift */,
 				885273D8218B7CDB00D675C1 /* GameScene.sks */,
 				885273E8218B7CDB00D675C1 /* Info.plist */,
 				885273E5218B7CDB00D675C1 /* LaunchScreen.storyboard */,
@@ -394,6 +397,7 @@
 				88A7433D21AD928400CDB7AC /* Modulatable.swift in Sources */,
 				88527400218B7DD000D675C1 /* SequencerPath.swift in Sources */,
 				885273FF218B7DD000D675C1 /* CursorNode.swift in Sources */,
+				8893F8D721EE40670057A1FD /* MenuViewController.swift in Sources */,
 				8866942F219CB26B0014B455 /* SoundModule.swift in Sources */,
 				88E4FDB421B9924800913B37 /* ModAssignModeButtonNode.swift in Sources */,
 				8893F8D321EDEF6F0057A1FD /* EffectsModule.swift in Sources */,
