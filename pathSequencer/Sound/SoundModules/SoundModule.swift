@@ -13,6 +13,7 @@ protocol SoundModule: AnyObject {
     var quantisePitch: Bool { get set }
     var controlPanel: SoundModuleControlsPanelNode? { get set }
     var callbackInstrument: AKCallbackInstrument! { get set }
+    var effectsModule: EffectsModule! { get set }
     
     init(for track: Track)
     
@@ -34,9 +35,9 @@ protocol SoundModule: AnyObject {
     
     func anyObjectSelf() -> AnyObject
     
-    func getSaveData() -> SoundModuleData
+    func getSaveData() -> [String: Double]
     
-    func loadData(_ data: SoundModuleData)
+    func loadData(_ data: [String: Double], effectsData: EffectsModuleData)
 }
 
 extension SoundModule where Self: AnyObject {

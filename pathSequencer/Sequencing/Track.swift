@@ -119,6 +119,7 @@ class Track: Equatable {
         var data = TrackData()
         data.noteDuration = noteDuration.getValue().beats
         data.soundModuleData = soundModule.getSaveData()
+        data.effectsModuleData = soundModule.effectsModule.getSaveData()
         
         if soundModule is WavetableSynthSoundModule {
             data.soundModuleType = "WavetableSynthModule"
@@ -139,10 +140,12 @@ class Track: Equatable {
         }
         
         for i in 0..<sequencerPath.pathAddPointNodes.count {
-            sequencerPath.pathAddPointNodes[i].position = CGPoint(x: data.pathPoints[i].x, y: data.pathPoints[i].y)
+            sequencerPath.pathPointNodes[i].position = CGPoint(x: data.pathPoints[i].x, y: data.pathPoints[i].y)
         }
+        sequencerPath.recomputeAddPointNodes()
+        sequencerPath.updatePathNode()
         
-        soundModule.loadData(data.soundModuleData)
+        soundModule.loadData(data.soundModuleData, effectsData: data.effectsModuleData)
     }
 }
 

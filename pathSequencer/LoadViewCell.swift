@@ -14,7 +14,7 @@ class LoadViewCell: UICollectionViewCell {
     
     @IBOutlet var loadSceneButton: UIButton!
     @IBAction func sceneButtonPressed(_ sender: Any) {
-        SelectionStorage.selectedURL = sceneURL
-        SelectionStorage.loadSelectedScene()
+        GlobalStorage.selectedURL = sceneURL
+        GlobalStorage.loadSelectedScene()
     }
 }

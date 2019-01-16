@@ -28,8 +28,8 @@ class SceneManager {
     static func run() {
         AudioManager.start()
         
-        if SelectionStorage.selectedURL != nil {
-            let url = SelectionStorage.selectedURL!
+        if GlobalStorage.selectedURL != nil {
+            let url = GlobalStorage.selectedURL!
             SequencingManager.loadFromJSON(path: url)
         }
     }

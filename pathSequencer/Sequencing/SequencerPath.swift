@@ -106,7 +106,7 @@ class SequencerPath: SKNode {
         }
     }
     
-    private func recomputeAddPointNodes() {
+    func recomputeAddPointNodes() {
         for node in pathAddPointNodes {
             node.removeFromParent()
         }
@@ -123,7 +123,7 @@ class SequencerPath: SKNode {
         }
     }
     
-    private func updatePathNode() {
+    func updatePathNode() {
         var pathPoints = Array<CGPoint>()
         for pointNode in pathPointNodes {
             pathPoints.append(pointNode.position)

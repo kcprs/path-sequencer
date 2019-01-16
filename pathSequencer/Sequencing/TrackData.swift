@@ -10,7 +10,8 @@ import Foundation
 struct TrackData: Codable {
     var noteDuration: Double!
     var soundModuleType: String!
-    var soundModuleData: SoundModuleData!
+    var soundModuleData: [String: Double]!
+    var effectsModuleData: EffectsModuleData!
     var pathPoints: Array<PathPointNodeData>!
     
     init() {

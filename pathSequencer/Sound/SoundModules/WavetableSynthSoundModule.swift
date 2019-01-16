@@ -8,13 +8,13 @@
 
 import AudioKit
 
-class WavetableSynthSoundModule: SoundModule {    
+class WavetableSynthSoundModule: SoundModule {
     unowned var track: Track
     
     var callbackInstrument: AKCallbackInstrument!
     var controlPanel: SoundModuleControlsPanelNode?
     var quantisePitch = true
-    var effectsModule: EffectsModule
+    var effectsModule: EffectsModule!
     
     // AudioKit stuff
     private var oscBank: AKMorphingOscillatorBank!
@@ -165,41 +165,47 @@ class WavetableSynthSoundModule: SoundModule {
         return callbackInstrument.midiIn
     }
     
-    func getSaveData() -> SoundModuleData {
-        let data = WavetableSynthSoundModuleData()
-        data.volume = volume.getUserValue()
-        data.volumeMod = volume.getModAmount()
-        data.attack = attack.getUserValue()
-        data.attackMod = attack.getModAmount()
-        data.hold = hold.getUserValue()
-        data.holdMod = hold.getModAmount()
-        data.decay = decay.getUserValue()
-        data.decayMod = decay.getModAmount()
-        data.wavetableIndex = wavetableIndex.getUserValue()
-        data.wavetableIndexMod = wavetableIndex.getModAmount()
-        data.filterCutoff = filterCutoff.getUserValue()
-        data.filterCutoffMod = filterCutoff.getModAmount()
-        data.pitchQuantisation = pitchQuantisation.getValue()
-        data.effectsData = effectsModule.getSaveData()
-    
+    func getSaveData() -> [String: Double] {
+        var data = Dictionary<String, Double>()
+        data["volume"] = volume.getUserValue()
+        data["volumeMod"] = volume.getModAmount()
+        data["attack"] = attack.getUserValue()
+        data["attackMod"] = attack.getModAmount()
+        data["hold"] = hold.getUserValue()
+        data["holdMod"] = hold.getModAmount()
+        data["decay"] = decay.getUserValue()
+        data["decayMod"] = decay.getModAmount()
+        data["wavetableIndex"] = wavetableIndex.getUserValue()
+        data["wavetableIndexMod"] = wavetableIndex.getModAmount()
+        data["filterCutoff"] = filterCutoff.getUserValue()
+        data["filterCutoffMod"] = filterCutoff.getModAmount()
+        if pitchQuantisation.getValue() {
+            data["pitchQuantisation"] = 1
+        } else {
+            data["pitchQuantisation"] = 0
+        }
+
         return data
     }
     
-    func loadData(_ data: SoundModuleData) {
-        let data = data as! WavetableSynthSoundModuleData
-        volume.setUserValue(to: data.volume)
-        volume.setModAmount(to: data.volumeMod)
-        attack.setUserValue(to: data.attack)
-        attack.setModAmount(to: data.attackMod)
-        hold.setUserValue(to: data.hold)
-        hold.setModAmount(to: data.holdMod)
-        decay.setUserValue(to: data.decay)
-        decay.setModAmount(to: data.decayMod)
-        wavetableIndex.setUserValue(to: data.wavetableIndex)
-        wavetableIndex.setModAmount(to: data.wavetableIndexMod)
-        filterCutoff.setUserValue(to: data.filterCutoff)
-        filterCutoff.setModAmount(to: data.filterCutoffMod)
-        pitchQuantisation.setValue(newValue: data.pitchQuantisation)
-        effectsModule.loadData(data.effectsData)
+    func loadData(_ data: [String: Double], effectsData: EffectsModuleData) {
+        volume.setUserValue(to: data["volume"]!)
+        volume.setModAmount(to: data["volumeMod"]!)
+        attack.setUserValue(to: data["attack"]! )
+        attack.setModAmount(to: data["attackMod"]!)
+        hold.setUserValue(to: data["hold"]!)
+        hold.setModAmount(to: data["holdMod"]!)
+        decay.setUserValue(to: data["decay"]!)
+        decay.setModAmount(to: data["decayMod"]!)
+        wavetableIndex.setUserValue(to: data["wavetableIndex"]!)
+        wavetableIndex.setModAmount(to: data["wavetableIndexMod"]!)
+        filterCutoff.setUserValue(to: data["filterCutoff"]!)
+        filterCutoff.setModAmount(to: data["filterCutoffMod"]!)
+        if data["pitchQuantisation"] == 0 {
+            pitchQuantisation.setValue(newValue: false)
+        } else {
+            pitchQuantisation.setValue(newValue: true)
+        }
+        effectsModule.loadData(effectsData)
     }
 }

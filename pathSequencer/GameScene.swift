@@ -12,10 +12,11 @@ import GameplayKit
 class GameScene: SKScene {
     // Should only contain graphical elements and the SceneManager
     private var sceneManager: SceneManager!
-    private var cam: SKCameraNode!
-    private var trackIconGroupNode: TrackIconGroupNode!
+    var cam: SKCameraNode!
+    var trackIconGroupNode: TrackIconGroupNode!
     private var sequencingManagerNode: SequencingManagerNode!
     private var pitchManagerNode: PitchManagerNode!
+    private var saveSceneButtonNode: SaveSceneButtonNode!
     
     override func didMove(to view: SKView) {
         view.ignoresSiblingOrder = true
@@ -37,6 +38,10 @@ class GameScene: SKScene {
         sequencingManagerNode = SequencingManagerNode()
         sequencingManagerNode.position = CGPoint(x: self.size.width / 2 - 35, y: self.size.height / 2 - 35)
         cam.addChild(sequencingManagerNode)
+        
+        saveSceneButtonNode = SaveSceneButtonNode()
+        saveSceneButtonNode.position = CGPoint(x: -self.size.width / 2 + 100, y: self.size.height / 2 - 35)
+        cam.addChild(saveSceneButtonNode)
         
         pitchManagerNode = PitchManagerNode()
         self.addChild(pitchManagerNode)

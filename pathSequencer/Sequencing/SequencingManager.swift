@@ -88,7 +88,7 @@ class SequencingManager {
         sequencer.stop()
     }
     
-    static func saveToJSON() {
+    static func saveToJSON(fileName: String) {
         var data = SequencingManagerData()
         
         data.tempo = SequencingManager.tempo.getValue()
@@ -100,7 +100,7 @@ class SequencingManager {
         do {
             let fileManager = FileManager.default
             let folderURL = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-            let fileURL = folderURL.appendingPathComponent("sequencerData.json")
+            let fileURL = folderURL.appendingPathComponent(fileName + ".json")
             print("Saving sequencer data to \(fileURL.absoluteString)")
             let jsonData = try JSONEncoder().encode(data)
             try jsonData.write(to: fileURL)
@@ -123,6 +123,7 @@ class SequencingManager {
             
             for trackData in data.tracks {
                 let track = SequencingManager.addNewTrack(select: false)
+                SceneManager.scene!.trackIconGroupNode.addIcon(TrackIconNode(for: track))
                 track.loadData(trackData)
             }
         } catch {

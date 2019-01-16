@@ -19,7 +19,7 @@ class LoadViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        SelectionStorage.loadView = self
+        GlobalStorage.loadView = self
         
         do {
             let fileManager = FileManager.default

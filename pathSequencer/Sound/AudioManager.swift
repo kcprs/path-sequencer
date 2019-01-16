@@ -25,12 +25,16 @@ class AudioManager {
     
     static func start() {
         AudioKit.output = mainMixer
-        try!AudioKit.start()
+        try! AudioKit.start()
 
         mainMixer.start()
         for module in soundModules {
             (module as! SoundModule).start()
         }
+    }
+    
+    static func stop() {
+        try! AudioKit.stop()
     }
     
     static func addSoundModule(_ module: SoundModule) {

@@ -12,7 +12,7 @@ class MenuViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        _ = SelectionStorage.init()
+        _ = GlobalStorage.init()
         // Do any additional setup after loading the view.
     }
 
@@ -40,9 +40,10 @@ class MenuViewController: UIViewController {
 
 }
 
-class SelectionStorage {
+class GlobalStorage {
     static var selectedURL: URL?
     static var loadView: LoadViewController?
+    static var gameView: GameViewController?
     
     static func loadSelectedScene() {
         if loadView != nil {

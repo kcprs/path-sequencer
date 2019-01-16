@@ -30,7 +30,7 @@ class TrackIconGroupNode: TouchableNode {
 
     }
     
-    private func addIcon(_ icon: TrackIconNode) {
+    func addIcon(_ icon: TrackIconNode) {
         icons.append(icon)
         icon.position = CGPoint(x: width - 50, y: 0)
         self.addChild(icon)
