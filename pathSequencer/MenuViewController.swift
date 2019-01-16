@@ -12,7 +12,7 @@ class MenuViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        _ = SelectionStorage.init()
         // Do any additional setup after loading the view.
     }
 
@@ -21,10 +21,13 @@ class MenuViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func openGame(_ sender: Any) {
-        performSegue(withIdentifier: "openScene", sender: self)
+    @IBAction func openNewScene(_ sender: Any) {
+        performSegue(withIdentifier: "openNewScene", sender: self)
     }
     
+    @IBAction func goToLoadView(_ sender: Any) {
+        performSegue(withIdentifier: "goToLoadView", sender: self)
+    }
     /*
     // MARK: - Navigation
 
@@ -35,4 +38,16 @@ class MenuViewController: UIViewController {
     }
     */
 
+}
+
+class SelectionStorage {
+    static var selectedURL: URL?
+    static var loadView: LoadViewController?
+    
+    static func loadSelectedScene() {
+        if loadView != nil {
+            loadView!.performSegue(withIdentifier: "loadSelectedScene", sender: loadView)
+            loadView = nil
+        }
+    }
 }
