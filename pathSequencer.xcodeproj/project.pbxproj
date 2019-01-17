@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8800A850219EF4FA0010073D /* TrackIconNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8800A84F219EF4FA0010073D /* TrackIconNode.swift */; };
+		88144FDD21F028D600FF8E87 /* LoadHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88144FDC21F028D600FF8E87 /* LoadHeaderView.swift */; };
 		881FA40221B5817E003E4F27 /* SequencingManagerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881FA40121B5817E003E4F27 /* SequencingManagerNode.swift */; };
 		884607F8219B31DC00E8AE53 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 885273EE218B7D4200D675C1 /* AudioKit.framework */; };
 		884607F9219B31DC00E8AE53 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 885273EF218B7D4600D675C1 /* AudioKitUI.framework */; };
@@ -62,6 +63,7 @@
 
 /* Begin PBXFileReference section */
 		8800A84F219EF4FA0010073D /* TrackIconNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackIconNode.swift; sourceTree = "<group>"; };
+		88144FDC21F028D600FF8E87 /* LoadHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadHeaderView.swift; sourceTree = "<group>"; };
 		881FA40121B5817E003E4F27 /* SequencingManagerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequencingManagerNode.swift; sourceTree = "<group>"; };
 		8846084E219B549D00E8AE53 /* PitchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchManager.swift; sourceTree = "<group>"; };
 		885273D3218B7CDB00D675C1 /* pathSequencer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pathSequencer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -225,6 +227,7 @@
 				8893F8D621EE40670057A1FD /* MenuViewController.swift */,
 				88E2092C21EE9CFF0063C5AA /* LoadViewController.swift */,
 				88E2092E21EEA4E00063C5AA /* LoadViewCell.swift */,
+				88144FDC21F028D600FF8E87 /* LoadHeaderView.swift */,
 				885273D8218B7CDB00D675C1 /* GameScene.sks */,
 				885273E8218B7CDB00D675C1 /* Info.plist */,
 				885273E5218B7CDB00D675C1 /* LaunchScreen.storyboard */,
@@ -426,6 +429,7 @@
 				88A7433D21AD928400CDB7AC /* Modulatable.swift in Sources */,
 				88527400218B7DD000D675C1 /* SequencerPath.swift in Sources */,
 				885273FF218B7DD000D675C1 /* CursorNode.swift in Sources */,
+				88144FDD21F028D600FF8E87 /* LoadHeaderView.swift in Sources */,
 				8893F8D721EE40670057A1FD /* MenuViewController.swift in Sources */,
 				8866942F219CB26B0014B455 /* SoundModule.swift in Sources */,
 				88E2092F21EEA4E00063C5AA /* LoadViewCell.swift in Sources */,

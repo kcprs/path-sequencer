@@ -89,7 +89,6 @@ class LoadViewController: UICollectionViewController {
         
         return cell
     }
-    
     // MARK: UICollectionViewDelegate
 
     /*
@@ -125,6 +124,8 @@ class LoadViewController: UICollectionViewController {
 
 // Extension based on Richard Turton & Brody Eller's tutorial:
 // https://www.raywenderlich.com/9334-uicollectionview-tutorial-getting-started
+// And Bradley Johnson's tutorial:
+// https://www.raywenderlich.com/1404-uicollectionview-tutorial-reusable-views-selection-and-reordering
 extension LoadViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
@@ -141,5 +142,17 @@ extension LoadViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return sectionInsets.left
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionElementKindSectionHeader:
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "LoadHeaderView", for: indexPath) as! LoadHeaderView
+            return headerView
+            
+            
+        default:
+            assert(false, "Unexpected element kind")
+        }
     }
 }

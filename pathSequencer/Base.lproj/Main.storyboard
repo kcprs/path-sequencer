@@ -81,13 +81,13 @@
                         <color key="backgroundColor" red="0.14901961389999999" green="0.14901961389999999" blue="0.14901961389999999" alpha="1" colorSpace="deviceRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="5KO-DH-RWi">
                             <size key="itemSize" width="1024" height="130"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="headerReferenceSize" width="50" height="50"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SceneCell" id="Imb-7t-DF0" customClass="LoadViewCell" customModule="pathSequencer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="1024" height="130"/>
+                                <rect key="frame" x="0.0" y="50" width="1024" height="130"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                     <rect key="frame" x="0.0" y="0.0" width="1024" height="130"/>
@@ -110,6 +110,23 @@
                                 </connections>
                             </collectionViewCell>
                         </cells>
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="LoadHeaderView" id="8YU-49-XOg" customClass="LoadHeaderView" customModule="pathSequencer" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="1024" height="50"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="COE-2X-eQD">
+                                    <rect key="frame" x="34" y="-2" width="71" height="54"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="35"/>
+                                    <state key="normal" title="Back">
+                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="goBackToMainMenu:" destination="8YU-49-XOg" eventType="touchUpInside" id="C2B-PX-PFA"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </collectionReusableView>
                         <connections>
                             <outlet property="dataSource" destination="6Hs-K7-k5m" id="MLP-R3-KnX"/>
                             <outlet property="delegate" destination="6Hs-K7-k5m" id="CPF-Ts-l2C"/>
@@ -117,6 +134,7 @@
                     </collectionView>
                     <connections>
                         <segue destination="BV1-FR-VrT" kind="presentation" identifier="loadSelectedScene" id="Bx3-GP-wRn"/>
+                        <segue destination="cn4-iK-4op" kind="presentation" identifier="goBackToMainMenu" id="qai-Te-fw2"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SKS-5I-ls8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -125,6 +143,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="qYs-Km-Roa"/>
+        <segue reference="Bx3-GP-wRn"/>
+        <segue reference="qai-Te-fw2"/>
     </inferredMetricsTieBreakers>
 </document>
