@@ -61,6 +61,8 @@ class BackToMainMenuNode: ButtonInMenu {
 }
 
 class SaveSceneButtonNode: ButtonInMenu {
+    var saved = false
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -71,6 +73,10 @@ class SaveSceneButtonNode: ButtonInMenu {
     }
     
     override func touchUp(at pos: CGPoint) {
+        if saved {
+            return
+        }
+        
         do {
             let fileManager = FileManager.default
             let folderURL = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
@@ -88,6 +94,7 @@ class SaveSceneButtonNode: ButtonInMenu {
             let name = "Scene\(count + 1)"
             SequencingManager.saveToJSON(fileName: name)
             labelNode.text = "Scene saved as " + name
+            saved = true
         } catch {
             labelNode.text = "Error while saving scene"
             print("Error while saving scene")
