@@ -9,7 +9,7 @@
 import SpriteKit
 
 class UpdateManager {
-    private static var staticSelf: UpdateManager? = nil
+    static var staticSelf: UpdateManager? = nil
     
     // Storing Updatables as AnyObject to avoid issues with protocols
     private static var updatables: Array<AnyObject>? = nil

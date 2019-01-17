@@ -46,6 +46,7 @@ class WavetableSynthSoundModule: SoundModule {
         oscBank.sustainLevel = 1
         filter = AKMoogLadder()
         filter.rampDuration = 0.05
+        filter.resonance = 0.1
         gainStage = AKBooster()
         gainStage.rampDuration = 0.05
         

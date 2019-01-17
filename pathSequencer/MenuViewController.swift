@@ -26,6 +26,7 @@ class MenuViewController: UIViewController {
     }
     
     @IBAction func goToLoadView(_ sender: Any) {
+        GlobalStorage.selectedURL = nil
         performSegue(withIdentifier: "goToLoadView", sender: self)
     }
     /*

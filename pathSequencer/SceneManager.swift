@@ -33,4 +33,15 @@ class SceneManager {
             SequencingManager.loadFromJSON(path: url)
         }
     }
+    
+    static func delete() {
+        AudioManager.stop()
+        
+        
+        PitchManager.staticSelf = nil
+        AudioManager.staticSelf = nil
+        SequencingManager.staticSelf = nil
+        UpdateManager.staticSelf = nil
+        SceneManager.staticSelf = nil
+    }
 }

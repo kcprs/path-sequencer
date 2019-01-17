@@ -9,7 +9,7 @@
 import AudioKit
 
 class AudioManager {
-    private static var staticSelf: AudioManager? = nil
+    static var staticSelf: AudioManager? = nil
     private static var mainMixer: AKMixer!
     private static var soundModules: Array<AnyObject>!
     

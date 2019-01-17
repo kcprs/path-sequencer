@@ -10,7 +10,7 @@ import SpriteKit
 import AudioKit
 
 class PitchManager {
-    private static var staticSelf: PitchManager? = nil
+    static var staticSelf: PitchManager? = nil
     static var pitchManagerNode: PitchManagerNode!
     
     static var topNote = 108  // MIDI pitch

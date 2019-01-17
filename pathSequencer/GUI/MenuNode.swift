@@ -55,6 +55,7 @@ class BackToMainMenuNode: ButtonInMenu {
     }
     
     override func touchUp(at pos: CGPoint) {
+        SceneManager.delete()
         GlobalStorage.gameView!.performSegue(withIdentifier: "goToMainMenu", sender: GlobalStorage.gameView!)
     }
 }
@@ -74,7 +75,8 @@ class SaveSceneButtonNode: ButtonInMenu {
             let fileManager = FileManager.default
             let folderURL = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
             
-            let files = try? fileManager.contentsOfDirectory(atPath: folderURL.absoluteString)
+            let files = try? fileManager.contentsOfDirectory(at: folderURL, includingPropertiesForKeys: nil, options: [])
+            
             var count: Int
             
             if files == nil {
@@ -83,15 +85,13 @@ class SaveSceneButtonNode: ButtonInMenu {
                 count = files!.count
             }
             
-            let name = "Scene_\(count + 1)"
+            let name = "Scene\(count + 1)"
             SequencingManager.saveToJSON(fileName: name)
-            labelNode.text = "Scene saved"
+            labelNode.text = "Scene saved as " + name
         } catch {
             labelNode.text = "Error while saving scene"
             print("Error while saving scene")
         }
-        
-        
     }
 }
 
