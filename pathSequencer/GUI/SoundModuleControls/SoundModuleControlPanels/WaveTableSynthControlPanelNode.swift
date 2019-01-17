@@ -57,74 +57,114 @@ class WavetableSynthControlPanelNode: SKNode, SoundModuleControlsPanelNode {
     }
     
     func setupGUI() {
-        // TODO: Find a good way to approach GUI layout
-        var knob = KnobNode(parameter: _soundModule.volume)
-        knob.position = CGPoint(x: -400, y: 200)
-        self.addChild(knob)
-        updatables.append(knob)
+        let xGrid: CGFloat = 180
+        let synthLabel = SKLabelNode(text: "Synth")
+        let fxLabel = SKLabelNode(text: "FX")
+        let trackLabel = SKLabelNode(text: "Track")
         
-        let switchNode = SwitchNode(parameter: _soundModule.pitchQuantisation)
-        switchNode.position = CGPoint(x: -200, y: 200)
-        self.addChild(switchNode)
+        synthLabel.position = CGPoint(x: -440, y: 270)
+        fxLabel.position = CGPoint(x: -440, y: 70)
+        trackLabel.position = CGPoint(x: -440, y: -130)
         
-        let modButton = ModAssignModeButtonNode(for: self)
-        modButton.position = CGPoint(x: 0, y: 200)
-        self.addChild(modButton)
+        synthLabel.horizontalAlignmentMode = .left
+        fxLabel.horizontalAlignmentMode = .left
+        trackLabel.horizontalAlignmentMode = .left
         
-        let speedSelector = ScrollSelectorNode<AKDuration>(parameter: soundModule.track.noteDuration)
-        speedSelector.position = CGPoint(x: 200, y: 200)
-        self.addChild(speedSelector)
+        self.addChild(synthLabel)
+        self.addChild(fxLabel)
+        self.addChild(trackLabel)
+        
+        let scene = SceneManager.scene!
+        let modCut: CGFloat = 160
+        let synthRect = SKShapeNode(rectOf: CGSize(width: scene.size.width - 1.5 * frameMargin, height: 140))
+        let fxRect = SKShapeNode(rectOf: CGSize(width: scene.size.width - 1.5 * frameMargin, height: 140))
+        let trackRect = SKShapeNode(rectOf: CGSize(width: scene.size.width - 1.5 * frameMargin - modCut, height: 140))
+        
+        synthRect.strokeColor = .gray
+        fxRect.strokeColor = .gray
+        trackRect.strokeColor = .gray
+        
+        synthRect.position.y = 200
+        trackRect.position.y = -200
+        trackRect.position.x = -modCut / 2
+        
+        self.addChild(synthRect)
+        self.addChild(fxRect)
+        self.addChild(trackRect)
+        
+        var knob: KnobNode
         
         knob = KnobNode(parameter: _soundModule.attack)
-        knob.position = CGPoint(x: -400, y: 0)
+        knob.position = CGPoint(x: -2 * xGrid, y: 200)
         self.addChild(knob)
         updatables.append(knob)
         
         knob = KnobNode(parameter: _soundModule.hold)
-        knob.position = CGPoint(x: -200, y: 0)
+        knob.position = CGPoint(x: -xGrid, y: 200)
         self.addChild(knob)
         updatables.append(knob)
         
         knob = KnobNode(parameter: _soundModule.decay)
-        knob.position = CGPoint(x: 0, y: 0)
+        knob.position = CGPoint(x: 0, y: 200)
         self.addChild(knob)
         updatables.append(knob)
         
         knob = KnobNode(parameter: _soundModule.wavetableIndex)
-        knob.position = CGPoint(x: 200, y: 0)
+        knob.position = CGPoint(x: xGrid, y: 200)
         self.addChild(knob)
         updatables.append(knob)
         
         knob = KnobNode(parameter: _soundModule.filterCutoff)
-        knob.position = CGPoint(x: 400, y: 0)
+        knob.position = CGPoint(x: 2 * xGrid, y: 200)
         self.addChild(knob)
         updatables.append(knob)
         
         knob = KnobNode(parameter: _soundModule.effectsModule.delayMix)
-        knob.position = CGPoint(x: -400, y: -200)
-        self.addChild(knob)
-        updatables.append(knob)
-        
-        knob = KnobNode(parameter: _soundModule.effectsModule.delayFeedback)
-        knob.position = CGPoint(x: -200, y: -200)
+        knob.position = CGPoint(x: -2 * xGrid, y: 0)
         self.addChild(knob)
         updatables.append(knob)
         
         knob = KnobNode(parameter: _soundModule.effectsModule.delayTime)
-        knob.position = CGPoint(x: 0, y: -200)
+        knob.position = CGPoint(x: -xGrid, y: 0)
+        self.addChild(knob)
+        updatables.append(knob)
+        
+        knob = KnobNode(parameter: _soundModule.effectsModule.delayFeedback)
+        knob.position = CGPoint(x: 0, y: 0)
         self.addChild(knob)
         updatables.append(knob)
         
         knob = KnobNode(parameter: _soundModule.effectsModule.reverbMix)
-        knob.position = CGPoint(x: 200, y: -200)
+        knob.position = CGPoint(x: xGrid, y: 0)
         self.addChild(knob)
         updatables.append(knob)
         
         knob = KnobNode(parameter: _soundModule.effectsModule.reverbFeedback)
-        knob.position = CGPoint(x: 400, y: -200)
+        knob.position = CGPoint(x: 2 * xGrid, y: 0)
         self.addChild(knob)
         updatables.append(knob)
-
+        
+        knob = KnobNode(parameter: _soundModule.volume)
+        knob.position = CGPoint(x: -2 * xGrid, y: -200)
+        self.addChild(knob)
+        updatables.append(knob)
+        
+        knob = KnobNode(parameter: _soundModule.pan)
+        knob.position = CGPoint(x: -xGrid, y: -200)
+        self.addChild(knob)
+        updatables.append(knob)
+        
+        let speedSelector = ScrollSelectorNode<AKDuration>(parameter: soundModule.track.noteDuration)
+        speedSelector.position = CGPoint(x: 0, y: -200)
+        self.addChild(speedSelector)
+        
+        let switchNode = SwitchNode(parameter: _soundModule.pitchQuantisation)
+        switchNode.position = CGPoint(x: xGrid, y: -200)
+        self.addChild(switchNode)
+        
+        let modButton = ModAssignModeButtonNode(for: self)
+        modButton.position = CGPoint(x: 2 * xGrid, y: -200)
+        self.addChild(modButton)
     }
     
     func removeFromSoundModule() {

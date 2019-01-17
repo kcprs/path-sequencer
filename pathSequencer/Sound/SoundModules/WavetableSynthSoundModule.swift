@@ -21,9 +21,11 @@ class WavetableSynthSoundModule: SoundModule {
     private var filter: AKMoogLadder!
     private var waveforms: Array<AKTable>!
     private var gainStage: AKBooster!
+    private var panner: AKPanner!
     
     // GUI-controlled parameters
     var volume: ContinuousParameter!
+    var pan: ContinuousParameter!
     var attack: ContinuousParameter!
     var hold: ContinuousParameter!
     var decay: ContinuousParameter!
@@ -49,9 +51,12 @@ class WavetableSynthSoundModule: SoundModule {
         filter.resonance = 0.1
         gainStage = AKBooster()
         gainStage.rampDuration = 0.05
+        panner = AKPanner()
+        panner.rampDuration = 0.05
         
         oscBank.connect(to: filter)
-        filter.connect(to: effectsModule.input)
+        filter.connect(to: panner)
+        panner.connect(to: effectsModule.input)
         effectsModule.connect(to: gainStage)
         
         AudioManager.addSoundModule(self)
@@ -62,6 +67,13 @@ class WavetableSynthSoundModule: SoundModule {
                                      modSource: track.sequencerPath.cursor)
         volume.setUpdatesActive(true)
         volume.defaultValue = 1
+        
+        pan = ContinuousParameter(label: "Pan", minValue: -1, maxValue: 1,
+                                  setClosure: {(newValue: Double) in self.panner.pan = newValue},
+                                  getClosure: {() -> Double in return self.panner.pan},
+                                  modSource: track.sequencerPath.cursor)
+        pan.setUpdatesActive(true)
+        
         attack = ContinuousParameter(label: "Attack Time", minValue: 0.01, maxValue: 1,
                                      setClosure: {(newValue: Double) in self.oscBank.attackDuration = newValue},
                                      getClosure: {() -> Double in return self.oscBank.attackDuration},
@@ -132,11 +144,13 @@ class WavetableSynthSoundModule: SoundModule {
     func start() {
         filter.start()
         gainStage.start()
+        panner.start()
     }
     
     func stop() {
         filter.stop()
         gainStage.stop()
+        panner.stop()
     }
     
     func connect(to inputNode: AKInput) {
@@ -147,6 +161,7 @@ class WavetableSynthSoundModule: SoundModule {
         gainStage.detach()
         oscBank.detach()
         filter.detach()
+        panner.detach()
     }
     
     func setDecay(_ decay: Double) {
@@ -170,6 +185,8 @@ class WavetableSynthSoundModule: SoundModule {
         var data = Dictionary<String, Double>()
         data["volume"] = volume.getUserValue()
         data["volumeMod"] = volume.getModAmount()
+        data["pan"] = pan.getUserValue()
+        data["panMod"] = pan.getModAmount()
         data["attack"] = attack.getUserValue()
         data["attackMod"] = attack.getModAmount()
         data["hold"] = hold.getUserValue()
@@ -192,6 +209,8 @@ class WavetableSynthSoundModule: SoundModule {
     func loadData(_ data: [String: Double], effectsData: EffectsModuleData) {
         volume.setUserValue(to: data["volume"]!)
         volume.setModAmount(to: data["volumeMod"]!)
+        pan.setUserValue(to: data["pan"]!)
+        pan.setModAmount(to: data["panMod"]!)
         attack.setUserValue(to: data["attack"]! )
         attack.setModAmount(to: data["attackMod"]!)
         hold.setUserValue(to: data["hold"]!)
