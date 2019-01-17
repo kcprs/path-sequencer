@@ -65,7 +65,7 @@ class LoadViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! LoadViewCell
         
-        if savedSceneFiles == nil {
+        if savedSceneFiles == nil || savedSceneFiles!.count == 0 {
             cell.loadSceneButton.setTitle("No saved sessions found", for: .application)
             cell.loadSceneButton.setTitle("No saved sessions found", for: .disabled)
             cell.loadSceneButton.setTitle("No saved sessions found", for: .focused)

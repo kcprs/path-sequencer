@@ -16,7 +16,7 @@ class GameScene: SKScene {
     var trackIconGroupNode: TrackIconGroupNode!
     private var sequencingManagerNode: SequencingManagerNode!
     private var pitchManagerNode: PitchManagerNode!
-    private var saveSceneButtonNode: SaveSceneButtonNode!
+    private var menuButtonNode: MenuButtonNode!
     
     override func didMove(to view: SKView) {
         view.ignoresSiblingOrder = true
@@ -32,16 +32,16 @@ class GameScene: SKScene {
         cam.addChild(CameraMoveNode(for: self))
         
         trackIconGroupNode = TrackIconGroupNode()
-        trackIconGroupNode.position = CGPoint(x: 0, y: -self.size.height / 2 + 20)
+        trackIconGroupNode.position = CGPoint(x: 0, y: -self.size.height / 2 + 35)
         cam.addChild(trackIconGroupNode)
         
         sequencingManagerNode = SequencingManagerNode()
         sequencingManagerNode.position = CGPoint(x: self.size.width / 2 - 35, y: self.size.height / 2 - 35)
         cam.addChild(sequencingManagerNode)
         
-        saveSceneButtonNode = SaveSceneButtonNode()
-        saveSceneButtonNode.position = CGPoint(x: -self.size.width / 2 + 100, y: self.size.height / 2 - 35)
-        cam.addChild(saveSceneButtonNode)
+        menuButtonNode = MenuButtonNode()
+        menuButtonNode.position = CGPoint(x: self.size.width / 2 - 35, y: -self.size.height / 2 + 35)
+        cam.addChild(menuButtonNode)
         
         pitchManagerNode = PitchManagerNode()
         self.addChild(pitchManagerNode)
