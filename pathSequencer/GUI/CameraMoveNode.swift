@@ -8,10 +8,16 @@
 
 import SpriteKit
 
+// This class is a hack to prevent unwanted nodes
+// from blocking touch input to the scene background
+// (which previously was resposible for moving the camera on touch drag)
+// This Node fills the whole screen, only allowing touches
+// to nodes with higher zPosition.
 class CameraMoveNode: TouchableNode {
     private let _scene: GameScene!
     private var touchedPoint: CGPoint?
     
+    // Required by the super class, not used
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -32,6 +38,7 @@ class CameraMoveNode: TouchableNode {
         touchedPoint = pos
     }
     
+    // Move camera when dragged
     override func touchMoved(to pos: CGPoint) {
         if touchedPoint != nil {
             _scene.moveCamYPosition(by: touchedPoint!.y - pos.y)
