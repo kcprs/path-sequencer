@@ -74,6 +74,10 @@ class TrackIconGroupNode: TouchableNode {
     
     override func touchUp(at pos: CGPoint) {
         if self.scene!.nodes(at: pos).contains(addNewTrackButton) {
+            if SequencingManager.getNumTracks() > 9 {
+                return
+            }
+            
             let track = SequencingManager.addNewTrack()
             addIcon(TrackIconNode(for: track))
         }
