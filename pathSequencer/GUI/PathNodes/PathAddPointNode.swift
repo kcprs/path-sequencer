@@ -8,9 +8,11 @@
 
 import SpriteKit
 
+// PathAddPointNodes are the small circles on a SequencerPath
+// that allow the user to add new PathPoint Nodes to the SequencerPath
 class PathAddPointNode: NodeOnSequencerPath {
-    let beforePoint: PathPointNode!
-    let afterPoint: PathPointNode!
+    let beforePoint: PathPointNode! // Previous point in the path
+    let afterPoint: PathPointNode!  // Next point in the path
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -31,6 +33,7 @@ class PathAddPointNode: NodeOnSequencerPath {
         print("PathAddPointNode deinit done")
     }
     
+    // When touched, insert PathPointNode at the position of this node
     override func touchDown(at pos: CGPoint) {
         if self.contains(pos) {
             let newPoint = parentPath.addNewPoint(from: self)
@@ -38,6 +41,7 @@ class PathAddPointNode: NodeOnSequencerPath {
         }
     }
     
+    // Update position based on previous and next point in the path
     func updatePosition() {
         let x = (beforePoint.position.x + afterPoint.position.x) / 2
         let y = (beforePoint.position.y + afterPoint.position.y) / 2

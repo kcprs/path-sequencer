@@ -8,6 +8,8 @@
 
 import SpriteKit
 
+// Provides shared functionality for all nodes
+// that reside on a SequencerPath
 class NodeOnSequencerPath: TouchableNode {
     unowned let parentPath: SequencerPath
     
