@@ -8,11 +8,14 @@
 
 import SpriteKit
 
+// Holds all TrackIcons at the bottom of the screen
+// Provides a button for adding new tracks
 class TrackIconGroupNode: TouchableNode {
     private var icons: Array<TrackIconNode>!
     private var width: CGFloat = 0
     private var addNewTrackButton: AddNewTrackButton!
     
+    // Required by the super class, not used
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -28,6 +31,7 @@ class TrackIconGroupNode: TouchableNode {
         self.addChild(addNewTrackButton)
     }
     
+    // Adds TrackIcon to this object
     func addIcon(_ icon: TrackIconNode) {
         icons.append(icon)
         icon.position.x = width
@@ -40,6 +44,7 @@ class TrackIconGroupNode: TouchableNode {
         updatePosition()
     }
     
+    // Removes TrackIcon from this object
     func removeIcon(_ icon: TrackIconNode) {
         let index = icons.index(of: icon)
         
@@ -62,6 +67,7 @@ class TrackIconGroupNode: TouchableNode {
         updatePosition()
     }
     
+    // Re-positions all icons after addition/deletion
     private func updatePosition() {
         let selfAction = SKAction.move(to: CGPoint(x: -width / 2, y: self.position.y), duration: 0.5)
         selfAction.timingMode = .easeOut
@@ -72,6 +78,7 @@ class TrackIconGroupNode: TouchableNode {
         addNewTrackButton.run(buttonAction)
     }
     
+    // Provide functionality for the button - respond to touch
     override func touchUp(at pos: CGPoint) {
         if self.scene!.nodes(at: pos).contains(addNewTrackButton) {
             if SequencingManager.getNumTracks() > 9 {
@@ -84,6 +91,7 @@ class TrackIconGroupNode: TouchableNode {
     }
 }
 
+// Button for adding new tracks
 class AddNewTrackButton: SKNode {
     let shape: SKSpriteNode!
     let plus: SKLabelNode!
