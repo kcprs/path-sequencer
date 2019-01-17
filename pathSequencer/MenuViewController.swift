@@ -22,6 +22,7 @@ class MenuViewController: UIViewController {
     }
     
     @IBAction func openNewScene(_ sender: Any) {
+        GlobalStorage.selectedURL = nil
         performSegue(withIdentifier: "openNewScene", sender: self)
     }
     
