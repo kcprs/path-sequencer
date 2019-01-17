@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8800A850219EF4FA0010073D /* TrackIconNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8800A84F219EF4FA0010073D /* TrackIconNode.swift */; };
+		880A734F21F0707800B3B885 /* demoScene.json in Resources */ = {isa = PBXBuildFile; fileRef = 880A734E21F0707800B3B885 /* demoScene.json */; };
 		88144FDD21F028D600FF8E87 /* LoadHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88144FDC21F028D600FF8E87 /* LoadHeaderView.swift */; };
 		881FA40221B5817E003E4F27 /* SequencingManagerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881FA40121B5817E003E4F27 /* SequencingManagerNode.swift */; };
 		884607F8219B31DC00E8AE53 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 885273EE218B7D4200D675C1 /* AudioKit.framework */; };
@@ -63,6 +64,7 @@
 
 /* Begin PBXFileReference section */
 		8800A84F219EF4FA0010073D /* TrackIconNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackIconNode.swift; sourceTree = "<group>"; };
+		880A734E21F0707800B3B885 /* demoScene.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = demoScene.json; sourceTree = "<group>"; };
 		88144FDC21F028D600FF8E87 /* LoadHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadHeaderView.swift; sourceTree = "<group>"; };
 		881FA40121B5817E003E4F27 /* SequencingManagerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequencingManagerNode.swift; sourceTree = "<group>"; };
 		8846084E219B549D00E8AE53 /* PitchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchManager.swift; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 				885273E5218B7CDB00D675C1 /* LaunchScreen.storyboard */,
 				885273E0218B7CDB00D675C1 /* Main.storyboard */,
 				885273E3218B7CDB00D675C1 /* Assets.xcassets */,
+				880A734E21F0707800B3B885 /* demoScene.json */,
 			);
 			path = pathSequencer;
 			sourceTree = "<group>";
@@ -384,6 +387,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				880A734F21F0707800B3B885 /* demoScene.json in Resources */,
 				885273E2218B7CDB00D675C1 /* Main.storyboard in Resources */,
 				885273D9218B7CDB00D675C1 /* GameScene.sks in Resources */,
 				885273E4218B7CDB00D675C1 /* Assets.xcassets in Resources */,

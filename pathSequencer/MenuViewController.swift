@@ -13,7 +13,22 @@ class MenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         _ = GlobalStorage.init()
-        // Do any additional setup after loading the view.
+        
+        print("Loading json")
+        do {
+            let url = Bundle.main.url(forResource: "demoScene", withExtension: ".json")
+            let jsonData = try Data(contentsOf: url!)
+            let data = try JSONDecoder().decode(SequencingManagerData.self, from: jsonData)
+            
+            let fileManager = FileManager.default
+            let folderURL = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            let fileURL = folderURL.appendingPathComponent("demoScene.json")
+            print("Saving sequencer data to \(fileURL.absoluteString)")
+            let jsonDataWrite = try JSONEncoder().encode(data)
+            try jsonDataWrite.write(to: fileURL)
+        } catch {
+            print("Error while saving sequencer to JSON")
+        }
     }
 
     override func didReceiveMemoryWarning() {
