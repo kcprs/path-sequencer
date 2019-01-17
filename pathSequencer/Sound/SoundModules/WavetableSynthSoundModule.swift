@@ -127,6 +127,8 @@ class WavetableSynthSoundModule: SoundModule {
         controlPanel?.close()
         volume.setUpdatesActive(false)
         volume = nil
+        pan.setUpdatesActive(false)
+        pan = nil
         attack.setUpdatesActive(false)
         attack = nil
         hold.setUpdatesActive(false)
