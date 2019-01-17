@@ -8,25 +8,30 @@
 
 import SpriteKit
 
+// The track icon visible at the bottom of the screen
+// Provides touch interaction
 class TrackIconNode: TouchableNode {
     unowned private let track: Track
     weak private var controlPanel: SoundModuleControlsPanelNode?
     weak private var iconGroup: TrackIconGroupNode?
 
-    var label: SKLabelNode!
-    private var shape: SKSpriteNode!
+    // Visible nodes
+    var label: SKLabelNode!  // Number in the middle
+    private var shape: SKSpriteNode!  // Frame
     
+    // Required by the super class, not used
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     init(for track: Track) {
         self.track = track
-        
         super.init()
         
+        // Set the track's icon to this
         track.icon = self
         
+        // Setup
         shape = SKSpriteNode(imageNamed: "cursor")
         let num = SequencingManager.getNumTracks()
         label = SKLabelNode(text: "\(num)")
@@ -47,6 +52,7 @@ class TrackIconNode: TouchableNode {
         return 60
     }
     
+    // Changes node's colour if selected/deselected
     func updateSelection() {
         if track.isSelected {
             shape.removeFromParent()
@@ -65,8 +71,10 @@ class TrackIconNode: TouchableNode {
         iconGroup = group
     }
     
+    // Response to a single tap within the bounds of this node
     override func singleTap(at pos: CGPoint) {
         if track.isSelected {
+            // If selected show synth panel
             if controlPanel == nil {
                 controlPanel = track.soundModule.createControlPanel()
             } else {
@@ -77,9 +85,6 @@ class TrackIconNode: TouchableNode {
             track.isSelected = true
         }
     }
-    
-    // TODO: Find other way of deleting.
-    // Double tap causes reaction to single tap feel slow
     override func doubleTap(at pos: CGPoint) {
         SequencingManager.deleteTrack(track)
         iconGroup!.removeIcon(self)
