@@ -39,7 +39,7 @@ class MenuNode: SKNode {
     
     func close() {
         self.run(SKAction.fadeOut(withDuration: 0.3), completion: {
-            self.removeFromParent()
+            SceneManager.scene!.hideMenu()
         })
     }
 }

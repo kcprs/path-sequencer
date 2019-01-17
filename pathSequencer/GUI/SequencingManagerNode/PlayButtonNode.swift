@@ -9,14 +9,14 @@
 import SpriteKit
 
 class PlayButtonNode: TouchableNode {
-    let visibleNode: SKShapeNode!
+    var visibleNode: SKSpriteNode!
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     override init() {
-        visibleNode = SKShapeNode(rectOf: CGSize(width: 50, height: 50))
+        visibleNode = SKSpriteNode(imageNamed: "play.png")
         super.init()
         self.addChild(visibleNode)
         update()
@@ -24,9 +24,13 @@ class PlayButtonNode: TouchableNode {
     
     private func update() {
         if SequencingManager.isPlaying {
-            visibleNode.fillColor = .red
+            visibleNode.removeFromParent()
+            visibleNode = SKSpriteNode(imageNamed: "stop.png")
+            self.addChild(visibleNode)
         } else {
-            visibleNode.fillColor = .green
+            visibleNode.removeFromParent()
+            visibleNode = SKSpriteNode(imageNamed: "play.png")
+            self.addChild(visibleNode)
         }
     }
     

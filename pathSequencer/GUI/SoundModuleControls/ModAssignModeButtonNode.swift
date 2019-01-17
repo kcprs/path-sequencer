@@ -9,7 +9,8 @@
 import SpriteKit
 
 class ModAssignModeButtonNode: TouchableNode {
-    private let visibleNode: SKShapeNode!
+    private let rect: SKShapeNode!
+    private let label: SKLabelNode!
     unowned private let controlPanel: SoundModuleControlsPanelNode
     
     required init?(coder aDecoder: NSCoder) {
@@ -17,15 +18,27 @@ class ModAssignModeButtonNode: TouchableNode {
     }
     
     init(for controlPanel: SoundModuleControlsPanelNode) {
-        visibleNode = SKShapeNode(rectOf: CGSize(width: 50, height: 50))
+        rect = SKShapeNode(rectOf: CGSize(width: 50, height: 50))
+        rect.fillColor = .clear
         self.controlPanel = controlPanel
+        label = SKLabelNode(text: "mod")
+        label.verticalAlignmentMode = .center
+        label.horizontalAlignmentMode = .center
+        label.fontSize = 25
         
         super.init()
         
-        self.addChild(visibleNode)
+        self.addChild(rect)
+        self.addChild(label)
     }
     
     override func touchUp(at pos: CGPoint) {
         controlPanel.setModAssignMode(isActive: !controlPanel.isInModAssignMode)
+        
+        if controlPanel.isInModAssignMode {
+            rect.fillColor = .orange
+        } else {
+            rect.fillColor = .clear
+        }
     }
 }

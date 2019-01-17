@@ -20,7 +20,7 @@ class CursorNode: SKNode, ModulationSource, Updatable {
     var isActive: Bool = false
     
     // Graphics
-    private var visibleNode: SKShapeNode!
+    private var visibleNode: SKSpriteNode!
     
     
     required init?(coder aDecoder: NSCoder) {
@@ -36,7 +36,8 @@ class CursorNode: SKNode, ModulationSource, Updatable {
 
         parentPath.addCursor(self)
 
-        visibleNode = SKShapeNode(rectOf: CGSize(width: 30, height: 30))
+        visibleNode = SKSpriteNode(imageNamed: "cursor.png")
+        visibleNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: 2 * CGFloat.pi, duration: 2)))
         self.addChild(visibleNode)
 
         updatePosition()

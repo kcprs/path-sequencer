@@ -13,7 +13,8 @@ class TrackIconNode: TouchableNode {
     weak private var controlPanel: SoundModuleControlsPanelNode?
     weak private var iconGroup: TrackIconGroupNode?
 
-    private var label: SKLabelNode!
+    var label: SKLabelNode!
+    private var shape: SKSpriteNode!
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -26,10 +27,13 @@ class TrackIconNode: TouchableNode {
         
         track.icon = self
         
-        label = SKLabelNode(text: "TrackIcon")
+        shape = SKSpriteNode(imageNamed: "cursor")
+        let num = SequencingManager.getNumTracks()
+        label = SKLabelNode(text: "\(num)")
         label.verticalAlignmentMode = .center
-        label.horizontalAlignmentMode = .left
+        label.horizontalAlignmentMode = .center
         self.addChild(label)
+        self.addChild(shape)
         self.zPosition = 10
         
         self.updateSelection()
@@ -40,13 +44,19 @@ class TrackIconNode: TouchableNode {
     }
     
     func getWidth() -> CGFloat {
-        return label.frame.width
+        return 60
     }
     
     func updateSelection() {
         if track.isSelected {
+            shape.removeFromParent()
+            shape = SKSpriteNode(imageNamed: "cursorOrange.png")
+            self.addChild(shape)
             label.fontColor = .orange
         } else {
+            shape.removeFromParent()
+            shape = SKSpriteNode(imageNamed: "cursor.jpg")
+            self.addChild(shape)
             label.fontColor = .white
         }
     }

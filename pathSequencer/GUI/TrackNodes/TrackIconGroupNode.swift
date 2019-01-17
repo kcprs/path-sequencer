@@ -11,7 +11,7 @@ import SpriteKit
 class TrackIconGroupNode: TouchableNode {
     private var icons: Array<TrackIconNode>!
     private var width: CGFloat = 0
-    private var addNewTrackButton: SKShapeNode! // TODO: Make into a SpriteNode, add custom graphic
+    private var addNewTrackButton: AddNewTrackButton!
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -19,20 +19,18 @@ class TrackIconGroupNode: TouchableNode {
     
     override init() {
         icons = Array<TrackIconNode>()
-        addNewTrackButton = SKShapeNode(rectOf: CGSize(width: 50, height: 50))
-        width = 50 // TODO: get from addNewTrackButton when it's changed into a SpriteNode
+        addNewTrackButton = AddNewTrackButton()
+        width = 60
         
         super.init()
         
-        addNewTrackButton.fillColor = .gray
         addNewTrackButton.zPosition = 10
         self.addChild(addNewTrackButton)
-
     }
     
     func addIcon(_ icon: TrackIconNode) {
         icons.append(icon)
-        icon.position = CGPoint(x: width - 50, y: 0)
+        icon.position.x = width
         self.addChild(icon)
         icon.addToGroup(group: self)
         icon.alpha = 0
@@ -69,7 +67,7 @@ class TrackIconGroupNode: TouchableNode {
         selfAction.timingMode = .easeOut
         self.run(selfAction)
         
-        let buttonAction = SKAction.move(to: CGPoint(x: width - 25, y: 0), duration: 0.5)
+        let buttonAction = SKAction.move(to: CGPoint(x: width, y: 0), duration: 0.5)
         buttonAction.timingMode = .easeOut
         addNewTrackButton.run(buttonAction)
     }
@@ -79,5 +77,25 @@ class TrackIconGroupNode: TouchableNode {
             let track = SequencingManager.addNewTrack()
             addIcon(TrackIconNode(for: track))
         }
+    }
+}
+
+class AddNewTrackButton: SKNode {
+    let shape: SKSpriteNode!
+    let plus: SKLabelNode!
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override init() {
+        shape = SKSpriteNode(imageNamed: "cursorGrey.png")
+        plus = SKLabelNode(text: "+")
+        plus.fontColor = .gray
+        super.init()
+        plus.verticalAlignmentMode = .center
+        plus.horizontalAlignmentMode = .center
+        self.addChild(shape)
+        self.addChild(plus)
     }
 }

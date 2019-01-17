@@ -9,25 +9,20 @@
 import SpriteKit
 
 class MenuButtonNode: TouchableNode {
-    let visibleNode: SKShapeNode!
-    var labelNode: SKLabelNode!
+    let visibleNode: SKSpriteNode!
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     override init() {
-        visibleNode = SKShapeNode(rectOf: CGSize(width: 50, height: 50))
-        visibleNode.fillColor = .white
-        labelNode = SKLabelNode()
-        labelNode.position = CGPoint(x: 40, y: 0)
-        labelNode.verticalAlignmentMode = .center
+        visibleNode = SKSpriteNode(imageNamed: "menu.png")
         super.init()
         self.addChild(visibleNode)
         self.zPosition = 10
     }
     
     override func touchUp(at pos: CGPoint) {
-        SceneManager.scene!.cam.addChild(MenuNode())
+        SceneManager.scene!.showMenu()
     }
 }

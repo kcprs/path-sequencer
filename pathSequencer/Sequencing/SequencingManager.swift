@@ -130,4 +130,8 @@ class SequencingManager {
             print("Error while loading data from JSON")
         }
     }
+    
+    static func getNumTracks() -> Int {
+        return SequencingManager.tracks.count
+    }
 }

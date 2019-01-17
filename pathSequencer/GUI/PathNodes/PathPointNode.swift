@@ -59,7 +59,9 @@ class PathPointNode: NodeOnSequencerPath {
     }
     
     override func touchDown(at pos: CGPoint) {
-        self.addChild(infoLabel)
+        if infoLabel.parent == nil {
+            self.addChild(infoLabel)
+        }
     }
     
     override func touchUp(at pos: CGPoint) {

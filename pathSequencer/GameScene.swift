@@ -17,6 +17,7 @@ class GameScene: SKScene {
     private var sequencingManagerNode: SequencingManagerNode!
     private var pitchManagerNode: PitchManagerNode!
     private var menuButtonNode: MenuButtonNode!
+    private var menuNode: MenuNode?
     
     override func didMove(to view: SKView) {
         view.ignoresSiblingOrder = true
@@ -61,6 +62,19 @@ class GameScene: SKScene {
         } else {
             cam.position = newPos
         }
+    }
+    
+    func showMenu() {
+        hideMenu()
+        menuNode = MenuNode()
+        cam.addChild(menuNode!)
+    }
+    
+    func hideMenu() {
+        if menuNode != nil {
+            menuNode!.removeFromParent()
+        }
+        menuNode = nil
     }
     
     func moveCamYPosition(by: CGFloat) {
